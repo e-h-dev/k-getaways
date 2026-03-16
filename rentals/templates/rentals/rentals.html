@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Rentals {% endblock %}
+{% block extra_class%} active{% endblock %}
+{% block content%}
+<div class="mobile-top-spacer"></div>
+<div class="filter-container">
+    {% include 'filters.html' %}
+</div>
+<div class="container-fluid">
+    <h3 class="filters-header">Filters 
+        <i class="fa-solid fa-ellipsis-vertical filter-icon" onclick="openFilter()"></i>
+        <!-- <i class="fa-solid fa-xmark filter-icon-close" onclick="closeFilter()"></i> -->
+    </h3>
+    <div class="row">
+        <div class="col-3 filter-content">
+            <aside class="filters">
+                <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
+                <div>
+                    <div class="close-btn" onclick="closeFilter()">
+                        X
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="slidecontainer">
+                                <label for="myRange">£150</label>
+                                <input type="range" min="50" max="1000" value="20" class="slider shadow" id="myRange">
+                            </div>
+                        </li>
+                        <li>Learning room</li>
+                        <li>ensuit</li>
+                        <li>barbeque</li>
+                        <li>milky oven</li>
+                        <li>hot tub</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="col-12" id="row-change">
+            <p class="rental-count">Found <strong>{{ rental_number }} </strong> Rentals.</p>
+            <div class="row">
+                {% for r in rentals %}
+                
+                <div class="col-lg-3 col-md-4 column-change">
+                    <a href="{% url 'rental_detail' r.id %}">
+                        <div class="rental-display-box shadow">
+                        <div class="rental-header">{{ r.owner_name }}</div>
+                            {% for i in r.images.all %}
+                                <div class="image-slider-{{ r.id }}">
+                                    <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
+                                </div>
+                            {% endfor %}
+                            {% if r.images.count > 1 %}
+                                <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
+                                <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
+                            {% endif %}
+                        
+                        
+                        <div class="description">{{ r.mini_description }}</div>
+                        <!-- <div class="number-of-rooms">5 bedrooms</div> -->
+                         <hr>
+                        <div class="price">
+                            <i class="fa-solid fa-tags"></i>
+                            £{{ r.price }} per night
+                        </div>
+                        <hr>
+                        <div class="rating">
+                        Rating:
+                        {% if r.rating == 1 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% elif r.rating == 2 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% elif r.rating == 3 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% elif r.rating == 4 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% else %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        {% endif %}
+                    </div>
+                        <hr>
+                        <div class="availability">
+                            <p>Available from: <strong>{{ r.available_from}}.</strong></p>
+                            <p>Available till: <strong>{{ r.available_till }}.</strong></p>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+    function openFilter(){
+        $('.filter-content').css("display", "block");
+        $('#row-change').removeClass("col-12");
+        $('.column-change').removeClass("col-lg-3");
+        $('#row-change').addClass("col-9");
+        $('.column-change').addClass("col-4");
+    }
+
+    function closeFilter(){
+        $('.filter-content').css("display", "none");
+        $('#row-change').removeClass("col-9");
+        $('.column-change').removeClass("col-4");
+        $('#row-change').addClass("col-12");
+        $('.column-change').addClass("col-lg-3");
+    }
+
+    {% for r in rentals %}
+    let slideIndex{{ r.id }} = 1;
+    showSlides{{ r.id }}(slideIndex{{ r.id }});
+
+    // Next/previous controls
+    function plusSlides{{ r.id }}(n) {
+    showSlides{{ r.id }}(slideIndex{{ r.id }} += n);
+    }
+
+    
+    function showSlides{{ r.id }}(n) {
+    let i;
+    // let slides = $(".image-slider")
+    if (n > $(".image-slider-{{ r.id }}").length) {slideIndex{{ r.id }} = 1}
+    if (n < 1) {slideIndex{{ r.id }} = $(".image-slider-{{ r.id }}").length}
+    for (i = 0; i < $(".image-slider-{{ r.id }}").length; i++) {
+        $(".image-slider-{{ r.id }}")[i].style.display = "none";
+        
+    }
+    
+    $(".image-slider-{{ r.id }}")[slideIndex{{ r.id }}-1].style.display = "block";
+    }
+
+    {% endfor %}
+
+
+</script>
+
+{% endblock %}

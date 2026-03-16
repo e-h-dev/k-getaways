@@ -1,0 +1,9 @@
+<div class="d-lg-none d-block mobile-nav-content">
+    <ul>
+        <li><a href="{% url 'rentals' %}" class="top-nav-link{% block extra_class%}{% endblock %}">Explore Rentals</a></li>
+        <li><a href="{% url 'list_home' %}" class="top-nav-link{% block extra_class_list%}{% endblock %}">List your Home</a></li>
+        <li><a href="" class="top-nav-link">Contact</a></li>
+        <li>{% block extra_nav%}{% endblock %}</li>
+    </ul>
+</div>
+                            

@@ -1,0 +1,27 @@
+<div class="location-date-number-filter d-none d-lg-block shadow">
+    <form action="{ url 'home' }" method="POST">
+        <input type="text" placeholder="Location">
+        <input type="text" placeholder="Check in" id="datepicker-in">
+        <input type="text" placeholder="Check out" id="datepicker-out">
+        <!-- <input type="text" placeholder="Check in" onfocus="(this.type='date')"> -->
+        <!-- <input type="text" placeholder="Check out" onfocus="(this.type='date')"> -->
+        <input type="number" placeholder="Guests">
+        <div class="search-icon" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </form>
+</div>
+
+<div class="location-date-number-filter-mobile d-block d-lg-none shadow" id="mobile-filter">
+    <form action="{ url 'home' }" method="POST">
+        <input type="text" placeholder="Location" class="mobile-input">
+        <input type="text" placeholder="Check in" class="mobile-input" id="datepicker-in">
+        <input type="text" placeholder="Check out" class="mobile-input" id="datepicker-out">
+        <!-- <input type="text" placeholder="Check in" onfocus="(this.type='date')"> -->
+        <!-- <input type="text" placeholder="Check out" onfocus="(this.type='date')"> -->
+        <input type="number" placeholder="Guests" class="mobile-input">
+        <div class="search-icon" type="submit" id="mobile-filter-search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Home {% endblock %}
+{% block content%}
+<div class="filter-container">
+    {% include 'filters.html' %}
+</div>
+<section>
+    <div class="container-fluid">
+        <div class="row home-landing">
+            <div class="col-lg-4 d-lg-block d-none">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{% url 'rentals' %}" class="location-box shadow" id="image-1" onmouseover="revealLon()" onmouseout="hideLon()">
+                            <h2 id="location-header" class="location-header">London</h2>
+                        </a>
+                        <div>
+                        <h2 id="location-header-2" class="location-header-2 shadow">London</h2>
+                    </div>
+                    </div>
+                    <div class="col-12">
+                        <a href="{% url 'rentals' %}" class="location-box shadow" id="image-1" onmouseover="revealLon()" onmouseout="hideLon()">
+                            <h2 id="location-header" class="location-header">Westcliff / Canvy Island</h2>
+                        </a>
+                        <div>
+                        <h2 id="location-header-2" class="location-header-2 shadow">Westcliff / Canvy Island</h2>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="" class="location-box shadow" id="image-2" onmouseover="revealManch()" onmouseout="hideManch()">
+                            <h2 id="location-header-manch" class="location-header shadow">Manchester</h2>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="" class="location-box shadow" id="image-3" onmouseover="revealGhd()" onmouseout="hideGhd()">
+                            <h2 id="location-header-ghd" class="location-header shadow">Gateshead</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 d-lg-block d-none">  
+               <div class="row">
+                    <div class="primary-filter-info shadow">
+                        <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in London.</p> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="primary-filter-info shadow">
+                        <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in Manchester.</p> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="primary-filter-info shadow">
+                        <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in Gateshead.</p> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div id="half-hero">
+                    <img src="{% static 'media/home-garden.jpg' %}" alt="hero image" class="half-hero" id="half-hero">
+                    <div class="hero-message" id="hero-message">
+                        <h2>Your perfect getaway</h2>
+                        <h3 class="d-lg-none d-md-block">Unwind without compromise</h3>  
+                    </div>
+                </div>
+                {% include 'mobile-image-links.html' %}
+                <img src="{% static 'media/map.png' %}" alt="" class="map-img" id="map-image">
+                <img src="{% static 'media/location-pin.png' %}" alt="" class="location-pin" id="location-pin-lon">
+                <img src="{% static 'media/location-pin.png' %}" alt="" class="location-pin" id="location-pin-manch">
+                <img src="{% static 'media/location-pin.png' %}" alt="" class="location-pin" id="location-pin-ghd">
+            </div>
+        </div>
+    </div>
+    
+</section>
+<!-- fixed image in middle of home page with tagline -->
+<section>
+        <div class="picture-trans">
+            <div class="scroll-down-hero-message" id="scroll-down-hero-message">
+                <h2>Your perfect getaway</h2>
+                <h3 id="change">Unwind without compromise</h3>
+            </div>
+        </div>
+        <img src="/static/media/center_fixed_image_main.jpg" alt="" class="center-image">
+</section>
+<section class="d-lg-block d-md-none">
+    <div class="featured-rentals">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h4>
+                    Featured Rentals
+                    </h4>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-4 featured-box shadow">
+                    <h5 class="featured-sub-header">Lorem ipsum dolor sit amet</h5>
+                    <img src="/static/media/trial_feature_rental.jpg" alt="" class="featured-image">
+                    <div class="price-tag"><p>£150 per night</p></div>
+                </div>
+                <div class="col-4 featured-box shadow">
+                    <h5 class="featured-sub-header">Lorem ipsum dolor sit amet</h5>
+                    <img src="/static/media/trial_feature_rental.jpg" alt="" class="featured-image">
+                    <div class="price-tag"><p>£150 per night</p></div>
+                </div>
+                <div class="col-4 featured-box shadow">
+                    <h5 class="featured-sub-header">Lorem ipsum dolor sit amet</h5>
+                    <img src="/static/media/trial_feature_rental.jpg" alt="" class="featured-image">
+                    <div class="price-tag"><p>£150 per night</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script>
+    var subHeader = document.getElementById('location-header');
+    var subHeaderManc = document.getElementById('location-header-manch');
+    var subHeaderGhd = document.getElementById('location-header-ghd');
+    var locPinLon = document.getElementById('location-pin-lon');
+    var locPinManch = document.getElementById('location-pin-manch');
+    var locPinGhd = document.getElementById('location-pin-ghd');
+    var mapImage = document.getElementById('map-image');
+    var hero = document.getElementById('half-hero');
+    function revealLon(){
+        subHeader.style.display="none";
+        locPinLon.style.display="block";
+        mapImage.style.display="block";
+        hero.style.display="none";
+    }
+
+    function hideLon(){
+        subHeader.style.display="block";
+        locPinLon.style.display="none";
+        mapImage.style.display="none";
+        hero.style.display="block";
+    }
+
+    function revealManch(){
+        subHeaderManc.style.display="none";
+        locPinManch.style.display="block";
+        mapImage.style.display="block";
+        hero.style.display="none";
+    }
+
+    function hideManch(){
+        subHeaderManc.style.display="block";
+        locPinManch.style.display="none";
+        mapImage.style.display="none";
+        hero.style.display="block";
+    }
+
+    function revealGhd(){
+        subHeaderGhd.style.display="none";
+        locPinGhd.style.display="block";
+        mapImage.style.display="block";
+        hero.style.display="none";
+    }
+
+    function hideGhd(){
+        subHeaderGhd.style.display="block";
+        locPinGhd.style.display="none";
+        mapImage.style.display="none";
+        hero.style.display="block";
+    }
+
+    var heroMessage = document.getElementById("hero-message");
+        window.onscroll = function() {myFunction()};
+        
+        function myFunction() {
+          if (document.documentElement.scrollTop > 350) {
+            document.getElementById("scroll-down-hero-message").style.display = "block";
+            heroMessage.style.color = "red"
+            document.getElementById("half-hero").style.opacity = "1";
+            document.getElementById("hero-message").style.display = "none"
+            // document.getElementById("image-3").style.backgroundImage = `url("images/london-house.jpg")`;
+            // document.getElementById("image-1").style.backgroundImage = `url("images/gateshead-house.jpg")`;
+            // document.getElementById("slide-remove").style.display = "none"
+            // document.getElementById("slide-appear").style.display = "block"
+            // .classList.add("update-pos")
+
+          } else {
+            //document.getElementById("scroll-down-hero-message").style.display = "none";
+            document.getElementById("half-hero").style.opacity = "0.7";
+            document.getElementById("hero-message").style.display = "block"
+            // document.getElementById("image-1").style.backgroundImage = `url("images/london-house.jpg")`;
+            // document.getElementById("image-3").style.backgroundImage = `url("images/gateshead-house.jpg")`;
+            // document.getElementById("slide-remove").style.display = "block"
+            // document.getElementById("slide-appear").style.display = "none"
+            // element.idList.remove("update-pos")
+          }
+
+        }
+</script>
+{% endblock %}

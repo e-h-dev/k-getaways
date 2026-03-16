@@ -1,0 +1,239 @@
+/* .row{
+   width:100vw;
+} */
+body{
+   min-height: 100vh;
+   /* background-color: rgba(117, 187, 167, 0.1); */
+}
+
+
+h1,p{
+   font-family:Playfair Display;
+   color:#707070;
+   position: relative;
+   right:40px;
+  }
+
+h1{
+   font-size: 1.4rem;
+}
+
+  p{
+   font-size: 0.5rem;
+   position: relative;
+   bottom:10px;
+  }
+
+  .top-bar{
+   background-color: yellow;
+   height:25px;
+   text-align: center;
+   font-family: Playfair Display;
+   font-size: 1rem;
+  }
+
+  .bottom-bar{
+   margin-top: 20px;
+  }
+
+
+.logo{
+   position:relative;
+   bottom:30px;
+   z-index:1;
+   width:70px;
+   height:90px;
+   object-fit: contain;
+   }
+
+.upper-nav,.lower-nav{
+   font-family:Playfair Display;
+   color:#303030;
+}
+
+.sign-in-box{
+   background-color: rgba(117, 187, 167, 0.14);
+   width:100px;
+   height:40px;
+   padding-top: 4px;
+   padding-right: 8px;
+   border-radius: 20px;
+   cursor: pointer;
+   border: solid #707070 0.3px;
+}
+
+.user-avatar{
+   color:#fff;
+   background-color: green;
+   border-radius: 50%;
+   display:flex;
+   margin-left: 65px;
+   height:30px;
+   width:30px;
+   padding-left:9px;
+   font-size: 1.2rem;
+}
+
+.new-message{
+   background-color: red;
+   height:8px;
+   width:8px;
+   display: flex;
+   border-radius: 50%;
+}
+
+
+.image-nav{
+   height:50vh;
+   width:30vw;
+   position: relative;
+   top:30px;
+   left:8px;
+   border:solid 2px #a0a0a0;
+   border-radius: 10px;;
+}
+
+.sub-header{
+   height:30px;
+   background-color: #a0a0a0;
+   color:#fff;
+   text-align: center;
+   font-family: Asap;
+}
+
+.sub-header:hover{
+   background-color: #fff;
+   color:#a0a0a0;
+   border-radius: 10px;
+}
+
+.town-image{
+   position: relative;
+   height:40vh;
+   width:30vw;
+   object-fit: contain;
+   border-radius: 10px;
+}
+
+.adds{
+   position: relative;
+   z-index: 2;
+   height:100px;
+   width:300px;
+}
+
+.ad-image{
+   height:95px;
+   width:290px;
+}
+
+.location-box{
+   /* background-image:linear-gradient(to right, rgba(48, 48, 48, 0.3), rgba(112, 112, 112, 0.3)); */
+   color:#303030;
+   /* border: solid grey 1px; */
+   height:150px;
+   width:420px;
+   margin-left:40px;
+   margin-top: 10px;
+   padding:20px;
+   text-align: center;
+   border-radius: 10px;
+   display: block;
+}
+
+.location-box-lower{
+   color:#303030;
+   height:150px;
+   width:420px;
+   margin-left:5px;
+   margin-top: 10px;
+   margin-bottom: 20px;
+   padding:20px;
+   text-align: center;
+   border-radius: 10px;
+   display: block;
+}
+
+.fa-city{
+   display: none;
+}
+
+#image-1{
+   background-image: url("images/london-house.jpg");
+   background-size: cover;
+
+}
+#image-2{
+   background-image: url("images/manchester.jpg");
+   background-size: cover;
+   background-position: center;
+
+}
+#image-3{
+   background-image: url("images/gateshead-house.jpg");
+   background-size: cover;
+}
+
+.location-box:hover{
+   color:#000;
+}
+
+#slide-appear{
+   display:none;
+}
+
+.half-hero{
+   /* position:absolute;
+   z-index: -1; */
+   height:70vh;
+   width:38vw;
+   opacity: 0.7;
+   border-radius: 10px;
+   margin-top: 30px;
+   position:sticky;
+   top:30px;
+}
+
+.hero-message{
+   background-color: rgba(112, 112, 112, 0.3);
+   color:#fff;
+   position:absolute;
+   top: 40%;
+   text-align: center;
+   /* z-index: 9999999; */
+   /* left:20%; */
+   border-radius: 10px;
+   font-family: Playfair Display;
+   width:500px;
+   font-style: italic;
+}
+
+.hero-message h2{
+   font-size: 3rem;
+}
+
+.hero-message h3{
+   display: none;
+}
+
+/* .change-1{
+   display:none;
+}
+
+.change-2{
+   display:block;
+} */
+
+.footer{
+   background-color: #303030;
+   color:#fff;
+   height:200px;
+   font-family: Playfair Display;
+   padding-top: 20px;
+   text-align: center;
+   position: relative;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+}
+

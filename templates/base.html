@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+
+    {% block corecss%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="icon" href="/static/media/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    {% endblock %}
+
+
+    <title>Kosher Getaways{% block extra_title %} {% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container-fluid">
+                <div class="row nav-bar">
+                    <div class=col-2></div>
+                    <div class="col-2">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'media/logo_3.png' %}" alt="logo" class="logo">
+                        </a>
+                        
+                    </div>
+                    <div class="col-6">
+                        <div class="row upper-nav">
+                            <div class="col-3 d-lg-block d-none"><a href="{% url 'rentals' %}" class="top-nav-link{% block extra_class%}{% endblock %}">Explore Rentals</a></div>
+                            <div class="col-3 d-lg-block d-none"><a href="{% url 'list_home' %}" class="top-nav-link{% block extra_class_list%}{% endblock %}">List your Home</a></div>
+                            <div class="col-2 d-lg-block d-none"><a href="" class="top-nav-link">Contact</a></div>
+                            <div class="col-1 d-lg-block d-none">{% block extra_nav%}{% endblock %}</div>
+                            <div class="col-lg-3 col-md-12">
+                                <div class="sign-in-box">
+                                    {% if request.user.is_authenticated %}
+                                    
+                                    <span class="user-avatar">{{ user.username|first|capfirst }}</span>
+                                    <div class="member-dropdown shadow" id="drop-down">
+                                        <ul>
+                                            <li style="text-align: center;">Welcome <strong>{{ user.username }}!</strong></li>
+                                            <hr>
+                                            <li>Your Rentals</li>
+                                            <li>Your Booking</li>
+                                            <li>Messages</li>
+                                            <li><a href="{% url 'account_logout' %}" class="top-nav-link">Sign Out</a></li>
+                                        </ul>
+                                    </div>
+                                    {% else %}
+                                    <div class="icon">
+                                        <i class="fa-solid fa-circle-user"></i>
+                                    </div>
+                                    <div class="sign-up-dropdown shadow" id="drop-down">
+                                        <ul>
+                                            <li><a href="{% url 'account_login' %}" class="top-nav-link">Login</a></li>
+                                            <li><a href="{% url 'account_signup' %}" class="top-nav-link">Register</a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    {% endif %}
+                                </div>
+                                <div class="filter-top-mobile d-block d-lg-none">
+                                    {% include 'filters_mobile.html' %}
+                                </div>
+                                <div class="nav-dropdown d-lg-none d-md-block">
+                                    
+                                    <i class="fa-solid fa-bars"></i>
+                                    <div class="mobile-nav-dropdown shadow" id="dropdown">
+                                        {% include 'includes/mobile_nav.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% block extra_header %}
+                        {% endblock %}
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    {% block content %}
+    {% endblock %}
+    <!-- <section>
+        <div class="picture-trans"></div>
+        <img src="/static/media/center_fixed_image.jpg" alt="" class="center-image">
+    </section> -->
+    
+    <div class="footer-border"></div>
+    <footer>
+        <div class="container-fluid">
+            <div class="row top-footer-row">
+            <div class="col-4">
+                <img src="/static/media/footer-logo.png" alt="logo" class="footer-logo">
+                <p class="footer-logo-p"><strong>KosherGetaways</strong></p>
+                <p class="footer-logo-p2">Your Trusted Source for Kosher Holiday Rentals</p>
+                <p class="footer-row-1">Copyright 2025</p>
+                <p class="footer-row-1">Website by <a href="https://e-hammond-7f6468517ddb.herokuapp.com/" class="bottom-nav-link" target="_blank">ehstackdevs.ltd</a></p>
+            </div>
+            <div class="col-4">
+                <h3 class="text-center">Menu</h3>
+                <ul class="footer-list">
+                    <li><a href="{% url 'home' %}" class="bottom-nav-link">Home</a></li>
+                    <li><a href="{% url 'rentals' %}" class="bottom-nav-link">Explore Rentals</a></li>
+                    <li><a href="{% url 'list_home' %}" class="bottom-nav-link">List Your Home</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'account_logout' %}" class="bottom-nav-link">Sign Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'account_login' %}" class="bottom-nav-link">Sign in</a> / <a href="" class="bottom-nav-link">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-4">
+                <h3 class="text-center">Contact</h3>
+                <ul class="footer-list">
+                    <li>Tell: 0161 792 1234</li>
+                    <li><a href="mailto:info@koshergetaways.co.uk" class="bottom-nav-link">info@koshergetaways.co.uk</a></li>
+                    <li><a href="" class="bottom-nav-link">Leave a Message</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </footer>
+    {% block js %}
+    
+    {% endblock %}
+    <script>
+        var mainFilter = document.getElementById("mobile-filter");
+        var topFilter = document.getElementById("top-mobile-filter");
+        var searchIcon = document.getElementById("mobile-filter-search-icon");
+        window.onscroll = function() {filterRemove()};
+        
+        function filterRemove() {
+          if (document.documentElement.scrollTop > 80) {
+            mainFilter.className = "remove d-none";
+            topFilter.className = "filter-top-nav-mobile shadow"
+            searchIcon.style.display = "none";
+          } else {
+            mainFilter.className = "location-date-number-filter-mobile d-block d-lg-none";
+            topFilter.className = "remove";
+            searchIcon.style.display = "block";
+          }
+
+        }
+
+        function filterReplace(){
+            mainFilter.className = "location-date-number-filter-mobile d-block d-lg-none";
+            searchIcon.style.display = "block";
+            topFilter.className = "remove";
+        }
+        $( function() {
+            $( "#datepicker-in" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+            });
+        } );
+
+        $( function() {
+            $( "#datepicker-out" ).datepicker({
+                dateFormat: 'dd-mm-yy',
+            });
+        } );
+    </script>
+</body>
+</html>

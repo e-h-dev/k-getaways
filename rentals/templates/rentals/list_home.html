@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - List Home {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 class="center">Fill in the Form below to list your home</h1>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-container shadow" id="form-container">
+                <form action="{% url 'list_home' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- {{ form.as_p }} -->
+                    <input type="text" id="id_name" name="owner_name" placeholder="Your name" class="list-form-input">
+                    <input type="number" id="id_phone" name="owner_number" placeholder="Phone number" class="list-form-input">
+                    <input type="email" id="id_email" name="owner_email" placeholder="Email" class="list-form-input">
+                    <input type="text" id="address" name="owner_address" placeholder="Your Adrress" class="list-form-input">
+                    <input type="text" id="post_code" name="owner_postcode" placeholder="Your Post Code" class="list-form-input">
+                    <!-- <select name="location" id="town" class="list-form-input">
+                        <option>Location</option>
+                        <option value="london">London</option>
+                        <option value="manchester">Manchester</option>
+                        <option value="gateshead">Gateshead</option>
+                    </select> -->
+                    <input type="text" id="location" name="location" placeholder="location" class="list-form-input">
+                    <input type="text" id="title" name="title" placeholder="house title" class="list-form-input">
+                    <input type="number" id="sleeps" name="sleeps" placeholder="Sleeps" class="list-form-input">
+                    <input type="number" id="bedrooms" name="bedrooms" placeholder="Bedrooms" class="list-form-input">
+                    <input type="number" id="bathrooms" name="bathrooms" placeholder="Bathrooms" class="list-form-input">
+                    <input type="number" id="price" name="price" placeholder="price per night" class="list-form-input">
+                    <input type="date" id="available_from" name="available_from" placeholder="available from" class="list-form-input">
+                    <input type="date" id="available_till" name="available_till" placeholder="available till" class="list-form-input">
+                    <input type="text" id="description" name="description" placeholder="Description" class="list-form-input">
+                    <input type="number" id="rating" name="rating" placeholder="rating" class="list-form-input">
+                    <!-- <input type="text" id="image_id" name="rental" placeholder="image id">
+                    <input type="file" id="image" name="image" class="list-form-input" placeholder="upload your image"> -->
+                    <button type="submit">List your Home</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

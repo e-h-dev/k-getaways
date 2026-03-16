@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - List Home {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 class="center">Fill in the Form below to list your home</h1>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-container shadow" id="form-container">
+                <form action="{% url 'list_home' %}" method="POST">
+                <input type="text" id="id_name" name="owner_name" placeholder="Your name" class="list-form-input">
+                <input type="number" id="id_phone" name="owner_number" placeholder="Phone number" class="list-form-input">
+                <input type="email" id="id_email" name="owner_email" placeholder="Email" class="list-form-input">
+                <input type="text" id="address" name="owner_address" placeholder="Your Adrress" class="list-form-input">
+                <input type="text" id="post_code" name="owner_postcode" placeholder="Your Post Code" class="list-form-input">
+                <select name="location" id="town" class="list-form-input">
+                    <option>Location</option>
+                    <option value="london">London</option>
+                    <option value="manchester">Manchester</option>
+                    <option value="gateshead">Gateshead</option>
+                </select>
+                <!-- <p>
+                    <label for="diffrent-address">Are you are lising a diffrent home?</label>
+                    <input type="checkbox" id="diffrent-address" class="list-form-input" onclick="anotherHome()">
+                </p>
+                
+                <input type="text" id="house_name" placeholder="name of house" class="list-form-input second-list"> -->
+                <input type="text" id="title" name="title" placeholder="house title" class="list-form-input second-list">
+                <input type="number" id="sleeps" name="sleeps" placeholder="Sleeps" class="list-form-input second-list">
+                <input type="number" id="bedrooms" name="bedrooms" placeholder="Bedrooms" class="list-form-input second-list">
+                <input type="number" id="bathrooms" name="bathrooms" placeholder="Bathrooms" class="list-form-input second-list">
+                <input type="text" id="description" name="description" placeholder="Description" class="list-form-input second-list">
+                <!-- <div id="amenity-lists">
+                    <input type="list" name="items[]" id="amenities" placeholder="Amenities" class="list-form-input">
+                    <button type="button" onclick="addInput()" style="position:absolute; bottom:100px;">Add another item</button>
+                </div>
+                <input type="text" id="house_name" placeholder="name of house" class="list-form-input">
+                
+                <strike>
+                    name
+                phone
+                email
+                address
+                post code
+                town
+                name of house
+                title
+                sleeps
+                Bedrooms
+                Bathrooms
+                list of amenities
+                </strike>
+                
+                available from
+                available till
+                added on
+                description
+                price per night
+                add images -->
+                <button type="submit">List your HOme</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    function anotherHome(){
+        $('.second-list').css('display', 'block')
+    }
+
+    function addInput(){
+        let extraForm = document.getElementById('amenity-lists');
+        let newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.name = 'items[]';
+        newInput.placeholder = 'Enter another Item';
+        newInput.className = 'list-form-input';
+        extraForm.appendChild(newInput);
+    }
+</script>
+{% endblock %}
