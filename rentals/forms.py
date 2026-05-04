@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
-from .models import Rentals, Image
+from .models import Rentals, Image, UnavailableDates
 
 
 class RentalForm(forms.ModelForm):
@@ -8,7 +8,7 @@ class RentalForm(forms.ModelForm):
     class Meta:
         model = Rentals
         fields = ["location", "category", "owner_number", "owner_email", "address", "post_code", "title", "sleeps", "bedrooms", "bathrooms", "amenities",
-                  "description", "price", "available_from", "available_till"]
+                  "description", "price"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,4 +27,11 @@ class ImageForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
-# ImageFormSet = modelformset_factory(Image, form=ImageForm, extra=3)
+class UnavailableDatesForm(forms.ModelForm):
+
+    class Meta:
+        model = UnavailableDates
+        fields = ['start_date', 'end_date']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

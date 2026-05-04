@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Load Images {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 class="center">Fill in the Form below to load images of your home</h1>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-container shadow" id="form-container">
+                <form action="{% url 'load_images' rental.id %}" method="POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   
+                    <div class="form-box">
+                        {{ form.as_div }}
+                    </div>
+                    <div id="add-form">Add another image</div>
+                    <div class="next-form"></div>
+                    <button type="submit">Load your images</button>
+                </form>
+                <!-- <form action="{% url 'load_images' rental.id %}" method="POST" enctype="multipart/form-data" id="image-form">
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+
+                    <div id="form-container">
+                        {% for form in formset %}
+                        <div class="image-form-row" style="margin-bottom: 20px; border: 1px solid #ddd; padding: 10px;">
+                            {{ form.as_p }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit">Upload Images</button>
+                </form> -->
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+<script>
+    let imageForm = document.querySelector(".form-box");
+    let addButton = document.querySelector("#add-form");
+    let formSpace = document.querySelector(".next-form");
+
+    addButton.addEventListener('click', addForm);
+
+    function addForm(){
+        let newForm = imageForm.cloneNode(true);
+        newForm.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.checked = false;
+});
+        formSpace.parentNode.insertBefore(newForm, addButton);
+        
+    }
+</script>
+
+<!-- <script>
+    let imageForm = document.querySelectorAll(".image-form-row");
+    let container = document.querySelector("#form-container");
+    let addButton = document.querySelector("#add-form");
+    let totalForms = document.querySelector("#id_form-TOTAL_FORMS");
+
+    let formNum = imageForm.length - 1; // Current number of forms
+
+    addButton.addEventListener('click', addForm);
+
+    function addForm(e) {
+        e.preventDefault();
+
+        // Clone the last form row
+        let newForm = imageForm[0].cloneNode(true); 
+        let formRegex = RegExp(`form-(\\d){1}-`, 'g'); 
+
+        formNum++; // Increment the form number
+        
+        // Update the index in the ID and Name attributes
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`);
+        
+        // Clear inputs in the new form
+        let inputs = newForm.querySelectorAll('input');
+        inputs.forEach(input => {
+            if(input.type !== 'hidden') input.value = '';
+        });
+
+        // Insert the new form before the buttons
+        container.appendChild(newForm);
+        
+        // Update the total forms count for Django
+        totalForms.setAttribute('value', `${formNum + 1}`);
+    }
+</script> -->
+
+{% endblock %}
