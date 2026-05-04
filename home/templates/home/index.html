@@ -9,7 +9,7 @@
 <section>
     <div class="container-fluid">
         <div class="row home-landing">
-            <div class="col-lg-4 d-lg-block d-none">
+            <!-- <div class="col-lg-4 d-lg-block d-none">
                 <div class="row">
                     <div class="col-12">
                         <a href="{% url 'rentals' %}" class="location-box shadow" id="image-1" onmouseover="revealLon()" onmouseout="hideLon()">
@@ -59,20 +59,39 @@
                         <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in Gateshead.</p> 
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-5 col-md-12">
+            </div> -->
+            <!-- <div class="col-lg-5 col-md-12"> -->
+            <div class="col-12">
                 <div id="half-hero">
-                    <img src="{% static 'media/home-garden.jpg' %}" alt="hero image" class="half-hero" id="half-hero">
+                    <img src="{% static 'media/hero.gif' %}" alt="hero image" class="half-hero" id="half-hero">
                     <div class="hero-message" id="hero-message">
-                        <h2>Your perfect getaway</h2>
-                        <h3 class="d-lg-none d-md-block">Unwind without compromise</h3>  
+                        <h2 class="fypg">Find Your perfect getaway</h2>
+                        <h3 class="d-lg-none d-md-block">Unwind without compromise</h3>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-3 location-btns" id="location-btn">Location <i class="fa fa-caret-down"></i>
+                                <div id="location-dropdown">
+                                    <ul>
+                                        {% for location in locations%}
+                                        <li>{{ location }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-3 location-btns" id="category-btn">Category <i class="fa fa-caret-down"></i>
+                                <div id="category-dropdown">
+                                    <ul>
+                                        {% for category in  categories %}
+                                        <li>{{ category }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>  
                     </div>
                 </div>
                 {% include 'mobile-image-links.html' %}
-                <img src="{% static 'media/map.png' %}" alt="" class="map-img" id="map-image">
-                <img src="{% static 'media/location-pin.png' %}" alt="" class="location-pin" id="location-pin-lon">
-                <img src="{% static 'media/location-pin.png' %}" alt="" class="location-pin" id="location-pin-manch">
-                <img src="{% static 'media/location-pin.png' %}" alt="" class="location-pin" id="location-pin-ghd">
             </div>
         </div>
     </div>
@@ -94,25 +113,22 @@
             <div class="row">
                 <div class="col-12">
                     <h4>
-                    Featured Rentals
+                    About Kosher Getaways
                     </h4>
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col-4 featured-box shadow">
-                    <h5 class="featured-sub-header">Lorem ipsum dolor sit amet</h5>
-                    <img src="/static/media/trial_feature_rental.jpg" alt="" class="featured-image">
-                    <div class="price-tag"><p>£150 per night</p></div>
+                    <h5 class="featured-sub-header">Our Story</h5>
+                    
                 </div>
                 <div class="col-4 featured-box shadow">
-                    <h5 class="featured-sub-header">Lorem ipsum dolor sit amet</h5>
-                    <img src="/static/media/trial_feature_rental.jpg" alt="" class="featured-image">
-                    <div class="price-tag"><p>£150 per night</p></div>
+                    <h5 class="featured-sub-header">Our mission</h5>
+                    
                 </div>
                 <div class="col-4 featured-box shadow">
-                    <h5 class="featured-sub-header">Lorem ipsum dolor sit amet</h5>
-                    <img src="/static/media/trial_feature_rental.jpg" alt="" class="featured-image">
-                    <div class="price-tag"><p>£150 per night</p></div>
+                    <h5 class="featured-sub-header">We are here for Your</h5>
+                    
                 </div>
             </div>
         </div>
@@ -122,6 +138,29 @@
 
 {% block js %}
 <script>
+    // section for filter dropdown on home page
+    var locationBtn = document.getElementById('location-btn');
+    var categoryBtn = document.getElementById('category-btn');
+    var locationDropdown = document.getElementById('location-dropdown');
+    var categoryDropdown = document.getElementById('category-dropdown');
+    locationBtn.addEventListener('click', function(){
+        if(locationDropdown.style.display === "block"){
+            locationDropdown.style.display = "none";
+        } else {
+            locationDropdown.style.display = "block";
+            categoryDropdown.style.display = "none";
+        }
+    });
+    categoryBtn.addEventListener('click', function(){
+        if(categoryDropdown.style.display === "block"){
+            categoryDropdown.style.display = "none";
+        } else {
+            categoryDropdown.style.display = "block";
+            locationDropdown.style.display = "none";
+        }
+    });
+
+
     var subHeader = document.getElementById('location-header');
     var subHeaderManc = document.getElementById('location-header-manch');
     var subHeaderGhd = document.getElementById('location-header-ghd');
