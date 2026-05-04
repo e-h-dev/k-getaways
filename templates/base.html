@@ -58,7 +58,7 @@
                                     <span class="user-avatar">{{ user.username|first|capfirst }}</span>
                                     <div class="member-dropdown shadow" id="drop-down">
                                         <ul>
-                                            <li style="text-align: center;">Welcome <strong>{{ user.username }}!</strong></li>
+                                            <li style="text-align: center;" class="welcome-name">Welcome <strong>{{ user.username }}!</strong></li>
                                             <hr>
                                             <li>Your Rentals</li>
                                             <li>Your Booking</li>
@@ -111,34 +111,38 @@
     <footer>
         <div class="container-fluid">
             <div class="row top-footer-row">
-            <div class="col-4">
-                <img src="/static/media/footer-logo.png" alt="logo" class="footer-logo">
-                <p class="footer-logo-p"><strong>KosherGetaways</strong></p>
-                <p class="footer-logo-p2">Your Trusted Source for Kosher Holiday Rentals</p>
-                <p class="footer-row-1">Copyright 2025</p>
-                <p class="footer-row-1">Website by <a href="https://e-hammond-7f6468517ddb.herokuapp.com/" class="bottom-nav-link" target="_blank">ehstackdevs.ltd</a></p>
-            </div>
-            <div class="col-4">
-                <h3 class="text-center">Menu</h3>
-                <ul class="footer-list">
-                    <li><a href="{% url 'home' %}" class="bottom-nav-link">Home</a></li>
-                    <li><a href="{% url 'rentals' %}" class="bottom-nav-link">Explore Rentals</a></li>
-                    <li><a href="{% url 'list_home' %}" class="bottom-nav-link">List Your Home</a></li>
-                    {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'account_logout' %}" class="bottom-nav-link">Sign Out</a></li>
-                    {% else %}
-                    <li><a href="{% url 'account_login' %}" class="bottom-nav-link">Sign in</a> / <a href="" class="bottom-nav-link">Register</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="col-4">
-                <h3 class="text-center">Contact</h3>
-                <ul class="footer-list">
-                    <li>Tell: 0161 792 1234</li>
-                    <li><a href="mailto:info@koshergetaways.co.uk" class="bottom-nav-link">info@koshergetaways.co.uk</a></li>
-                    <li><a href="" class="bottom-nav-link">Leave a Message</a></li>
-                </ul>
-            </div>
+                <div class="col-3"></div>
+                <div class="col-2">
+                    <a href="{% url 'home' %}" class="bottom-nav-link">
+                        <img src="/static/media/footer-logo.png" alt="logo" class="footer-logo">
+                        <p class="footer-logo-p"><strong>KosherGetaways</strong></p>
+                        <p class="footer-logo-p2">Your Trusted Source for Kosher Holiday Rentals</p>
+                    </a>
+                    <p class="footer-row-1">Copyright 2025</p>
+                    <p class="footer-row-1">Website by <a href="https://e-hammond-7f6468517ddb.herokuapp.com/" class="bottom-nav-link" target="_blank">ehstackdevs.ltd</a></p>
+                </div>
+                <div class="col-2 col-border">
+                    <h3 class="text-center">Menu</h3>
+                    <ul class="footer-list">
+                        <li><a href="{% url 'home' %}" class="bottom-nav-link">Home</a></li>
+                        <li><a href="{% url 'rentals' %}" class="bottom-nav-link">Explore Rentals</a></li>
+                        <li><a href="{% url 'list_home' %}" class="bottom-nav-link">List Your Home</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'account_logout' %}" class="bottom-nav-link">Sign Out</a></li>
+                        {% else %}
+                        <li><a href="{% url 'account_login' %}" class="bottom-nav-link">Sign in</a> / <a href="" class="bottom-nav-link">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-2 col-border">
+                    <h3 class="text-center">Contact</h3>
+                    <ul class="footer-list">
+                        <li>Tell: 0161 792 1234</li>
+                        <li><a href="mailto:info@koshergetaways.co.uk" class="bottom-nav-link">info@koshergetaways.co.uk</a></li>
+                        <li><a href="" class="bottom-nav-link">Leave a Message</a></li>
+                    </ul>
+                </div>
+                <div class="col-3"></div>
         </div>
         </div>
     </footer>
