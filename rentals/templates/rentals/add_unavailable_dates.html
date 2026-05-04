@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Add Unavailable Dates {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 class="center">Fill in the Form below to add unavailable dates for your home</h1>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="form-container shadow" id="form-container">
+                <form action="{% url 'add_unavailable_dates' rental.id %}" method="POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   
+                    <div class="form-box">
+                        {{ form.as_div }}
+                    </div>
+                    <div id="add-form">Add more Dates</div>
+                    <div class="next-form"></div>
+                    <button type="submit">Add Unavailable Dates</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+<script>
+    let dateForm = document.querySelector(".form-box");
+    let addButton = document.querySelector("#add-form");
+    let formSpace = document.querySelector(".next-form");
+
+    addButton.addEventListener('click', addForm);
+
+    function addForm(){
+        let newForm = dateForm.cloneNode(true);
+        newForm.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.checked = false;
+});
+        formSpace.parentNode.insertBefore(newForm, addButton);
+        
+    }
+</script>
+
+{% endblock %}
