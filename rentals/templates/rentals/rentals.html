@@ -1,51 +1,64 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} - Rentals {% endblock %}
+{% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
 {% block extra_class%} active{% endblock %}
 {% block content%}
 <div class="mobile-top-spacer"></div>
-<div class="filter-container">
+<div class="filter-container rentals-filter-container">
     {% include 'filters.html' %}
 </div>
+<div class="filters-header">Filters 
+    <div class="filter-icon" id="open-filter" onclick="openFilter()">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>    
+    <div class="filter-icon" id="close-filter" onclick="closeFilter()">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>  
+</div>
 <div class="container-fluid">
-    <h3 class="filters-header">Filters 
-        <i class="fa-solid fa-ellipsis-vertical filter-icon" onclick="openFilter()"></i>
-        <!-- <i class="fa-solid fa-xmark filter-icon-close" onclick="closeFilter()"></i> -->
-    </h3>
     <div class="row">
         <div class="col-3 filter-content">
             <aside class="filters">
                 <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
                 <div>
-                    <div class="close-btn" onclick="closeFilter()">
-                        X
-                    </div>
                     <ul>
                         <li>
                             <div class="slidecontainer">
-                                <label for="myRange">£150</label>
-                                <input type="range" min="50" max="1000" value="20" class="slider shadow" id="myRange">
+                                <label for="priceRange">Price per night <span id="priceRangeValue">£150</span></label>
+                                <input type="range" min="80" max="1500" value="150" class="slider shadow" id="priceRange">
                             </div>
                         </li>
-                        <li>Learning room</li>
-                        <li>ensuit</li>
-                        <li>barbeque</li>
-                        <li>milky oven</li>
-                        <li>hot tub</li>
+                        <li>
+                            <div class="slidecontainer">
+                                <label for="bedroomsRange">Bedrooms <span id="bedroomsRangeValue">2</span></label>
+                                <input type="range" min="1" max="20" value="2" class="slider shadow" id="bedroomsRange">
+                            </div>
+                        </li>
+                         <li>
+                            <div class="slidecontainer">
+                                <label for="sleepsRange">Sleeps <span id="sleepsRangeValue">6</span></label>
+                                <input type="range" min="2" max="100" value="6" class="slider shadow" id="sleepsRange">
+                            </div>
+                        </li>
+                        <li><input type="checkbox" value="garden">Garden</li>
+                        <li><input type="checkbox" value="parking">Parking</li>
+                        <li><input type="checkbox" value="shuls">Close to Shuls</li>
+                        <li><input type="checkbox" value="shops">Close to Shops</li>
                     </ul>
+                    <button class=" btn secondary-btn apply-filters-btn shadow">Apply Filters</button>
                 </div>
             </aside>
         </div>
         <div class="col-12" id="row-change">
-            <p class="rental-count">Found <strong>{{ rental_number }} </strong> Rentals.</p>
+            <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rentals.</h3>
             <div class="row">
                 {% for r in rentals %}
                 
                 <div class="col-lg-3 col-md-4 column-change">
-                    <a href="{% url 'rental_detail' r.id %}">
+                    <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
                         <div class="rental-display-box shadow">
-                        <div class="rental-header">{{ r.owner_name }}</div>
+                        <div class="rental-header">{{ r.title }}</div>
                             {% for i in r.images.all %}
                                 <div class="image-slider-{{ r.id }}">
                                     <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
@@ -57,8 +70,10 @@
                             {% endif %}
                         
                         
-                        <div class="description">{{ r.mini_description }}</div>
-                        <!-- <div class="number-of-rooms">5 bedrooms</div> -->
+                        <!-- <div class="description">{{ r.description }}</div> -->
+                        <div class="number-of-rooms">
+                            <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
+                        </div>
                          <hr>
                         <div class="price">
                             <i class="fa-solid fa-tags"></i>
@@ -100,10 +115,7 @@
                         {% endif %}
                     </div>
                         <hr>
-                        <div class="availability">
-                            <p>Available from: <strong>{{ r.available_from}}.</strong></p>
-                            <p>Available till: <strong>{{ r.available_till }}.</strong></p>
-                        </div>
+                        
                     </div>
                     </a>
                 </div>
@@ -123,6 +135,8 @@
         $('.column-change').removeClass("col-lg-3");
         $('#row-change').addClass("col-9");
         $('.column-change').addClass("col-4");
+        $('#open-filter').css("display", "none");
+        $('#close-filter').css("display", "block");
     }
 
     function closeFilter(){
@@ -131,8 +145,40 @@
         $('.column-change').removeClass("col-4");
         $('#row-change').addClass("col-12");
         $('.column-change').addClass("col-lg-3");
+        $('#open-filter').css("display", "block");
+        $('#close-filter').css("display", "none");
     }
 
+    // price filtering and display
+
+    let sliderPrice = document.getElementById("priceRange");
+    let outputPrice = document.getElementById("priceRangeValue");
+
+    sliderPrice.oninput = function() {
+        outputPrice.textContent = "£" + this.value;
+    }
+
+    // bedrooms filtering and display
+
+    let sliderBed = document.getElementById("bedroomsRange");
+    let outputBed = document.getElementById("bedroomsRangeValue");
+
+    sliderBed.oninput = function() {
+            outputBed.textContent = this.value;
+        }
+
+    // sleeps filtering and display
+    let sliderSleeps = document.getElementById("sleepsRange");
+    let outputSleeps = document.getElementById("sleepsRangeValue");
+
+
+    sliderSleeps.oninput = function() {
+            outputSleeps.textContent = this.value;
+        }
+
+</script>
+
+<script>
     {% for r in rentals %}
     let slideIndex{{ r.id }} = 1;
     showSlides{{ r.id }}(slideIndex{{ r.id }});
