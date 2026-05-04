@@ -3,65 +3,18 @@
 
 {% block extra_title %} - Home {% endblock %}
 {% block content%}
+
+<!-- include link to search filter dates number of guests 
+and search button, only on desktop and tablet view, 
+in the bottom of the hero image -->
 <div class="filter-container">
     {% include 'filters.html' %}
 </div>
 <section>
     <div class="container-fluid">
         <div class="row home-landing">
-            <!-- <div class="col-lg-4 d-lg-block d-none">
-                <div class="row">
-                    <div class="col-12">
-                        <a href="{% url 'rentals' %}" class="location-box shadow" id="image-1" onmouseover="revealLon()" onmouseout="hideLon()">
-                            <h2 id="location-header" class="location-header">London</h2>
-                        </a>
-                        <div>
-                        <h2 id="location-header-2" class="location-header-2 shadow">London</h2>
-                    </div>
-                    </div>
-                    <div class="col-12">
-                        <a href="{% url 'rentals' %}" class="location-box shadow" id="image-1" onmouseover="revealLon()" onmouseout="hideLon()">
-                            <h2 id="location-header" class="location-header">Westcliff / Canvy Island</h2>
-                        </a>
-                        <div>
-                        <h2 id="location-header-2" class="location-header-2 shadow">Westcliff / Canvy Island</h2>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <a href="" class="location-box shadow" id="image-2" onmouseover="revealManch()" onmouseout="hideManch()">
-                            <h2 id="location-header-manch" class="location-header shadow">Manchester</h2>
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <a href="" class="location-box shadow" id="image-3" onmouseover="revealGhd()" onmouseout="hideGhd()">
-                            <h2 id="location-header-ghd" class="location-header shadow">Gateshead</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 d-lg-block d-none">  
-               <div class="row">
-                    <div class="primary-filter-info shadow">
-                        <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in London.</p> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="primary-filter-info shadow">
-                        <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in Manchester.</p> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="primary-filter-info shadow">
-                        <p>Find your perfect stay currently, <strong>{{ availability }}</strong> rentals are listed in Gateshead.</p> 
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="col-lg-5 col-md-12"> -->
             <div class="col-12">
+                <!-- area of hero image -->
                 <div id="half-hero">
                     <img src="{% static 'media/hero.gif' %}" alt="hero image" class="half-hero" id="half-hero">
                     <div class="hero-message" id="hero-message">
@@ -69,6 +22,7 @@
                         <h3 class="d-lg-none d-md-block">Unwind without compromise</h3>
                         <div class="row">
                             <div class="col-3"></div>
+                            <!-- center location and category filter dropdowns -->
                             <div class="col-3 location-btns" id="location-btn">Location <i class="fa fa-caret-down"></i>
                                 <div id="location-dropdown">
                                     <ul>
@@ -97,7 +51,9 @@
     </div>
     
 </section>
-<!-- fixed image in middle of home page with tagline -->
+<!-- middle section of home page with a fixed image
+ and a message that appears on scroll down, 
+ only on desktop and tablet view -->
 <section>
         <div class="picture-trans">
             <div class="scroll-down-hero-message" id="scroll-down-hero-message">
@@ -107,6 +63,10 @@
         </div>
         <img src="/static/media/center_fixed_image_main.jpg" alt="" class="center-image">
 </section>
+
+<!-- about section of home page, 
+only on desktop view, with 3 boxes for our story, 
+our mission and we are here for you -->
 <section class="d-lg-block d-md-none">
     <div class="featured-rentals">
         <div class="container-fluid">
