@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, UnavailableDates
-from .forms import RentalForm, ImageForm
+from .forms import RentalForm, ImageForm, UnavailableDatesForm
 
 # Create your views here.
 
@@ -154,3 +154,33 @@ def load_images(request, rental_id):
         'rental': rental
         }
     return render(request, 'rentals/load_images.html', context)
+
+
+@login_required
+def add_unavailable_dates(request, rental_id):
+
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    if request.method == 'POST':
+        form = UnavailableDatesForm(request.POST)
+
+        if form.is_valid():
+            unavailable_date = form.save(commit=False)
+            unavailable_date.rental = rental
+            unavailable_date.save()
+            
+            print("your unavailable date has been saved")
+        else:
+            print("your unavailable date is invalid")
+            print(form.errors)
+            
+        return redirect('rental_detail', rental_id=rental_id)
+
+    else:
+        form = UnavailableDatesForm()
+
+    context = {
+        'form': form,
+        'rental': rental
+        }
+    return render(request, 'rentals/add_unavailable_dates.html', context)
