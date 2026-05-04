@@ -161,55 +161,6 @@
     });
 
 
-    var subHeader = document.getElementById('location-header');
-    var subHeaderManc = document.getElementById('location-header-manch');
-    var subHeaderGhd = document.getElementById('location-header-ghd');
-    var locPinLon = document.getElementById('location-pin-lon');
-    var locPinManch = document.getElementById('location-pin-manch');
-    var locPinGhd = document.getElementById('location-pin-ghd');
-    var mapImage = document.getElementById('map-image');
-    var hero = document.getElementById('half-hero');
-    function revealLon(){
-        subHeader.style.display="none";
-        locPinLon.style.display="block";
-        mapImage.style.display="block";
-        hero.style.display="none";
-    }
-
-    function hideLon(){
-        subHeader.style.display="block";
-        locPinLon.style.display="none";
-        mapImage.style.display="none";
-        hero.style.display="block";
-    }
-
-    function revealManch(){
-        subHeaderManc.style.display="none";
-        locPinManch.style.display="block";
-        mapImage.style.display="block";
-        hero.style.display="none";
-    }
-
-    function hideManch(){
-        subHeaderManc.style.display="block";
-        locPinManch.style.display="none";
-        mapImage.style.display="none";
-        hero.style.display="block";
-    }
-
-    function revealGhd(){
-        subHeaderGhd.style.display="none";
-        locPinGhd.style.display="block";
-        mapImage.style.display="block";
-        hero.style.display="none";
-    }
-
-    function hideGhd(){
-        subHeaderGhd.style.display="block";
-        locPinGhd.style.display="none";
-        mapImage.style.display="none";
-        hero.style.display="block";
-    }
 
     var heroMessage = document.getElementById("hero-message");
         window.onscroll = function() {myFunction()};
@@ -220,21 +171,10 @@
             heroMessage.style.color = "red"
             document.getElementById("half-hero").style.opacity = "1";
             document.getElementById("hero-message").style.display = "none"
-            // document.getElementById("image-3").style.backgroundImage = `url("images/london-house.jpg")`;
-            // document.getElementById("image-1").style.backgroundImage = `url("images/gateshead-house.jpg")`;
-            // document.getElementById("slide-remove").style.display = "none"
-            // document.getElementById("slide-appear").style.display = "block"
-            // .classList.add("update-pos")
-
+            
           } else {
-            //document.getElementById("scroll-down-hero-message").style.display = "none";
             document.getElementById("half-hero").style.opacity = "0.7";
             document.getElementById("hero-message").style.display = "block"
-            // document.getElementById("image-1").style.backgroundImage = `url("images/london-house.jpg")`;
-            // document.getElementById("image-3").style.backgroundImage = `url("images/gateshead-house.jpg")`;
-            // document.getElementById("slide-remove").style.display = "block"
-            // document.getElementById("slide-appear").style.display = "none"
-            // element.idList.remove("update-pos")
           }
 
         }
