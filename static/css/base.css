@@ -32,6 +32,40 @@ header{
   border-bottom: 2px solid #6c809a;
 }
 
+
+/* buttons */
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-btn{
+    color:var(--main-text-color) !important;
+    font-weight: 700 !important;
+    font-family: var(--main-font) !important;
+    background-color: var(--main-background-color) !important;
+    border: var(--main-text-color) solid 2px !important;
+    border-radius: 5px !important;
+}
+
+.btn-btn:hover{
+    background-color: var(--main-text-color) !important;
+    border: rgba(122, 46, 46, 0.1) solid 2px !important;
+    color:var(--main-background-color) !important;
+}
+
+.btn-btn:active:focus,
+.btn.active:focus{
+    border: var(--main-text-color) outset 0.5px !important;
+    background-color: #000 !important;
+}
+
+
+/* nav bar styles  */
+
 .top-nav-link{
   color:var(--main-text-color);
 }
