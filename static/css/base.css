@@ -1160,6 +1160,19 @@ or other calendar elements */
 }
 
 /* -------------------------------------list your home page */
+form{
+  padding:30px;
+  background-color: var(--main-background-color);
+}
+
+
+form input{
+  border-bottom: 1px var(--main-text-color) solid;
+  width:80% !important;
+  border-radius: 10px;
+  text-align: left;
+  padding-left:20px;
+}
 
 .list-form-input{
   border: 1px var(--main-text-color) solid;
