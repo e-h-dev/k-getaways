@@ -44,43 +44,43 @@ def rental_availability_json(request, rental_id):
     rentals = Rentals.objects.filter(id=rental_id)
     
     events = []
-    for item in rentals:
-        events.append({
-            'start': item.available_from.isoformat(),
-            'end': item.available_till.isoformat(),
-            'title':'Available',
-            'display': 'background',  # Blurs/greys out the area
-            'color': 'rgba(6, 6, 190)',       # Blue color for the background
-            'overlap': False,         # Prevents double booking
-        })
+    # for item in rentals:
+    #     events.append({
+    #         'start': item.available_from.isoformat(),
+    #         'end': item.available_till.isoformat(),
+    #         'title':'Available',
+    #         'display': 'background',  # Blurs/greys out the area
+    #         'color': 'rgba(6, 6, 190)',       # Blue color for the background
+    #         'overlap': False,         # Prevents double booking
+    #     })
 
-        events.append({
-            'start': item.available_from.isoformat(),
-            'end': item.available_till.isoformat(),
-            'title':'Unavailable',
-            'display': 'inverse-background',
-            'color': 'rgb(190, 6, 6)', # Light Red
-            'groupId': 'unavailableArea',    # Groups these to avoid visual glitches
-        })
+    #     events.append({
+    #         'start': item.available_from.isoformat(),
+    #         'end': item.available_till.isoformat(),
+    #         'title':'Unavailable',
+    #         'display': 'inverse-background',
+    #         'color': 'rgb(190, 6, 6)', # Light Red
+    #         'groupId': 'unavailableArea',    # Groups these to avoid visual glitches
+    #     })
 
 
     for unavailable in UnavailableDates.objects.filter(rental_id=rental_id):
         events.append({
             'start': unavailable.start_date.isoformat(),
             'end': unavailable.end_date.isoformat(),
-            'title':'Unavailable',
+            'title':'Available',
             'display': 'inverse-background',
-            'color': 'rgb(190, 6, 6)', # Light Red
+            'color': 'rgb(6, 6, 190)', # Light Red
             'groupId': 'unavailableArea',    # Groups these to avoid visual glitches
+            'overlap': False,         # Prevents double booking
         })
 
         events.append({
-            'start': item.unavailable_start_date.isoformat(),
-            'end': item.unavailable_end_date.isoformat(),
-            'title':'Available',
+            'start': unavailable.start_date.isoformat(),
+            'end': unavailable.end_date.isoformat(),
+            'title':'Unavailable',
             'display': 'background',  # Blurs/greys out the area
-            'color': 'rgba(6, 6, 190)',       # Blue color for the background
-            'overlap': False,         # Prevents double booking
+            'color': 'rgba(190, 6, 6)',       # Blue color for the background
         })
     
     print("\n--- JSON DATA FOR HOUSE {} ---".format(rental_id))
