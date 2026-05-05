@@ -27,11 +27,17 @@ class ImageForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
+
 class UnavailableDatesForm(forms.ModelForm):
 
     class Meta:
         model = UnavailableDates
         fields = ['start_date', 'end_date']
+
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
