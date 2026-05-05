@@ -517,8 +517,8 @@ input::-webkit-inner-spin-button {
 
 .fypg{
   background-color: rgba(255, 255, 255, 0.8);
-  padding:10px;
-  border-radius: 20px;
+  padding:10px 20px;
+  border-radius: 999999999px;
 }
 
 .scroll-down-hero-message{
