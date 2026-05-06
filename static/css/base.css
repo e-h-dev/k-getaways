@@ -88,6 +88,14 @@ header{
   background-color: var(--main-background-color);
 }
 
+.alert-success{
+  border: solid 1px green;
+}
+
+.alert-error{
+  border: solid 1px red;
+}
+
 
 /* nav bar styles  */
 
