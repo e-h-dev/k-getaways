@@ -2,6 +2,7 @@ import json
 from django.forms import modelformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, UnavailableDates
 from .forms import RentalForm, ImageForm, UnavailableDatesForm
@@ -29,6 +30,8 @@ def rental_detail(request, rental_id):
     amenities[0].upper()
     amenities_number = len(amenities)
     image = Image.objects.all()
+
+    messages.info(request, "This is a demo site. Please contact us if you are interested in listing your property or have any questions.")
 
     context = {
         "rental": rental,
@@ -101,9 +104,10 @@ def list_home(request):
             done = form.save(commit=False)
             done.owner_name = request.user
             done.save()
-            
+            messages.success(request, "Your rental has been saved.")
             print("your rental has been saved")
         else:
+            messages.error(request, "Please correct the errors below.")
             print("your rental is invalid")
             print(form.errors)
             
@@ -140,9 +144,11 @@ def load_images(request, rental_id):
                 )
             
             print(f"{len(files)} images have been saved")
+            messages.success(request, f"{len(files)} images have been saved.")
         else:
             print("your image is invalid")
             print(form.errors)
+            messages.error(request, "Please correct the errors below.") 
             
         return redirect('rentals')
 
@@ -168,9 +174,10 @@ def add_unavailable_dates(request, rental_id):
             unavailable_date = form.save(commit=False)
             unavailable_date.rental = rental
             unavailable_date.save()
-            
+            messages.success(request, "Your unavailable date has been saved.")
             print("your unavailable date has been saved")
         else:
+            messages.error(request, "Please correct the errors below.")
             print("your unavailable date is invalid")
             print(form.errors)
             
