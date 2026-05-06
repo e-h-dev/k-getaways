@@ -6,6 +6,16 @@
 }
 
 /* styles across the site */
+a{
+  text-decoration: none;
+  color:var(--main-text-color);
+}
+
+a:hover{
+  color:#6c809a;
+  text-decoration: none;
+  font-weight: bolder;
+}
 
 hr{
   border: 0.8px rgba(112, 112, 112, 0.2) solid;
