@@ -73,6 +73,21 @@ header{
     background-color: #000 !important;
 }
 
+/* cross site messages styling */
+
+.messages-container{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 40%;
+  font-family: var(--main-font);
+  color: var(--main-text-color);
+  border-radius:5px;
+  font-size: 1.2rem;
+  z-index: 99999999999999999999;
+  background-color: var(--main-background-color);
+}
+
 
 /* nav bar styles  */
 
