@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rentals import views
-from contact import views
+from contact import views as contact_views
 
 
 urlpatterns = [

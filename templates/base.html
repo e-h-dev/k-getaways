@@ -99,7 +99,20 @@
             </div>
         </nav>
     </header>
-    
+    {% if messages %}
+        <div class="messages-container">
+            <div class="row">
+                <div class="col-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close btn btn-btn" data-bs-dismiss="alert" aria-label="Close">X</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {% block content %}
     {% endblock %}
     <!-- <section>
