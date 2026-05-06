@@ -100,13 +100,12 @@
         </nav>
     </header>
     {% if messages %}
-        <div class="messages-container">
+        <div id="messages-container">
             <div class="row">
                 <div class="col-12">
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close btn btn-btn" data-bs-dismiss="alert" aria-label="Close">X</button>
                         </div>
                     {% endfor %}
                 </div>
@@ -162,6 +161,14 @@
     {% block js %}
     
     {% endblock %}
+    <script>
+        let messageContainer = document.getElementById('messages-container');
+        
+        setTimeout(() => {
+            messageContainer.style.display = 'none';
+        }, 3500);
+    
+    </script>
     <script>
         var mainFilter = document.getElementById("mobile-filter");
         var topFilter = document.getElementById("top-mobile-filter");
