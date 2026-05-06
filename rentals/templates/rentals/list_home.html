@@ -20,7 +20,8 @@
                 <form action="{% url 'list_home' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit">List your Home</button>
+                    {% include 'rentals/add_unavailable.html' %}
+                    <button class="btn btn-btn" type="submit">List your Home</button>
                 </form>
             </div>
         </div>
@@ -29,5 +30,23 @@
 </div>
 {% endblock %}
 {% block js %}
+
+<script>
+    let dateForm = document.querySelector(".form-box");
+    let addButton = document.querySelector("#add-form");
+    let formSpace = document.querySelector(".next-form");
+
+    addButton.addEventListener('click', addForm);
+
+    function addForm(){
+        let newForm = dateForm.cloneNode(true);
+        newForm.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.checked = false;
+});
+        formSpace.parentNode.insertBefore(newForm, addButton);
+        
+    }
+</script>
 
 {% endblock %}
