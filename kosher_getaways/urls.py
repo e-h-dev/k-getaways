@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rentals import views
+from contact import views
 
 
 urlpatterns = [
@@ -26,5 +27,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('rentals/', include('rentals.urls')),
+    path('contact/', include('contact.urls')),
     path('availability_json/<int:rental_id>/', views.rental_availability_json, name='rental_availability_json'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
