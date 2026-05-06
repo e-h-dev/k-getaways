@@ -379,6 +379,13 @@ footer{
   font-family: var(--main-font);
 }
 
+.category-location-li{
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  width: 100%;
+}
+
 .search-icon{
   width: 20px; 
   position:relative; 
@@ -464,22 +471,22 @@ input::-webkit-inner-spin-button {
   position: absolute;
   z-index: 5;
   background-color:rgb(221, 241, 236);
-  width:300px;
+  width:500px;
   border-radius: 10px;
   margin-top:15px;
   font-style: normal;
   font-weight:300;
-  /* padding:20px; */
+  padding-top:20px;
 }
 
 #category-dropdown{
   display: none;
-  right:-60px;
+  right:-20px;
 }
 
 #location-dropdown{
   display: none;
-  right:-30px
+  right:30px
 }
 
 

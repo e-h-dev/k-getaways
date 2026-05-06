@@ -25,18 +25,18 @@ in the bottom of the hero image -->
                             <!-- center location and category filter dropdowns -->
                             <div class="col-3 location-btns" id="location-btn">Location <i class="fa fa-caret-down"></i>
                                 <div id="location-dropdown">
-                                    <ul>
+                                    <ul class="category-location-li">
                                         {% for location in locations%}
-                                        <li>{{ location }}</li>
+                                        <li><a href="#">{{ location }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-3 location-btns" id="category-btn">Category <i class="fa fa-caret-down"></i>
                                 <div id="category-dropdown">
-                                    <ul>
-                                        {% for category in  categories %}
-                                        <li>{{ category }}</li>
+                                    <ul class="category-location-li">
+                                        {% for category in categories %}
+                                        <li><a href="#">{{ category }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
