@@ -96,6 +96,10 @@ header{
   border: solid 1px red;
 }
 
+.alert-info{
+  border: solid 1px blue;
+}
+
 
 /* nav bar styles  */
 
