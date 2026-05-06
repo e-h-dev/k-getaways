@@ -75,7 +75,7 @@ header{
 
 /* cross site messages styling */
 
-.messages-container{
+#messages-container{
   position: fixed;
   top: 10px;
   left: 10px;
