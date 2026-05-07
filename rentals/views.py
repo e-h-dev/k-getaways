@@ -111,7 +111,7 @@ def list_home(request):
             print("your rental is invalid")
             print(form.errors)
             
-        return redirect('load_images', rental_id=done.id)
+        return redirect('add_unavailable_dates', rental_id=done.id)
 
     else:
         form = RentalForm()
@@ -181,7 +181,7 @@ def add_unavailable_dates(request, rental_id):
             print("your unavailable date is invalid")
             print(form.errors)
             
-        return redirect('rental_detail', rental_id=rental_id)
+        return redirect('load_images', rental_id=rental.id)
 
     else:
         form = UnavailableDatesForm()
