@@ -4,29 +4,90 @@
 {% block extra_title %} - Messages {% endblock %}
 {% block content%}
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h1>My messages ({{ contacts|length }})</h1>
+            <hr>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
 <section>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <h1 class="center">Your Messages</h1>
-            </div>
-        </div>
-    </div>
-</section>
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-1">
-                
-            </div>
+            <div class="col-1"></div>
             <div class="col-10">
-                <div class="messages-container">
-                    lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, doloremque. Lorem ipsum dolor sit
+                {% for c in contacts %}
+                {% if c.send_to == user %}
+                <a href="{% url 'mark_read' c.id %}">
+                    <div class="row message-row {% if c.read == False %}message-row-unread {%else %}message-row-read{% endif %}" id="open-message-{{ c.id }}">
+                        <div class="col-3">{{ c.name }}</div>
+                        <div class="col-5">{{ c.subject }}</div>
+                        <!-- <div class="col-1"></div> -->
+                        <div class="col-2">{{ c.date_sent }}</div>
+                        <div class="col-2"> {{ c.time_sent }}</div>
+                    </div>
+                </a>
+                <div class="row message-show" id="message-{{ c.id }}">
+                    <div class="col-2"></div>
+                    <div class="col-3 message-content">
+                        <h4>Contact</h4>
+                        <hr>
+                        <div class="contact-details">
+                            <p><i class="fa-solid fa-phone"></i> {{ c.Phone }}</p>
+                            <p><i class="fa-solid fa-envelope"></i> {{ c.email }}</p>
+                        </div>
+                    </div>
+                    <div class="col-4 message-content">
+                        <h4>Message</h4>
+                        <hr>
+                        <div class="delete-container" >
+                            <a href="{% url 'delete_message' c.id %}" 
+                                onclick="return confirm('Are you sure you want {{ c.subject }} from {{ c.name }} deleted?');">
+                                    <i class="fa-regular fa-trash-can"></i>
+                            </a>
+                        </div>
+                        {{ c.message }}
+                    </div>
+                    <div class="col-3"></div>
                 </div>
+                <div class="row">
+                    <div class="col-5"></div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-5"></div>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
             <div class="col-1"></div>
         </div>
     </div>
 </section>
+{% endblock %}
+{% block postloadjs %}
+{% for c in contacts %}
+<script>
+    let message{{ c.id }} = document.getElementById('open-message-{{ c.id }}')
+    let messageContent{{ c.id }} = document.getElementById('message-{{ c.id }}')
+
+    function openMessage{{ c.id }}(){
+        messageContent{{ c.id }}.style.display = "flex"
+        message{{ c.id }}.style.fontWeight = '200'
+        message{{ c.id }}.style.backgroundColor = 'var(--light-opaque)'
+    }
+
+    function closeMessage{{ c.id }}(){
+        messageContent{{ c.id }}.style.display = "none"
+    }
+    
+    message{{ c.id }}.addEventListener('click', openMessage{{ c.id }})
+    messageContent{{ c.id }}.addEventListener('click', closeMessage{{ c.id }})
+    
+</script>
+{% endfor %}
+
 
 {% endblock %}
