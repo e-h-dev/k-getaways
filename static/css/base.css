@@ -735,7 +735,7 @@ thead{
   border:none !important;
   width:200px;
   align-items: center !important;
-  margin-left:70px;
+  margin-left:120px;
 }
 
 .ui-datepicker-header, .ui-widget-header, .ui-helper-clearfix, .ui-corner-all{
@@ -780,8 +780,8 @@ thead{
 }
 
 #ui-datepicker-div{
-  width:380px;
-  height:360px;
+  width:500px;
+  height:420px;
   border:1px solid #fff !important;
   box-shadow: 2px 2px 2px 2px #f6f6f6 !important;
   border-radius: 10px;
@@ -789,6 +789,13 @@ thead{
   background-color: #fff;
   margin-top: 10px;
 }
+
+#ui-datepicker-div td{
+  border: solid 1px rgba(117, 187, 167, 0.3) !important;
+  border-radius:5px;
+}
+
+
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight{
   background: var(--main-text-color) !important;
@@ -805,7 +812,7 @@ thead{
   height:50px !important;
   width:50px !important;
   text-align: center !important;
-  padding-top: 12px !important;
+  padding: 12px !important;
   /* border-radius: 10px; */
   border:none !important;
   margin:0;
