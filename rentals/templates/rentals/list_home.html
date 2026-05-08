@@ -21,7 +21,6 @@
                 <form action="{% url 'list_home' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    {% include 'rentals/add_unavailable.html' %}
                     <button class="btn btn-btn" type="submit">Next</button>
                 </form>
             </div>

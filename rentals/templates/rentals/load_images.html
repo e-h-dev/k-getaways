@@ -8,39 +8,24 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">
-            <h1 class="center">Fill in the Form below to load images of your home</h1>
-        </div>
+        <div class="col-6"></div>
         <div class="col-3"></div>
     </div>
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
             <div class="form-container shadow" id="form-container">
+                <h1 class="center form-header mb-5">Fill in the Form below to load images of your home</h1>
                 <form action="{% url 'load_images' rental.id %}" method="POST" enctype="multipart/form-data">
                    {% csrf_token %}
                    
                     <div class="form-box">
                         {{ form.as_div }}
                     </div>
-                    <div id="add-form">Add another image</div>
+                    <div class="btn-btn mt-3" id="add-form">Add another image</div>
                     <div class="next-form"></div>
-                    <button type="submit">Load your images</button>
+                    <button class="btn btn-btn mt-3" type="submit">Load your images</button>
                 </form>
-                <!-- <form action="{% url 'load_images' rental.id %}" method="POST" enctype="multipart/form-data" id="image-form">
-                    {% csrf_token %}
-                    {{ formset.management_form }}
-
-                    <div id="form-container">
-                        {% for form in formset %}
-                        <div class="image-form-row" style="margin-bottom: 20px; border: 1px solid #ddd; padding: 10px;">
-                            {{ form.as_p }}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    
-                    <button type="submit">Upload Images</button>
-                </form> -->
             </div>
         </div>
         <div class="col-2"></div>

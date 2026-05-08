@@ -1301,6 +1301,12 @@ or other calendar elements */
   width:600px !important;
 }
 
+input[type="file"]{
+  border: none;
+  outline: none;
+  font-family: var(--main-font);
+}
+
 .second-list{
   display:none;
 }
