@@ -21,7 +21,7 @@
             <div class="col-10">
                 {% for c in contacts %}
                 {% if c.send_to == user %}
-                <a href="{% url 'mark_read' c.id %}">
+                <a href="{% url 'read' c.id %}">
                     <div class="row message-row {% if c.read == False %}message-row-unread {%else %}message-row-read{% endif %}" id="open-message-{{ c.id }}">
                         <div class="col-3">{{ c.name }}</div>
                         <div class="col-5">{{ c.subject }}</div>
