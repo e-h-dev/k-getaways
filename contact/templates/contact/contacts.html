@@ -22,7 +22,7 @@
                 {% for c in contacts %}
                 {% if c.send_to == user %}
                 <a href="{% url 'read' c.id %}">
-                    <div class="row message-row {% if c.read == False %}message-row-unread {%else %}message-row-read{% endif %}" id="open-message-{{ c.id }}">
+                    <div class="row contact-row {% if c.read == False %}contact-row-unread {%else %}contact-row-read{% endif %}" id="open-contact-{{ c.id }}">
                         <div class="col-3">{{ c.name }}</div>
                         <div class="col-5">{{ c.subject }}</div>
                         <!-- <div class="col-1"></div> -->
@@ -30,7 +30,7 @@
                         <div class="col-2"> {{ c.time_sent }}</div>
                     </div>
                 </a>
-                <div class="row message-show" id="message-{{ c.id }}">
+                <div class="row contact-show" id="contact-{{ c.id }}">
                     <div class="col-2"></div>
                     <div class="col-3 message-content">
                         <h4>Contact</h4>
@@ -70,21 +70,21 @@
 {% block postloadjs %}
 {% for c in contacts %}
 <script>
-    let message{{ c.id }} = document.getElementById('open-message-{{ c.id }}')
-    let messageContent{{ c.id }} = document.getElementById('message-{{ c.id }}')
+    let contact{{ c.id }} = document.getElementById('open-contact-{{ c.id }}')
+    let contactContent{{ c.id }} = document.getElementById('contact-{{ c.id }}')
 
-    function openMessage{{ c.id }}(){
-        messageContent{{ c.id }}.style.display = "flex"
-        message{{ c.id }}.style.fontWeight = '200'
-        message{{ c.id }}.style.backgroundColor = 'var(--light-opaque)'
+    function openContact{{ c.id }}(){
+        contactContent{{ c.id }}.style.display = "flex"
+        contact{{ c.id }}.style.fontWeight = '200'
+        contact{{ c.id }}.style.backgroundColor = 'var(--light-opaque)'
     }
 
-    function closeMessage{{ c.id }}(){
-        messageContent{{ c.id }}.style.display = "none"
+    function closeContact{{ c.id }}(){
+        contactContent{{ c.id }}.style.display = "none"
     }
     
-    message{{ c.id }}.addEventListener('click', openMessage{{ c.id }})
-    messageContent{{ c.id }}.addEventListener('click', closeMessage{{ c.id }})
+    contact{{ c.id }}.addEventListener('click', openContact{{ c.id }})
+    contactContent  {{ c.id }}.addEventListener('click', closeContact{{ c.id }})
     
 </script>
 {% endfor %}
