@@ -1500,6 +1500,23 @@ input[type="file"]{
   color:#f6f6f6;
 }
 
+/* --------------------------------------------------contacts pages */
+.contact-row{
+    color:var(--main-text-color);
+    font-family: var(--main-font);
+    margin: 0;
+    border-bottom: solid 0.5px var(--main-background-color);
+    background-color:var(--main-background-color);
+    padding:20px;
+    height:60px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.contact-show{
+  display:none;
+}
+
 /* media queries */
 @media screen and (max-width:850px){
 
