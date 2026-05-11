@@ -25,7 +25,7 @@ def compose_message(request, user_id):
             contact.save()
             return HttpResponse(status=204)
 
-    return render(request, 'contact/compose_message.html')
+    return render(request, 'contact/compose.html')
 
 
 def read(request, contact_id):
