@@ -68,7 +68,7 @@
     </div>
 </section>
 {% endblock %}
-{% block postloadjs %}
+{% block js %}
 {% for c in contacts %}
 <script>
     let contact{{ c.id }} = document.getElementById('open-contact-{{ c.id }}')
@@ -85,7 +85,7 @@
     }
     
     contact{{ c.id }}.addEventListener('click', openContact{{ c.id }})
-    contactContent  {{ c.id }}.addEventListener('click', closeContact{{ c.id }})
+    contactContent{{ c.id }}.addEventListener('click', closeContact{{ c.id }})
     
 </script>
 {% endfor %}
