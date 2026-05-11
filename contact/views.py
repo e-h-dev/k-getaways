@@ -15,7 +15,7 @@ def contacts(request):
 
 def compose_message(request, user_id):
 
-    # compose = Contacts.objects.filter(send_to_id=user_id)
+    compose = Contacts.objects.filter(send_to_id=user_id)
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -25,7 +25,11 @@ def compose_message(request, user_id):
             contact.save()
             return HttpResponse(status=204)
 
-    return render(request, 'contact/compose.html')
+    context = {
+        'compose': compose
+        }
+
+    return render(request, 'contact/compose.html', context)
 
 
 def read(request, contact_id):
