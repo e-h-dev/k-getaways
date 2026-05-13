@@ -1242,7 +1242,7 @@ or other calendar elements */
   transform: scale(1.2);
 }
 
-/* -------------------------------------list your home page */
+/* ---------------------list your home page includes styles for all forms */
 
 .form-header{
   font-size:1.8rem;
@@ -1268,6 +1268,7 @@ or other calendar elements */
   padding-left:20px;
 }
 
+
 .form-container select{
   color:var(--main-text-color);
 }
@@ -1281,7 +1282,8 @@ or other calendar elements */
 }
 
 .form-container textarea{
-  height:80px;
+  height:200px;
+  resize:none
 }
 
 .form-container label{
