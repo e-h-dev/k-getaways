@@ -20,13 +20,14 @@ def compose_message(request, user_id):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact = form.save(commit=False)
-            contact.send_to_id = user_id
-            contact.save()
+            form.save(commit=False)
+            form.send_to_id = user_id
+            form.save()
             return HttpResponse(status=204)
 
     context = {
-        'compose': compose
+        'compose': compose,
+        'form': form
         }
 
     return render(request, 'contact/compose.html', context)
