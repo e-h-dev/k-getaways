@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from contact.forms import ContactForm
 from .models import Contacts
+from rentals.models import Rentals
 
 # Create your views here.
 
@@ -13,15 +14,17 @@ def contacts(request):
     return render(request, 'contact/contacts.html', context)
 
 
-def compose_message(request, user_id):
+def compose_message(request, rental_id):
 
-    compose = Contacts.objects.filter(send_to=user_id)
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    compose = Contacts.objects.filter(send_to=rental.owner_name_id)
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             contactform = form.save(commit=False)
-            contactform.send_to_id = user_id
+            contactform.send_to_id = rental.owner_name_id
             contactform.save()
             messages.success(request, "Your message has been sent.")
             return redirect('home')  # Redirect to the home page after sending the message
@@ -31,7 +34,8 @@ def compose_message(request, user_id):
 
     context = {
         'compose': compose,
-        'form': form
+        'form': form,
+        'rental': rental,
         }
 
     return render(request, 'contact/compose.html', context)
