@@ -24,6 +24,9 @@ def compose_message(request, user_id):
             form.send_to_id = user_id
             form.save()
             return HttpResponse(status=204)
+      
+    else:
+        form = ContactForm(request.POST)
 
     context = {
         'compose': compose,
