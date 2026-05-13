@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-
+from django.contrib import messages
 from contact.forms import ContactForm
 from .models import Contacts
 
@@ -15,16 +15,17 @@ def contacts(request):
 
 def compose_message(request, user_id):
 
-    compose = Contacts.objects.filter(send_to_id=user_id)
+    compose = Contacts.objects.filter(send_to=user_id)
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.send_to_id = user_id
-            form.save()
-            return HttpResponse(status=204)
-      
+            contactform = form.save(commit=False)
+            contactform.send_to_id = user_id
+            contactform.save()
+            messages.success(request, "Your message has been sent.")
+            return redirect('home')  # Redirect to the home page after sending the message
+
     else:
         form = ContactForm()
 
@@ -47,4 +48,5 @@ def read(request, contact_id):
 def delete_message(request, contact_id):
     contact = get_object_or_404(Contacts, pk=contact_id)
     contact.delete()
-    return HttpResponse(status=204)
+    messages.success(request, "Your message has been deleted.")
+    return redirect('contacts')
