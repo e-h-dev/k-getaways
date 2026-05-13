@@ -6,8 +6,8 @@ from datetime import datetime
 
 class Contacts(models.Model):
     send_to = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_sent = models.DateTimeField(default=datetime.now)
-    time_sent = models.TimeField(default=datetime.now)
+    date_sent = models.DateTimeField(auto_now_add=True)
+    time_sent = models.TimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     email = models.EmailField()
