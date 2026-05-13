@@ -1517,11 +1517,10 @@ input[type="file"]{
   display:none;
 }
 
-/* removes unwanted class (temprory fix only) */
+.compose-form{
+  color:red !important;
+}
 
-/* .errorlist{
-  display:none;
-} */
 
 /* media queries */
 @media screen and (max-width:850px){

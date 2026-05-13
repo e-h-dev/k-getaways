@@ -26,7 +26,7 @@ def compose_message(request, user_id):
             return HttpResponse(status=204)
       
     else:
-        form = ContactForm(request.POST)
+        form = ContactForm()
 
     context = {
         'compose': compose,
