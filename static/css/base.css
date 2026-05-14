@@ -671,6 +671,13 @@ footer{
   }
 }
 
+.homepage-paragragh-hr{
+  width: 60%;
+  align-self: center;
+  border: solid rgba(112, 112, 112, 0.3) 0.3px;
+  margin-bottom:0 !important;
+}
+
 .featured-rentals{
   font-family: var(--main-font);
   background-color: #fff;
@@ -687,15 +694,22 @@ footer{
 .featured-rentals h4{
   font-size: 2rem;
   color:var(--main-text-color);
-  margin-top: 40px;
+  margin-top: 20px;
   text-align: center;
 }
 
-.featured-box{
-  /* position: relative;
-  margin-left:30px; */
-  margin-top: 20px;
-  padding-left: 100px;;
+.homepage-paragragh-box{
+  width:80%;
+  background-color: var(--main-background-color);
+  margin: 10px;
+  padding: 50px;
+  text-align:justify;
+}
+
+.homepage-paragragh-box h5{
+  text-align: center;
+  font-size: 1.3rem;
+  padding-bottom: 5px;
 }
 
 .featured-image{
