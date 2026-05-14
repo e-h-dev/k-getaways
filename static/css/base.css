@@ -686,7 +686,6 @@ footer{
   bottom: -150px;
   border-top-left-radius: 40%;
   border-top-right-radius: 40%;
-  /* border-top: 5px solid var(--main-text-color); */
   height:500px;
   padding-top: 40px;
 }
@@ -708,6 +707,7 @@ footer{
   padding: 50px;
   text-align:justify;
   border-radius:20px;
+  margin-bottom:30px;
 }
 
 .homepage-paragragh-box h5{
@@ -739,13 +739,13 @@ footer{
 }
 
 .content-overlay {
-    position: absolute;
+    position:inherit;
     z-index: 3;
-    right:18px;
+    right:25px;
     border-radius:15px;
     /* color:#fff; */
-    width:90%;
-    background-color:rgba(255, 255, 255, 0.7);
+    width:120%;
+    background-color:rgba(255, 255, 255, 0.6);
     padding: 20px;
     display: flex;
     flex-direction: column;
