@@ -977,6 +977,14 @@ thead{
   color: var(--main-text-color);
 }
 
+.featured-image{
+  width:270px;
+  height:220px;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
+}
+
 /* image load slide */
 
 .image-slider{
