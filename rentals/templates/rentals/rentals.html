@@ -58,8 +58,8 @@
                 <div class="col-lg-3 col-md-4 column-change">
                     <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
                         <div class="rental-display-box shadow">
-                        <div class="rental-header">{{ r.title }}</div>
-                        {% if r.images %}
+                            <div class="rental-header">{{ r.title }}</div>
+                            {% if r.images.all %}
                             {% for i in r.images.all %}
                                 <div class="image-slider-{{ r.id }}">
                                     <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
@@ -69,11 +69,11 @@
                                 <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
                                 <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
                             {% endif %}
-                        {% else %}
-                        <div class="image-slider-{{ r.id }}">
-                            <img src="/media/awaiting.png" alt="Awaiting Images" class="featured-image shadow border">
-                        </div>
-                        {% endif %}
+                            {% else %}
+                            <div class="image-slider-{{ r.id }}">
+                                <img src="/media/awaiting.png" alt="Awaiting Images" class="featured-image shadow border">
+                            </div>
+                            {% endif %}
 
                         <!-- <div class="description">{{ r.description }}</div> -->
                         <div class="number-of-rooms">
@@ -121,7 +121,7 @@
                     </div>
                         <hr>
                         
-                    </div>
+                        </div>
                     </a>
                 </div>
                 {% endfor %}

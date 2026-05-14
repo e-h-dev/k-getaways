@@ -5,29 +5,25 @@
 {% block extra_class%} active{% endblock %}
 {% block content%}
 <hr style="width:80%; bottom:50px; position: relative;">
-<div class="container-fluid picture-gallery">
-    <div class="row">
-        <div class="col-1">
-            <button class="image-changer btn" id="image-changer">
-                &#10094;
-            </button>
-        </div>
-        
-        <div class="col-10">
-            <div id="images-display">
-                <!-- <img id="images-display" src="{{ rental.images.all.image.url }}" alt="Gallery Image" class="rental-detail-image-display"> -->
-                <!-- <a href="{{ i.image.url }}" target="_blank">
-                <img src="{{ i.image.url }}" alt="{{ rental.name }}" class="rental-detail-image-display">
-                </a> -->
-                <!-- <p class="image-name">{{ i.image_name }}</p> -->
+<div {% if rental.images.all %}style="display: block;" {% else %}style="display: none;" {% endif %}>
+    <div class="container-fluid picture-gallery">
+        <div class="row">
+            <div class="col-1">
+                <button class="image-changer btn" id="image-changer">
+                    &#10094;
+                </button>
             </div>
-        </div>
-        
-        <div class="col-1">
-            <div class="close-icon" onclick="remove()">&times;</div>
-            <button class="image-changer btn" id="next-image">
-                &#10095;
-            </button>
+            
+            <div class="col-10">
+                <div id="images-display"></div>
+            </div>
+            
+            <div class="col-1">
+                <div class="close-icon" onclick="remove()">&times;</div>
+                <button class="image-changer btn" id="next-image">
+                    &#10095;
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -43,12 +39,18 @@
         <div class="col-2"></div>
         <div class="col-8">
             <div class="row" onclick="bringBack()">
+                {% if rental.images.all %}
                 {% for i in rental.images.all|slice:":2" %}
                 <div class="col-6">
                     <img src="{{ i.image.url }}" alt="{{ rental.title }}"
                     class="gallery-images {% if forloop.first %} gallery-image-left {% else %} gallery-image-right{% endif %}">
                 </div>
                 {% endfor %}
+                {% else %}
+                <div class="col-6">
+                    <img src="/media/awaiting.png" alt="Awaiting Images" class="gallery-images gallery-image-left">
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="col-2"></div>
