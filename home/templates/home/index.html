@@ -82,8 +82,8 @@ our mission and we are here for you -->
                 <div class="col-1"></div>
                 <div class="col-3 homepage-paragragh-box shadow">
                     <h5 class="featured-sub-header">How to use Kosher Getaways</h5>
-                    <p>List your home and earn money by renting it out to travelers.</p>
-                    <p>Navigate our platform and find the perfect getaway for your needs.</p>
+                    <p><a href="{% url 'list_home' %}"><em>List your home</em></a> and earn money by renting it out to travelers.</p>
+                    <p><a href="{% url 'rentals' %}"><em>Navigate our platform</em></a> and find the perfect getaway for your needs.</p>
                 </div>
                 <div class="col-3 homepage-paragragh-box shadow">
                     <h5 class="featured-sub-header">Our Promise</h5>
@@ -92,6 +92,8 @@ our mission and we are here for you -->
                 <div class="col-3 homepage-paragragh-box shadow">
                     <h5 class="featured-sub-header">We are here for you</h5>
                     <p>Our team is dedicated to ensuring you have a seamless and enjoyable experience with every trip.</p>
+                    <p>If you have any questions or need assistance, feel free to contact us.</p>
+                    <button class="btn btn-btn"><a href="/contact/compose/1">KosherGetaways Admin</a></button>
                 </div>
                 <div class="col-1"></div>
             </div>
