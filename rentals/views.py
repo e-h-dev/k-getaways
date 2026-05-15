@@ -1,7 +1,9 @@
+from datetime import datetime
 import json
 from django.forms import modelformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, UnavailableDates
@@ -16,9 +18,40 @@ def rentals(request):
 
     rental_number = rentals.count()
 
+    query = request.GET.get('q')
+    if query:
+        rentals = rentals.filter(
+            Q(location__location__icontains=query) |
+            Q(title__icontains=query)
+        )
+
+    sleeps = request.GET.get('sleeps')
+    if sleeps and sleeps.isdigit():
+        rentals = rentals.filter(sleeps__gte=int(sleeps))
+
+    check_in = request.GET.get('check_in')
+    check_out = request.GET.get('check_out')
+
+    if check_in and check_out:
+        try:
+            # Convert string dates from datepicker to Python date objects
+            # Adjust '%Y-%m-%d' to match your front-end datepicker output format
+            check_in = datetime.strptime(check_in, '%Y-%m-%d').date()
+            check_out = datetime.strptime(check_out, '%Y-%m-%d').date()
+            
+            # Exclude rentals that have overlapping confirmed bookings
+            # Assumes a related Booking model with start_date and end_date fields
+            # rentals = rentals.exclude(
+            #     bookings__start_date__lt=check_out,
+            #     bookings__end_date__gt=check_in
+            # )
+        except ValueError:
+            pass # Handles invalid date formats gracefully
+
     context = {
         "rentals": rentals,
-        "rental_number": rental_number
+        "rental_number": rental_number,
+       
         }
     return render(request, 'rentals/rentals.html', context)
 
