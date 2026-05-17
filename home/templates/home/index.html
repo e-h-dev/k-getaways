@@ -27,7 +27,7 @@ in the bottom of the hero image -->
                                 <div id="location-dropdown">
                                     <ul class="category-location-li">
                                         {% for location in locations%}
-                                        <li><a href="#">{{ location }}</a></li>
+                                        <li><a href="{% url 'rentals' %}?q={{ location }}">{{ location }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -36,7 +36,7 @@ in the bottom of the hero image -->
                                 <div id="category-dropdown">
                                     <ul class="category-location-li">
                                         {% for category in categories %}
-                                        <li><a href="#">{{ category }}</a></li>
+                                        <li><a href="{% url 'rentals' %}?q={{ category }}">{{ category }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
