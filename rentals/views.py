@@ -46,7 +46,7 @@ def rentals(request):
         except ValueError as e:
             print(f"DATE PARSING ERROR: {e}")
 
-        rental_number = rentals.count()
+    rental_number = rentals.count()
 
     context = {
         "rentals": rentals,
