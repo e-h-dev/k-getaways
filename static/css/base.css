@@ -979,6 +979,34 @@ thead{
   cursor: pointer; /* Cursor on hover */
 }
 
+.custom-checkbox input[type="checkbox"] {
+  display: none; 
+}
+
+/* Hide the "checked" text by default */
+.custom-checkbox .text-checked {
+  display: none;
+}
+
+/* When checked, hide the "unchecked" text */
+.custom-checkbox input:checked ~ .text-unchecked {
+  display: none;
+}
+
+/* When checked, show the "checked" text */
+.custom-checkbox input:checked ~ .text-checked {
+  display: inline;
+  background-color: var(--main-background-color); /* Optional styling */
+  font-weight: bold;
+}
+
+/* class to remain checked after page reload and GET request still active */
+.filter-checked{
+  display: inline;
+  background-color: var(--main-background-color); /* Optional styling */
+  font-weight: bold;
+}
+
 .rental-count{
   font-family: var(--main-font);
   color: var(--main-text-color);
