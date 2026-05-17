@@ -73,6 +73,11 @@ header{
     background-color: #000 !important;
 }
 
+.btn-search{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* cross site messages styling */
 
 #messages-container{
@@ -388,9 +393,11 @@ footer{
 
 .search-icon{
   width: 20px; 
-  position:relative; 
+  position:relative;
   bottom:37px; 
-  left:-245px;
+  left:55px;
+  top:0;
+  color:var(--main-text-color);
 }
 
 .fa-magnifying-glass:hover{
