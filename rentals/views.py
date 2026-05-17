@@ -36,17 +36,16 @@ def rentals(request):
         try:
             # Convert string dates from datepicker to Python date objects
             # Adjust '%Y-%m-%d' to match your front-end datepicker output format
-            check_in = datetime.strptime(check_in, '%Y-%m-%d').date()
-            check_out = datetime.strptime(check_out, '%Y-%m-%d').date()
-            
-            # Exclude rentals that have overlapping confirmed bookings
-            # Assumes a related Booking model with start_date and end_date fields
-            # rentals = rentals.exclude(
-            #     bookings__start_date__lt=check_out,
-            #     bookings__end_date__gt=check_in
-            # )
-        except ValueError:
-            pass # Handles invalid date formats gracefully
+            check_in = datetime.strptime(check_in, '%d-%m-%Y').date()
+            check_out = datetime.strptime(check_out, '%d-%m-%Y').date()
+
+            rentals = rentals.exclude(
+                unavailable_dates__start_date__lt=check_out,
+                unavailable_dates__end_date__gt=check_in
+            )
+        
+        except ValueError as e:
+            print(f"DATE PARSING ERROR: {e}")
 
     context = {
         "rentals": rentals,
@@ -63,6 +62,10 @@ def rental_detail(request, rental_id):
     amenities[0].upper()
     amenities_number = len(amenities)
     image = Image.objects.all()
+
+    unavalable = UnavailableDates.objects.filter(rental_id=rental_id)
+
+    print(f"Unavailable dates for rental {rental_id}: {unavalable}")
 
     messages.info(request, "This is a demo site. Please contact us if you are interested in listing your property or have any questions.")
 
