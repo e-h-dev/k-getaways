@@ -22,31 +22,33 @@
             <aside class="filters">
                 <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
                 <div>
-                    <ul>
-                        <li>
-                            <div class="slidecontainer">
-                                <label for="priceRange">Price per night <span id="priceRangeValue">£150</span></label>
-                                <input type="range" min="80" max="1500" value="150" class="slider shadow" id="priceRange">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slidecontainer">
-                                <label for="bedroomsRange">Bedrooms <span id="bedroomsRangeValue">2</span></label>
-                                <input type="range" min="1" max="20" value="2" class="slider shadow" id="bedroomsRange">
-                            </div>
-                        </li>
-                         <li>
-                            <div class="slidecontainer">
-                                <label for="sleepsRange">Sleeps <span id="sleepsRangeValue">6</span></label>
-                                <input type="range" min="2" max="100" value="6" class="slider shadow" id="sleepsRange">
-                            </div>
-                        </li>
-                        <li><input type="checkbox" value="garden">Garden</li>
-                        <li><input type="checkbox" value="parking">Parking</li>
-                        <li><input type="checkbox" value="shuls">Close to Shuls</li>
-                        <li><input type="checkbox" value="shops">Close to Shops</li>
-                    </ul>
-                    <button class=" btn secondary-btn apply-filters-btn shadow">Apply Filters</button>
+                    <form action="{% url 'rentals' %}" method="GET">
+                        <ul>
+                            <li>
+                                <div class="slidecontainer">
+                                    <label for="priceRange">Price per night <span id="priceRangeValue">£150</span></label>
+                                    <input type="range" min="20" name="q" max="1500" value="150" class="slider shadow" id="priceRange">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="slidecontainer">
+                                    <label for="bedroomsRange">Bedrooms <span id="bedroomsRangeValue">2</span></label>
+                                    <input type="range" min="1" max="20" value="2" class="slider shadow" id="bedroomsRange">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="slidecontainer">
+                                    <label for="sleepsRange">Sleeps <span id="sleepsRangeValue">6</span></label>
+                                    <input type="range" min="2" max="100" value="6" class="slider shadow" id="sleepsRange">
+                                </div>
+                            </li>
+                            <li><input type="checkbox" name="q" value="garden">Garden</li>
+                            <li><input type="checkbox" value="parking">Parking</li>
+                            <li><input type="checkbox" value="shuls">Close to Shuls</li>
+                            <li><input type="checkbox" value="shops">Close to Shops</li>
+                        </ul>
+                        <button class="btn secondary-btn apply-filters-btn shadow" type="submit">Apply Filters</button>
+                    </form>
                 </div>
             </aside>
         </div>

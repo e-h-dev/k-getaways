@@ -16,13 +16,16 @@ def rentals(request):
 
     rentals = Rentals.objects.prefetch_related('images').all()
 
-
     query = request.GET.get('q')
     if query:
         rentals = rentals.filter(
             Q(location__location__icontains=query) |
-            Q(title__icontains=query)
+            Q(title__icontains=query) |
+            Q(category__category__icontains=query) |
+            Q(amenities__icontains=query)
         )
+        if query.isdigit():
+            rentals = rentals.filter(Q(price__lte=int(query)))
 
     sleeps = request.GET.get('sleeps')
     if sleeps and sleeps.isdigit():
