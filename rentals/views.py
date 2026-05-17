@@ -16,7 +16,6 @@ def rentals(request):
 
     rentals = Rentals.objects.prefetch_related('images').all()
 
-    rental_number = rentals.count()
 
     query = request.GET.get('q')
     if query:
@@ -46,6 +45,8 @@ def rentals(request):
         
         except ValueError as e:
             print(f"DATE PARSING ERROR: {e}")
+
+        rental_number = rentals.count()
 
     context = {
         "rentals": rentals,
