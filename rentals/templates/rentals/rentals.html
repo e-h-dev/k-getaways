@@ -51,7 +51,7 @@
             </aside>
         </div>
         <div class="col-12" id="row-change">
-            <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rentals.</h3>
+            <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rental{% if rental_number > 1 %}s{% endif %}.</h3>
             <div class="row">
                 {% for r in rentals %}
                 
