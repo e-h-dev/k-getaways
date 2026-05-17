@@ -56,7 +56,7 @@ def rentals(request):
         "rental_number": rental_number,
        
         }
-    return render(request, 'rentals/rentals.html', context)
+    return render(request, 'rentals/rentals_display.html', context)
 
 
 def rental_detail(request, rental_id):

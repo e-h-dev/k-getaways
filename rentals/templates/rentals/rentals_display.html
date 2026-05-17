@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
+{% block extra_class%} active{% endblock %}
+{% block content%}
+<div class="mobile-top-spacer"></div>
+<div class="filter-container rentals-filter-container">
+    {% include 'filters.html' %}
+</div>
+<div class="filters-header">Filters 
+    <div class="filter-icon" id="open-filter" onclick="openFilter()">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>    
+    <div class="filter-icon" id="close-filter" onclick="closeFilter()">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>  
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 filter-content">
+            <aside class="filters">
+                <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
+                <div>
+                    <form action="{% url 'rentals' %}" method="GET">
+                        <ul>
+                            <li>
+                                <div class="slidecontainer">
+                                    <label for="priceRange">Price per night <span id="priceRangeValue">£150</span></label>
+                                    <input type="range" min="20" name="q" max="1500" value="150" class="slider shadow" id="priceRange">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="slidecontainer">
+                                    <label for="bedroomsRange">Bedrooms <span id="bedroomsRangeValue">2</span></label>
+                                    <input type="range" min="1" max="20" value="2" class="slider shadow" id="bedroomsRange">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="slidecontainer">
+                                    <label for="sleepsRange">Sleeps <span id="sleepsRangeValue">6</span></label>
+                                    <input type="range" min="2" max="100" value="6" class="slider shadow" id="sleepsRange">
+                                </div>
+                            </li>
+                            <li><input type="checkbox" name="q" value="garden">Garden</li>
+                            <li><input type="checkbox" name="q" value="parking">Parking</li>
+                            <li><input type="checkbox" name="q" value="shuls">Close to Shuls</li>
+                            <li><input type="checkbox" name="q" value="shops">Close to Shops</li>
+                        </ul>
+                        <button class="btn secondary-btn apply-filters-btn shadow" type="submit">Apply Filters</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+        <div class="col-12" id="row-change">
+            <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rental{% if rental_number != 1 %}s{% endif %}.</h3>
+            <div class="row">
+                {% for r in rentals %}
+                
+                <div class="col-lg-3 col-md-4 column-change">
+                    <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
+                        <div class="rental-display-box shadow">
+                            <div class="rental-header">{{ r.title }}</div>
+                            {% if r.images.all %}
+                            {% for i in r.images.all %}
+                                <div class="image-slider-{{ r.id }}">
+                                    <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
+                                </div>
+                            {% endfor %}
+                            {% if r.images.count > 1 %}
+                                <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
+                                <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
+                            {% endif %}
+                            {% else %}
+                            <div class="image-slider-{{ r.id }}">
+                                <img src="/media/awaiting.png" alt="Awaiting Images" class="featured-image shadow border">
+                            </div>
+                            {% endif %}
+
+                        <!-- <div class="description">{{ r.description }}</div> -->
+                        <div class="number-of-rooms">
+                            <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
+                        </div>
+                         <hr>
+                        <div class="price">
+                            <i class="fa-solid fa-tags"></i>
+                            £{{ r.price }} per night
+                        </div>
+                        <hr>
+                        <div class="rating">
+                        Rating:
+                        {% if r.rating == 1 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% elif r.rating == 2 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% elif r.rating == 3 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% elif r.rating == 4 %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        {% else %}
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        {% endif %}
+                    </div>
+                        <hr>
+                        
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+    function openFilter(){
+        $('.filter-content').css("display", "block");
+        $('#row-change').removeClass("col-12");
+        $('.column-change').removeClass("col-lg-3");
+        $('#row-change').addClass("col-9");
+        $('.column-change').addClass("col-4");
+        $('#open-filter').css("display", "none");
+        $('#close-filter').css("display", "block");
+    }
+
+    function closeFilter(){
+        $('.filter-content').css("display", "none");
+        $('#row-change').removeClass("col-9");
+        $('.column-change').removeClass("col-4");
+        $('#row-change').addClass("col-12");
+        $('.column-change').addClass("col-lg-3");
+        $('#open-filter').css("display", "block");
+        $('#close-filter').css("display", "none");
+    }
+
+    // price filtering and display
+
+    let sliderPrice = document.getElementById("priceRange");
+    let outputPrice = document.getElementById("priceRangeValue");
+
+    sliderPrice.oninput = function() {
+        outputPrice.textContent = "£" + this.value;
+    }
+
+    // bedrooms filtering and display
+
+    let sliderBed = document.getElementById("bedroomsRange");
+    let outputBed = document.getElementById("bedroomsRangeValue");
+
+    sliderBed.oninput = function() {
+            outputBed.textContent = this.value;
+        }
+
+    // sleeps filtering and display
+    let sliderSleeps = document.getElementById("sleepsRange");
+    let outputSleeps = document.getElementById("sleepsRangeValue");
+
+
+    sliderSleeps.oninput = function() {
+            outputSleeps.textContent = this.value;
+        }
+
+</script>
+
+<script>
+    {% for r in rentals %}
+    let slideIndex{{ r.id }} = 1;
+    showSlides{{ r.id }}(slideIndex{{ r.id }});
+
+    // Next/previous controls
+    function plusSlides{{ r.id }}(n) {
+    showSlides{{ r.id }}(slideIndex{{ r.id }} += n);
+    }
+
+    
+    function showSlides{{ r.id }}(n) {
+    let i;
+    // let slides = $(".image-slider")
+    if (n > $(".image-slider-{{ r.id }}").length) {slideIndex{{ r.id }} = 1}
+    if (n < 1) {slideIndex{{ r.id }} = $(".image-slider-{{ r.id }}").length}
+    for (i = 0; i < $(".image-slider-{{ r.id }}").length; i++) {
+        $(".image-slider-{{ r.id }}")[i].style.display = "none";
+        
+    }
+    
+    $(".image-slider-{{ r.id }}")[slideIndex{{ r.id }}-1].style.display = "block";
+    }
+
+    {% endfor %}
+
+
+</script>
+
+{% endblock %}
