@@ -51,9 +51,12 @@ def rentals(request):
 
     rental_number = rentals.count()
 
+    filtered = request.GET.getlist('q')
+
     context = {
         "rentals": rentals,
         "rental_number": rental_number,
+        "filtered": filtered,
        
         }
     return render(request, 'rentals/rentals_display.html', context)

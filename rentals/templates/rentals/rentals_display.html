@@ -27,7 +27,7 @@
                             <li>
                                 <div class="slidecontainer">
                                     <label for="priceRange">Price per night <span id="priceRangeValue">£150</span></label>
-                                    <input type="range" min="20" name="q" max="1500" value="150" class="slider shadow" id="priceRange">
+                                    <input type="range" min="20" max="1500" value="150" class="slider shadow" id="priceRange">
                                 </div>
                             </li>
                             <li>
@@ -45,56 +45,56 @@
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="garden">
-                                    <span class="text-unchecked{% if request.GET.q == 'garden' %} filter-checked{% endif %}">Garden</span>
+                                    <span class="text-unchecked{% if 'garden' in filtered %} filter-checked{% endif %}">Garden</span>
                                     <span class="text-checked">Garden</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="parking">
-                                    <span class="text-unchecked{% if request.GET.q == 'parking' %} filter-checked{% endif %}">Parking</span>
+                                    <span class="text-unchecked{% if 'parking' in filtered %} filter-checked{% endif %}">Parking</span>
                                     <span class="text-checked">Parking</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="shuls">
-                                    <span class="text-unchecked{% if request.GET.q == 'shuls' %} filter-checked{% endif %}">Close to Shuls</span>
+                                    <span class="text-unchecked{% if 'shuls' in filtered %} filter-checked{% endif %}">Close to Shuls</span>
                                     <span class="text-checked">Close to Shuls</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="shops">
-                                    <span class="text-unchecked{% if request.GET.q == 'shops' %} filter-checked{% endif %}">Close to Shops</span>
+                                    <span class="text-unchecked{% if 'shops' in filtered %} filter-checked{% endif %}">Close to Shops</span>
                                     <span class="text-checked">Close to Shops</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="learning">
-                                    <span class="text-unchecked{% if request.GET.q == 'learning' %} filter-checked{% endif %}">Quiet learning room</span>
+                                    <span class="text-unchecked{% if 'learning' in filtered %} filter-checked{% endif %}">Quiet learning room</span>
                                     <span class="text-checked">Quiet learning room</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="microwave">
-                                    <span class="text-unchecked{% if request.GET.q == 'microwave' %} filter-checked{% endif %}">Microwave</span>
+                                    <span class="text-unchecked{% if 'microwave' in filtered %} filter-checked{% endif %}">Microwave</span>
                                     <span class="text-checked">Microwave</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="dryer">
-                                    <span class="text-unchecked{% if request.GET.q == 'dryer' %} filter-checked{% endif %}">Dryer</span>
+                                    <span class="text-unchecked{% if 'dryer' in filtered %} filter-checked{% endif %}">Dryer</span>
                                     <span class="text-checked">Dryer</span>
                                 </label>
                             </li>
                             <li>
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="q" value="shabbos">
-                                    <span class="text-unchecked{% if request.GET.q == 'shabbos' %} filter-checked{% endif %}">Shabbos anemities</span>
+                                    <span class="text-unchecked{% if 'shabbos' in filtered %} filter-checked{% endif %}">Shabbos anemities</span>
                                     <span class="text-checked">Shabbos anemities</span>
                                 </label>
                             </li>
