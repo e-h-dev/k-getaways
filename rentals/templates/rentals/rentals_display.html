@@ -9,6 +9,9 @@
     {% include 'filters.html' %}
 </div>
 <div class="filters-header">Filters 
+    {% if filtered %}
+    <span class="filter-count">({{ filtered | length }}) Filters applied</span>
+    {% endif %}
     <div class="filter-icon" id="open-filter" onclick="openFilter()">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </div>    

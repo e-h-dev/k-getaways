@@ -909,6 +909,12 @@ thead{
   padding-left: 30px;
 }
 
+.filter-count{
+  margin-left:35px;
+  font-size: 0.9rem;
+  color:rgb(88, 13, 13)
+}
+
 #close-filter{
   display:none;
 }
