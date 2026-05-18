@@ -93,6 +93,26 @@ header{
   background-color: var(--main-background-color);
 }
 
+.message-line{
+  background-color: rgb(117, 187, 167);
+  height: 3px;
+  border-radius: 5px;
+  width:100%;
+  position: relative;
+  top: 8px;
+  animation: rewind 3.5s;
+}
+
+@keyframes rewind{
+  0%{
+    width :100%;
+  }
+
+  100%{
+     width:0;
+  }
+}
+
 .alert-success{
   border: solid 1px green;
 }
