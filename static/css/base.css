@@ -979,6 +979,21 @@ thead{
   cursor: pointer; /* Cursor on hover */
 }
 
+
+/* -------------------styles for filter options */
+.filter-items{
+  margin-left:20px;
+}
+
+.filter-items label{
+  border-bottom:solid 0.8px var(--main-text-color);
+  border-radius: 5px;
+}
+
+.filter-items li{
+  margin:0 !important
+}
+
 .custom-checkbox input[type="checkbox"] {
   display: none; 
 }
