@@ -52,7 +52,9 @@ def rentals(request):
     rental_number = rentals.count()
 
     filtered = request.GET.getlist('q')
-    # filters_applied = filtered.count()
+
+    if filtered:
+        messages.info(request, f"You have added {len(filtered)} filters to your search")
 
     context = {
         "rentals": rentals,
