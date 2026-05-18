@@ -11,12 +11,13 @@
 <div class="filters-header">Filters 
     {% if filtered %}
     <span class="filter-count">({{ filtered | length }}) Filters applied</span>
+    <span><button class="btn btn-btn"><a href="{% url 'rentals' %}">Clear Filters</a></button></span>
     {% endif %}
     <div class="filter-icon" id="open-filter" onclick="openFilter()">
-        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <i class="fa-solid fa-sliders"></i>
     </div>    
     <div class="filter-icon" id="close-filter" onclick="closeFilter()">
-        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <i class="fa-solid fa-sliders"></i>
     </div>  
 </div>
 <div class="container-fluid">

@@ -944,7 +944,6 @@ thead{
   position:relative;
   left:65px;
   bottom:30px;
-  background-color: var(--main-background-color);
   width:30px;
   height:30px;
   border-radius: 50%;
@@ -958,7 +957,7 @@ thead{
 }
 
 .filter-icon:hover, .filter-icon-close:hover{
-  background-color: #f7f7f7;
+  font-size: 1.2rem;
 }
 
 .description{
