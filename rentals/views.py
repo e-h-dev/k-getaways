@@ -22,7 +22,8 @@ def rentals(request):
             Q(location__location__icontains=query) |
             Q(title__icontains=query) |
             Q(category__category__icontains=query) |
-            Q(amenities__icontains=query)
+            Q(amenities__icontains=query) |
+            Q(owner_name__username__icontains=query)
         )
         
     price = request.GET.get('price')
