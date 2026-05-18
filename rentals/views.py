@@ -24,8 +24,14 @@ def rentals(request):
             Q(category__category__icontains=query) |
             Q(amenities__icontains=query)
         )
-        if query.isdigit():
-            rentals = rentals.filter(Q(price__lte=int(query)))
+        
+    price = request.GET.get('price')
+    if price and price.isdigit():
+        rentals = rentals.filter(Q(price__lte=int(price)))    
+
+    bedrooms = request.GET.get('bedrooms')
+    if bedrooms and bedrooms.isdigit():
+        rentals = rentals.filter(Q(bedrooms__gte=int(bedrooms)))  
 
     sleeps = request.GET.get('sleeps')
     if sleeps and sleeps.isdigit():
