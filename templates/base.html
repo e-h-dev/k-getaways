@@ -171,29 +171,7 @@
     
     </script>
     <script>
-        var mainFilter = document.getElementById("mobile-filter");
-        var topFilter = document.getElementById("top-mobile-filter");
-        var searchIcon = document.getElementById("mobile-filter-search-icon");
-        window.onscroll = function() {filterRemove()};
-        
-        function filterRemove() {
-          if (document.documentElement.scrollTop > 80) {
-            mainFilter.className = "remove d-none";
-            topFilter.className = "filter-top-nav-mobile shadow"
-            searchIcon.style.display = "none";
-          } else {
-            mainFilter.className = "location-date-number-filter-mobile d-block d-lg-none";
-            topFilter.className = "remove";
-            searchIcon.style.display = "block";
-          }
 
-        }
-
-        function filterReplace(){
-            mainFilter.className = "location-date-number-filter-mobile d-block d-lg-none";
-            searchIcon.style.display = "block";
-            topFilter.className = "remove";
-        }
         $( function() {
             $( "#datepicker-in" ).datepicker({
                 dateFormat: 'dd-mm-yy',
