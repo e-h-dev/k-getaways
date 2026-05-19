@@ -583,12 +583,10 @@ footer{
   height:520px;
   width:100%;
   opacity: 0.7;
-  /* border-radius: 20px; */
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 45%;
   border-bottom-right-radius: 45%;
-  /* margin-top: 30px; */
   position:relative;
   right:20;
   left:0;
@@ -596,7 +594,6 @@ footer{
   top:-100px;
   background-size: cover;
   object-fit: cover;
-  /* image-rendering: pixelated; */
 }
 
 .hero-message, .scroll-down-hero-message{
@@ -1790,7 +1787,7 @@ input[type="file"]{
   }
 
   footer{
-  height:240px;
+  height:250px;
   border-top-left-radius: 40%;
   border-top-right-radius: 40%;
 }
@@ -1815,11 +1812,26 @@ input[type="file"]{
   margin:0 !important;
 }
 
+.footer-border{
+  position:relative;
+  bottom:-150px;
+  z-index: -1;
+  height:280px;
+  width:100%;
+  background-color: #fff;
+}
+
   /* ------------------------------------------------------------index.html styles */
+  /* create the correct spacing in tablet home page */
+  .filter-container{
+    height:0px;
+  }
+
+
   .home-landing{
-    height:1000px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    height:650px;
+    border-bottom-left-radius: 45%;
+    border-bottom-right-radius: 45%;
   }
 
   .half-hero{
@@ -1832,60 +1844,52 @@ input[type="file"]{
     border-bottom-right-radius: 30%;
     margin-top: 0;
     position:relative;
-    top:100px;
+    top:0;
   }
 
   .hero-message, .scroll-down-hero-message{
-    top: 35%;
+    top: 5%;
     text-align: center;
     margin-left: 120px;
   }
 
   .hero-message{
-    width:500px;
+    width:600px;
     position: absolute;
-    background-color: rgba(112, 112, 112, 0.4);
-  }
-
-  .location-box{
-    height:150px;
-    width:220px;
-    margin-left:10px;
-    margin-top: 45px;
-    padding:20px;
-    text-align: center;
-    border-radius: 20px;
-    position: relative;
-    top:100px;
-    z-index: auto;
-    display: block;
-  }
-
-  .location-header{
-    background-color: var(--main-text-color);
-    color:#f7f7f7;
-    font-size: 1.2rem;
-    width:180px;
-    position: relative;
-    top:160px;
-    right:150px;
+    /* background-color: rgba(112, 112, 112, 0.4); */
     left:0;
   }
 
-  .center-image{
+  #category-dropdown{
+    display: none;
+    right:-20px;
+  }
+
+  #location-dropdown{
+    display: none;
+    right:-20px
+  }
+
+  .featured-rentals{
+    padding-top:5px;
+  }
+
+
+  /* .center-image{
+    display:none;
     position: fixed;
     top:20%;
     z-index: -3;
     background-attachment:fixed;
-    background-size:contain;
+    background-size:cover;
     background-repeat: no-repeat;
     width:100%;
-    height:50vh;
+    height:100vh;
   }
 
   .scroll-down-hero-message{
     color:black;
-  }
+  } */
 
   /* rentals page */
   .mobile-top-spacer{

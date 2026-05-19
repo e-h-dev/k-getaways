@@ -19,7 +19,6 @@ in the bottom of the hero image -->
                     <img src="{% static 'media/hero.gif' %}" alt="hero image" class="half-hero" id="half-hero">
                     <div class="hero-message" id="hero-message">
                         <h2 class="fypg">Find Your perfect getaway</h2>
-                        <h3 class="d-lg-none d-md-block">Unwind without compromise</h3>
                         <div class="row">
                             <div class="col-3"></div>
                             <!-- center location and category filter dropdowns -->
@@ -45,6 +44,7 @@ in the bottom of the hero image -->
                         </div>  
                     </div>
                 </div>
+                <!-- this include is currently remove will need clarification before deployment -->
                 {% include 'mobile-image-links.html' %}
             </div>
         </div>
@@ -54,7 +54,7 @@ in the bottom of the hero image -->
 <!-- middle section of home page with a fixed image
  and a message that appears on scroll down, 
  only on desktop and tablet view -->
-<section>
+<section class="d-none d-lg-block">
         <div class="picture-trans">
             <div class="scroll-down-hero-message" id="scroll-down-hero-message">
                 <h2>Your perfect getaway</h2>
@@ -67,7 +67,7 @@ in the bottom of the hero image -->
 <!-- about section of home page, 
 only on desktop view, with 3 boxes for our story, 
 our mission and we are here for you -->
-<section class="d-lg-block d-md-none">
+<section>
     <div class="featured-rentals">
         <div class="container-fluid">
             <div class="row">
