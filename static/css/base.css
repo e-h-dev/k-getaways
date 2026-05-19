@@ -1657,7 +1657,7 @@ input[type="file"]{
 }
 
 
-/*--------------------------------------------------------------------------------- media queries */
+/*---------------------------------------------------------------------- media queries */
 @media screen and (max-width:850px){
 
   .bottom-bar{
@@ -1743,15 +1743,8 @@ input[type="file"]{
  }
 
  /* filter bar */
- /* .filter-container{
-    background-color: transparent;
-    position: relative;
-    height:50px;
-    top:120px;
-    z-index: 3;
-  } */
-
-  .location-date-number-filter-mobile{
+ 
+ .location-date-number-filter-mobile{
     width:550px;
     left:100px;
     background-color:var(--main-background-color);
@@ -1796,7 +1789,33 @@ input[type="file"]{
     left:515px;
   }
 
-  /* index.html styles */
+  footer{
+  height:240px;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
+}
+
+.top-footer-row{
+  position: relative;
+  top:80px;
+}
+
+.footer-logo{
+  position: relative;
+  left:40px;
+  width:80px;
+  height:40p
+}
+
+.footer-list li{
+  margin:0 !important;
+}
+
+.footer-row-1{
+  margin:0 !important;
+}
+
+  /* ------------------------------------------------------------index.html styles */
   .home-landing{
     height:1000px;
     border-bottom-left-radius: 0;
