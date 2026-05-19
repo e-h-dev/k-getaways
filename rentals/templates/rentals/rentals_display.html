@@ -119,6 +119,9 @@
                     <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
                         <div class="rental-display-box shadow">
                             <div class="rental-header">{{ r.title }}</div>
+                            <div class="rental-sub-header">
+                                <i class="fa-solid fa-location-dot"></i> {{ r.location }}
+                            </div>
                             {% if r.images.all %}
                             {% for i in r.images.all %}
                                 <div class="image-slider-{{ r.id }}">
@@ -135,17 +138,23 @@
                             </div>
                             {% endif %}
 
-                        <!-- <div class="description">{{ r.description }}</div> -->
-                        <div class="number-of-rooms">
-                            <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
-                        </div>
-                         <hr>
-                        <div class="price">
-                            <i class="fa-solid fa-tags"></i>
-                            £{{ r.price }} per night
-                        </div>
-                        <hr>
-                        <div class="rating">
+                            <!-- <div class="description">{{ r.description }}</div> -->
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
+                                </div>
+                                <div class="col-6">
+                                    <i class="fa-solid fa-people-roof"></i> {{ r.sleeps }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="price">
+                                <i class="fa-solid fa-tags"></i>
+                                £{{ r.price }} per night
+                            </div>
+                            <hr>
+                            <!-- rating and review system has been put on hold for moment subject of הלכות לשון הרע -->
+                            <!-- <div class="rating">
                         Rating:
                         {% if r.rating == 1 %}
                             <i class="fa-solid fa-star"></i>
@@ -178,8 +187,8 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                         {% endif %}
-                    </div>
-                        <hr>
+                        </div>
+                        <hr> -->
                         
                         </div>
                     </a>
