@@ -78,6 +78,14 @@ header{
   box-shadow: none !important;
 }
 
+.sml-btn{
+  font-size: 0.7rem;
+  background-color: #f1f1f1;
+  color:var(--main-text-color);
+  font-family: var(--main-font);
+  border-radius:999999px
+}
+
 /* cross site messages styling */
 
 #messages-container{
