@@ -1,0 +1,56 @@
+{% load static %}
+<div class="container d-block d-md-none">
+    <div class="row nav-bar">
+    <div class=col-1></div>
+    <!-- logo area -->
+    <div class="col-5">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'media/logo_3.png' %}" alt="logo" class="logo">
+        </a>
+    </div>
+    <div class="col-5">
+        <div class="row upper-nav">
+            <div class="col-12">
+                <div class="sign-in-box">
+                    {% if request.user.is_authenticated %}
+                    
+                    <span class="user-avatar">{{ user.username|first|capfirst }}</span>
+                    <div class="member-dropdown shadow" id="drop-down">
+                        <ul>
+                            <li style="text-align: center;" class="welcome-name">Welcome <strong>{{ user.username }}!</strong></li>
+                            <hr>
+                            <li><a href="{% url 'rentals' %}?q={{ user }}">Your Rentals</a></li>
+                            <li>Your Booking</li>
+                            <li><a href="{% url 'contacts' %}" class="top-nav-link">Messages</a></li>
+                            <li><a href="{% url 'account_logout' %}" class="top-nav-link">Sign Out</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="icon">
+                        <i class="fa-solid fa-circle-user"></i>
+                    </div>
+                    <div class="sign-up-dropdown shadow" id="drop-down">
+                        <ul>
+                            <li><a href="{% url 'account_login' %}" class="top-nav-link">Login</a></li>
+                            <li><a href="{% url 'account_signup' %}" class="top-nav-link">Register</a></li>
+                        </ul>
+                    </div>
+                    
+                    {% endif %}
+                </div>
+                
+                <div class="nav-dropdown d-lg-none d-md-block">
+                    
+                    <i class="fa-solid fa-bars"></i>
+                    <div class="mobile-nav-dropdown shadow" id="dropdown">
+                        {% include 'includes/mobile_nav.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block extra_header %}
+        {% endblock %}
+    </div>
+    <div class="col-1"></div>
+    </div>
+</div>

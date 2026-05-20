@@ -1669,6 +1669,7 @@ input[type="file"]{
 
 
 /*---------------------------------------------------------------------- media queries */
+/* tablet size */
 @media screen and (max-width:850px){
 
   .bottom-bar{
@@ -1933,6 +1934,85 @@ input[type="file"]{
     width:200px;
     height:220px;
     
+  }
+}
+
+/* mobile size */
+@media screen and (max-width:480px){
+  .logo{
+    bottom:15px;
+    width:120px;
+    height:70px;
+  }
+
+  .sign-in-box{
+    margin-left: 5px;
+    position: relative;
+    right: 20px;
+    bottom: 30px;
+    width:40px;
+    background-color: transparent;
+    border: none;
+  }
+
+  .user-avatar{
+    font-size:1rem;
+    padding-left:9px;
+    padding-top:4px;
+  }
+
+  .icon .user-avatar{
+    height:25px;
+    width:25px;
+  }
+
+  .nav-dropdown{
+    margin-left: 50px;
+    font-size: 1.2rem;
+    position:relative;
+    z-index:9;
+    bottom:115px;
+    right:5px;
+    width:20px;
+    cursor:pointer;
+  }
+
+  .mobile-nav-dropdown{
+    display:none;
+    padding:5px;
+    right:-10px;
+    width:180px;
+  }
+
+  .mobile-nav-content{
+    font-size:0.8rem
+  }
+
+  .member-dropdown, .sign-up-dropdown{
+    top:40px;
+    right:10px;
+    width:200px;
+    font-size:0.8rem;
+    z-index: 999999999999;
+    display:none;
+  }
+
+
+  /* filter bar */
+.location-date-number-filter-mobile{
+    width:280px;
+    left:40px;
+    bottom:120px;
+    height:35px;
+    border-radius: 25px;
+    margin-top: 10px;
+  }
+
+  .ldnf-input[type="text"],
+  input[type="number"]{
+    width: 50px;
+    height:20px;
+    font-size: 0.5rem;
   }
 }
 
