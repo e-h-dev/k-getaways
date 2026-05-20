@@ -22,7 +22,7 @@ in the bottom of the hero image -->
                         <div class="row">
                             <div class="col-3"></div>
                             <!-- center location and category filter dropdowns -->
-                            <div class="col-3 location-btns" id="location-btn">Location <i class="fa fa-caret-down"></i>
+                            <div class="col-3 d-none d-md-block location-btns" id="location-btn">Location <i class="fa fa-caret-down"></i>
                                 <div id="location-dropdown">
                                     <ul class="category-location-li">
                                         {% for location in locations%}
@@ -31,7 +31,7 @@ in the bottom of the hero image -->
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-3 location-btns" id="category-btn">Category <i class="fa fa-caret-down"></i>
+                            <div class="col-3 d-none d-md-block location-btns" id="category-btn">Category <i class="fa fa-caret-down"></i>
                                 <div id="category-dropdown">
                                     <ul class="category-location-li">
                                         {% for category in categories %}

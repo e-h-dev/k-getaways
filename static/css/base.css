@@ -590,7 +590,6 @@ footer{
   position:relative;
   right:20;
   left:0;
-  z-index: 0;
   top:-100px;
   background-size: cover;
   object-fit: cover;
@@ -813,6 +812,7 @@ thead{
 }
 
 .ui-datepicker-header, .ui-widget-header, .ui-helper-clearfix, .ui-corner-all{
+  z-index: 0;
   height:40px;
   border-radius: 10px;
 }
@@ -2014,6 +2014,51 @@ input[type="file"]{
     height:20px;
     font-size: 0.5rem;
   }
+
+  /* ------------------------------------------------------------index.html styles */
+  /* ------------------------------------------------------------index.html styles */
+  /* create the correct spacing in tablet home page */
+  .filter-container{
+    height:0px;
+  }
+
+  .home-landing{
+    height:250px;
+    bottom:50px;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+  }
+
+  .featured-rentals{
+    bottom:50px;
+  }
+
+
+  .half-hero{
+    height:250px;
+    width:100%;
+    opacity: 0.7;
+    left:0;
+    border-radius: 0;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    margin-top: 0;
+    position:relative;
+    top:0;
+  }
+
+  .hero-message{
+    width:300px;
+    position: absolute;
+    /* background-color: rgba(112, 112, 112, 0.4); */
+    left:0;
+    margin-left: 12%;
+  }
+
+  .hero-message h2{
+    font-size: 1.2rem;
+  } 
+
 }
 
 
