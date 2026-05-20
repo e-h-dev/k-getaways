@@ -1803,7 +1803,8 @@ input[type="file"]{
   }
 
   .search-icon{
-    left:515px;
+    position:relative;
+    left:5px;
   }
 
   footer{
@@ -1946,7 +1947,7 @@ input[type="file"]{
   }
 
   .sign-in-box{
-    margin-left: 5px;
+    margin-left: 55px;
     position: relative;
     right: 20px;
     bottom: 30px;
@@ -1967,7 +1968,7 @@ input[type="file"]{
   }
 
   .nav-dropdown{
-    margin-left: 50px;
+    margin-left: 100px;
     font-size: 1.2rem;
     position:relative;
     z-index:9;
@@ -2002,8 +2003,8 @@ input[type="file"]{
 .location-date-number-filter-mobile{
     width:280px;
     left:40px;
-    bottom:120px;
-    height:35px;
+    bottom:100px;
+    height:30px;
     border-radius: 25px;
     margin-top: 10px;
   }
@@ -2013,10 +2014,38 @@ input[type="file"]{
     width: 50px;
     height:20px;
     font-size: 0.5rem;
+    position:relative;
+    bottom: 5px;
+  }
+
+  .search-icon{
+    font-size:1rem;
+    bottom:5px;
+  }
+
+  /* footer */
+  footer{
+    height:380px;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+  }
+
+  .footer-logo{
+    left:150px;
+  }
+
+  footer h3{
+    font-size: 1.2rem;
+  }
+
+  footer li{
+    font-size: 0.8rem;
+    padding:5px;
+    margin:0 !important
   }
 
   /* ------------------------------------------------------------index.html styles */
-  /* ------------------------------------------------------------index.html styles */
+
   /* create the correct spacing in tablet home page */
   .filter-container{
     height:0px;
