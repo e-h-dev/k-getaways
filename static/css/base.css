@@ -350,7 +350,7 @@ footer{
   position:relative;
   bottom:-150px;
   z-index: -1;
-  height:280px;
+  height:160px;
   width:100%;
   background-color: #fff;
 }
@@ -710,7 +710,7 @@ footer{
   bottom: -150px;
   border-top-left-radius: 40%;
   border-top-right-radius: 40%;
-  height:500px;
+  height:700px;
   padding-top: 40px;
 }
 
@@ -1708,6 +1708,7 @@ input[type="file"]{
   margin-left: 450px;
   font-size: 1.8rem;
   position:relative;
+  z-index:9;
   bottom:40px;
   width:20px;
   cursor:pointer;
@@ -1736,6 +1737,10 @@ input[type="file"]{
   right:-20px;
   width:200px;
   cursor:pointer;
+ }
+
+ .nav-dropdown:hover{
+  color:#000
  }
 
  .nav-dropdown:hover .mobile-nav-dropdown{
@@ -1802,8 +1807,8 @@ input[type="file"]{
 
   footer{
   height:250px;
-  border-top-left-radius: 40%;
-  border-top-right-radius: 40%;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
 }
 
 .top-footer-row{
@@ -1830,7 +1835,7 @@ input[type="file"]{
   position:relative;
   bottom:-150px;
   z-index: -1;
-  height:280px;
+  height:50px;
   width:100%;
   background-color: #fff;
 }
@@ -1854,15 +1859,15 @@ input[type="file"]{
     opacity: 0.7;
     left:-5px;
     border-radius: 0;
-    border-bottom-left-radius: 30%;
-    border-bottom-right-radius: 30%;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
     margin-top: 0;
     position:relative;
     top:0;
   }
 
   .hero-message, .scroll-down-hero-message{
-    top: 5%;
+    top: 15%;
     text-align: center;
     margin-left: 120px;
   }
@@ -1886,6 +1891,20 @@ input[type="file"]{
 
   .featured-rentals{
     padding-top:5px;
+    bottom:10px;
+  }
+
+  .homepage-paragragh-box{
+    margin: 5px;
+    padding: 30px;
+    text-align:justify;
+    border-radius:20px;
+    margin-bottom:30px;
+  }
+
+  .content-overlay{
+    width:100%;
+    margin:25px;
   }
 
 
