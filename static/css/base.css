@@ -2100,6 +2100,20 @@ input[type="file"]{
     font-size: 1.2rem;
   } 
 
+  /* rental display page */
+  .filters-header, .rental-count, .column-change{
+    position: relative;
+    bottom:100px;
+  }
+
+  .mobile-filters-box{
+    width:350px;
+    padding:20px;
+    height: 40%;
+    right:20px;
+  }
+
+
 }
 
 
