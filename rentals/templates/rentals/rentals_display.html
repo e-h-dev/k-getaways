@@ -4,7 +4,6 @@
 {% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
 {% block extra_class%} active{% endblock %}
 {% block content%}
-<div class="mobile-top-spacer"></div>
 <div class="filter-container rentals-filter-container">
     {% include 'filters.html' %}
 </div>
@@ -13,16 +12,29 @@
     <span class="filter-count">({{ filtered | length }}) Filters applied</span>
     <span><button class="btn sml-btn"><a href="{% url 'rentals' %}">Clear All</a></button></span>
     {% endif %}
-    <div class="filter-icon" id="open-filter" onclick="openFilter()">
+    <!-- active on desktop only -->
+    <div class="d-none d-lg-block">
+        <div class="filter-icon" id="open-filter" onclick="openFilter()">
+            <i class="fa-solid fa-sliders"></i>
+        </div>    
+        <div class="filter-icon" id="close-filter" onclick="closeFilter()">
+            <i class="fa-solid fa-sliders"></i>
+        </div>
+    </div>
+    
+    <!-- active on mobile only -->
+    <div class="d-block d-lg-none">
+        <div class="filter-icon" id="open-filter-mob" onclick="openFilterMob()">
         <i class="fa-solid fa-sliders"></i>
     </div>    
-    <div class="filter-icon" id="close-filter" onclick="closeFilter()">
+    <div class="filter-icon" id="close-filter-mob" onclick="closeFilterMob()">
         <i class="fa-solid fa-sliders"></i>
-    </div>  
+    </div>
+    </div>   
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 filter-content">
+        <div class="col-12 col-lg-3 filter-content mobile-filters-box">
             <aside class="filters">
                 <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
                 <div>
@@ -115,7 +127,7 @@
             <div class="row">
                 {% for r in rentals %}
                 
-                <div class="col-lg-3 col-md-4 column-change">
+                <div class="col-12 col-md-6 col-lg-3 column-change">
                     <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
                         <div class="rental-display-box pt-4 shadow">
                             <div class="rental-header">{{ r.title }}</div>
@@ -204,6 +216,7 @@
 {% block js %}
 
 <script>
+    // functions for desktop
     function openFilter(){
         $('.filter-content').css("display", "block");
         $('#row-change').removeClass("col-12");
@@ -223,6 +236,20 @@
         $('#open-filter').css("display", "block");
         $('#close-filter').css("display", "none");
     }
+
+    // functions for mobile
+    function openFilterMob(){
+        $('.mobile-filters-box').css("display", "block");
+        $('#open-filter-mob').css("display", "none");
+        $('#close-filter-mob').css("display", "block");
+    }
+
+    function closeFilterMob(){
+        $('.mobile-filters-box').css("display", "none");
+        $('#open-filter-mob').css("display", "block");
+        $('#close-filter-mob').css("display", "none");
+    }
+
 
     // price filtering and display
 

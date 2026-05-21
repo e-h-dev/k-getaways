@@ -945,7 +945,7 @@ thead{
   color:rgb(88, 13, 13)
 }
 
-#close-filter{
+#close-filter, #close-filter-mob{
   display:none;
 }
 
@@ -1927,15 +1927,27 @@ input[type="file"]{
   } */
 
   /* rentals page */
-  .mobile-top-spacer{
-    height:250px;
-  }
-
   .featured-image{
-    width:200px;
+    width:100%;
     height:220px;
     
   }
+
+  /* in page filters section */
+
+  .mobile-filters-box{
+    position:fixed;
+    width:450px;
+    padding:20px;
+    height: 40%;
+    right:200px;
+    border: 1px solid var(--main-text-color);
+    border-radius: 20px;
+    overflow-y: scroll;
+    z-index: 10;
+    background-color: #fff;
+  }
+
 }
 
 /* mobile size */
