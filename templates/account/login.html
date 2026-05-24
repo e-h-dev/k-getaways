@@ -7,11 +7,10 @@
 
 {% block content %}
 
-<div class="sign-in-up-box shadow">
-    <h1>{% trans "Sign In" %}</h1>
-
+<div class="container-fluid">
     <div class="row">
-      <div class="col-6 social-sign-border">
+      <!-- temp removal of social account login till later setup -->
+      <div class="d-none col-6 social-sign-border">
 
         {% get_providers as socialaccount_providers %}
 
@@ -48,22 +47,26 @@
         {% include "socialaccount/snippets/login_extra.html" %}
 
       </div>
+    <div class="col-3"></div>
     <div class="col-6">
         {% else %}
         <p>{% blocktrans %}If you have not created an account yet, then please
         <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
         {% endif %}
-
-        <form class="sign-form" method="POST" action="{% url 'account_login' %}">
+        <h1 style="text-align: center;">{% trans "Sign In" %}</h1>
+        <div class="form-container">
+          <form class="sign-form" method="POST" action="{% url 'account_login' %}">
           {% csrf_token %}
           {{ form.as_p }}
           {% if redirect_field_value %}
           <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
           {% endif %}
-          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-          <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+          <a class="button secondaryAction" style="font-family: var(--main-font)" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+          <button class="btn btn-btn primaryAction" type="submit">{% trans "Sign In" %}</button>
         </form>
+        </div>
       </div>
     </div>
+    <div class="col-3"></div>
 </div>
 {% endblock %}

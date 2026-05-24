@@ -1461,50 +1461,13 @@ input[type="file"]{
 }
 
 /* -------------------------------------------------sign up etc */
-.sign-in-image{
-  background-image:url("/media/sign_in_bg.png");
-  height:100%;
+.form-container input[type="checkbox"]{
+  position: relative;
+  right:120px;
+  bottom:30px;
+  width:20px;
+  height:20px
 }
-
-.sign-box{
-  font-family: var(--main-font);
-  background-color: var(--main-background-color);
-  border-radius: 20px;
-  width:33%;
-  height:400px;
-  margin-left: 33%;
-  text-align: center;
-  padding:50px;
-}
-
-.sign-in-up-box{
-  font-family: var(--main-font);
-  background-color: var(--main-background-color);
-  border-radius: 20px;
-  width:66%;
-  height:400px;
-  margin-left: 13%;
-  text-align: center;
-  padding:50px;
-}
-
-.sign-form{
-  text-align:left;
-}
-
-.sign-form input[type="text"]{
-  background-color: #f7f7f7 !important;
-  border:var(--main-text-color) solid 0.5px;
-  width: 200px !important;
-  height:40px !important;
-  padding:10px;
-  text-align: left;
-}
-
-.sign-form input[type="text"]::selection{
-  background-color: #f7f7f7;
-}
-
 .social-sign-border{
   border-right: solid 2px var(--main-text-color);
 }
@@ -1631,22 +1594,6 @@ input[type="file"]{
 .sign-header{
   font-size: 2rem;
   margin-bottom: 20px;
-}
-
-.sign-button{
-  width:150px;
-  height:50px;
-  background: #f6f6f6;
-  border: none;
-  padding:10px;
-  border-radius: 20px;
-  font-size: 1.2rem;
-  color:var(--main-text-color)
-}
-
-.sign-button:hover{
-  background-color: var(--main-text-color);
-  color:#f6f6f6;
 }
 
 /* --------------------------------------------------contacts pages */
