@@ -1232,12 +1232,12 @@ thead{
   text-align: center;
 }
 
-#calender{
+/* #calender{
   position: relative;
   left:20px;
   width:80%;
   height: 50%;
-}
+} */
 
 
 /* minmise size of month and year in calendar header, 
@@ -2070,13 +2070,6 @@ input[type="file"]{
   text-align: center;
 }
 
-#calender{
-  position: relative;
-  left:20px;
-  width:80%;
-  height: 50%;
-}
-
 #amenities-display-btn .btn-btn{
   left:0;
   width:100%;
@@ -2268,7 +2261,40 @@ input[type="file"]{
     right:20px;
   }
 
+  /* rental-details page */
 
+  .gallery-images{
+    border-radius: 20px;
+}
+
+  .price-container{
+    position:relative;
+    top:-40px;
+    padding:20px;
+    width:100%;
+    font-size: 1.2rem;
+  }
+
+  .about-container{
+    left:20%;
+  }
+
+  #availability-container {
+    width: 100%;
+    height: 480px;
+    left: 0;
+    padding: 20px 20px 30px;
+  }
+
+  thead table{
+    width:100% !important;
+  }
+
+  .fc-scrollgrid-sync-table,
+  .fc-daygrid-body,
+  .fc-daygrid-body-unbalanced {
+    width:100% !important;
+  }
 }
 
 
