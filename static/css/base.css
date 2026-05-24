@@ -2091,6 +2091,12 @@ input[type="file"]{
 
 /* mobile size */
 @media screen and (max-width:480px){
+
+  /* base element styles */
+  h1{
+    font-size: 1.2rem;
+    text-align: center;
+  }
   .logo{
     bottom:15px;
     width:120px;
@@ -2313,6 +2319,14 @@ input[type="file"]{
     padding:20px;
     border-radius: 20px;
   }
+
+  /* styling all forms */
+
+  .form-container{
+    padding:10px;
+    border: 15px solid var(--main-background-color);
+    border-radius:20px;
+  } 
 }
 
 
