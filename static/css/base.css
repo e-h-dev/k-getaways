@@ -96,7 +96,7 @@ header{
   font-family: var(--main-font);
   color: var(--main-text-color);
   border-radius:5px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   z-index: 99999999999999999999;
   background-color: var(--main-background-color);
 }
@@ -1759,6 +1759,15 @@ input[type="file"]{
   }
  }
 
+ /* styles for django messages */
+  #messages-container{
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    width: 60%;
+    font-size: 0.9rem;
+  }
+
  /* filter bar */
  
  .location-date-number-filter-mobile{
@@ -2008,6 +2017,15 @@ input[type="file"]{
     font-size:0.8rem;
     z-index: 999999999999;
     display:none;
+  }
+
+  /* styles for django messages */
+  #messages-container{
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    width: 80%;
+    font-size: 0.8rem;
   }
 
 
