@@ -161,6 +161,23 @@
                                 </div>
                             </div>
                             <hr>
+                            {% if user.is_authenticated and r.owner_name == user %}
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-10">
+                                    <a style="font-size: 0.8rem;" href="">Edit this Rental</a>
+                                </div>
+                            </div>
+                            <hr>
+                            {% endif %}
+                            <!-- <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-10 description ml-3">
+                                    {{ r.description|truncatechars:50 }}
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            <hr> -->
                             <div class="price ml-3">
                                 <i class="fa-solid fa-tags"></i>
                                 £{{ r.price }} per night
