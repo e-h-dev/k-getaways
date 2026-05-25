@@ -1617,6 +1617,22 @@ input[type="file"]{
   color:red !important;
 }
 
+.contact-row-read{
+  background-color: rgba(117, 187, 167, 0.08) !important;
+}
+
+.contact-row-unread{
+  background-color: rgba(117, 187, 167, 0.6) !important;
+  font-weight: 800;
+}
+
+.message-content{
+  font-family: var(--main-font);
+  color:var(--main-text-color);
+  padding:20px;
+  background-color: var(--main-background-color);
+}
+
 
 /*---------------------------------------------------------------------- media queries */
 /* tablet size */

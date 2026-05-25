@@ -75,9 +75,10 @@
     let contactContent{{ c.id }} = document.getElementById('contact-{{ c.id }}')
 
     function openContact{{ c.id }}(){
-        contactContent{{ c.id }}.style.display = "flex"
-        contact{{ c.id }}.style.fontWeight = '200'
-        contact{{ c.id }}.style.backgroundColor = 'var(--light-opaque)'
+        contactContent{{ c.id }}.style.display = "flex";
+        contact{{ c.id }}.style.fontWeight = '200';
+        contact{{ c.id }}.classList.remove('contact-row-unread');
+        contact{{ c.id }}.classList.add('contact-row-read');
     }
 
     function closeContact{{ c.id }}(){
