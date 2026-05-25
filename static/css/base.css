@@ -1617,6 +1617,17 @@ input[type="file"]{
   color:red !important;
 }
 
+.contacts_header{
+  text-align: center;
+}
+
+.contacts_sub_header{
+  font-family: var(--main-font);
+  color:var(--main-text-color);
+  font-size: 1rem;
+  text-align: center;
+}
+
 .contact-row-read{
   background-color: rgba(117, 187, 167, 0.08) !important;
 }

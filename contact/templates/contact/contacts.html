@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} - Messages {% endblock %}
+{% block extra_title %} - Messages ({{ unread_message_count }}) {% endblock %}
 {% block content%}
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-            <h1>My messages ({{ contacts|length }})</h1>
+            <h1 class="contacts_header">My Messages ({{ message_count }})</h1>
+            <h5 class="contacts_sub_header">New Messages ({{ unread_message_count }})</h5>
             <hr>
         </div>
         <div class="col-4"></div>
