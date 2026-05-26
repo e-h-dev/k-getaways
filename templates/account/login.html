@@ -55,6 +55,9 @@
         {% endif %}
         <h1 style="text-align: center;">{% trans "Sign In" %}</h1>
         <div class="form-container">
+          <p>{% blocktrans %}If you have not created an account yet, then please
+            <a class="btn-btn" role="button" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+          </p>
           <form class="sign-form" method="POST" action="{% url 'account_login' %}">
           {% csrf_token %}
           {{ form.as_p }}
