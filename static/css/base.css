@@ -61,10 +61,12 @@ header{
     border-radius: 5px !important;
 }
 
-.btn-btn:hover{
+
+.btn-btn:hover,
+.btn:hover{
     background-color: var(--main-text-color) !important;
-    border: rgba(122, 46, 46, 0.1) solid 2px !important;
-    color:var(--main-background-color) !important;
+    border: var(--main-background-color) solid 2px !important;
+    color:#fff !important;
 }
 
 .btn-btn:active:focus,
