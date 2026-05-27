@@ -15,6 +15,7 @@
         <div class="d-none d-md-block col-2"></div>
         <div class="col-12 col-md-8">
             <div class="form-container shadow" id="form-container">
+                <button class="btn btn-btn mt-3"><a href="{% url 'load_images' rental.id %}">Cancel</a></button>
                 <h1 class="center form-header mb-5">Fill in the Form below to add unavailable dates for your home</h1>
                 <p>You may have multiple unavailable dates for your home.</p>
                 <p>Click the "Add more Dates" button to add additional unavailable date ranges.</p>
@@ -29,6 +30,7 @@
                     </div>
                     <button class="btn btn-btn mt-3" type="submit">Next</button>
                 </form>
+                <button class="btn btn-btn mt-3" onclick="window.history.back()">Back</button>
             </div>
         </div>
         <div class="d-none d-md-block col-2"></div>
