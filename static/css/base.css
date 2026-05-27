@@ -110,7 +110,7 @@ header{
   width:100%;
   position: relative;
   top: 8px;
-  animation: rewind 3.5s;
+  animation: rewind 3.52s;
 }
 
 @keyframes rewind{
@@ -121,6 +121,10 @@ header{
   100%{
      width:0;
   }
+}
+
+.alert{
+  background-color: #d1ecf1 !important;
 }
 
 .alert-success{

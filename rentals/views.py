@@ -181,6 +181,10 @@ def list_home(request):
 @login_required
 def load_images(request, rental_id):
 
+    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+
     rental = get_object_or_404(Rentals, pk=rental_id)
 
     if request.method == 'POST':
@@ -219,6 +223,10 @@ def load_images(request, rental_id):
 @login_required
 def add_unavailable_dates(request, rental_id):
 
+    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+
     rental = get_object_or_404(Rentals, pk=rental_id)
 
     if request.method == 'POST':
@@ -233,6 +241,7 @@ def add_unavailable_dates(request, rental_id):
                     start_date=f,
                     end_date=n
                 )
+
             messages.success(request, "Your unavailable date has been saved.")
             print("your unavailable date has been saved")
         else:

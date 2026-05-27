@@ -30,6 +30,8 @@ class Rentals(models.Model):
     class Meta:
         verbose_name_plural = "Rentals"
 
+    # active = models.BooleanField(default=False)
+    # date_added = models.DateField(auto_now_add=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='rentals')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # owner_name = models.CharField(max_length=100, null=True, blank=True)
