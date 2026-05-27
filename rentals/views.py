@@ -179,6 +179,45 @@ def list_home(request):
 
 
 @login_required
+def edit_home(request, rental_id):
+    """
+    View for editing an existing rental. Only the owner can edit their rental."""
+
+    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+    
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    if request.method == 'POST':
+        form = RentalForm(request.POST, instance=rental)
+        
+        if form.is_valid():  # and image_form.is_valid():
+            done = form.save(commit=False)
+            done.save(update_fields=['location', 'category', 'owner_number',
+                                    'owner_email', 'address', 'post_code',
+                                    'title', 'sleeps', 'bedrooms', 'bathrooms',
+                                    'amenities', 'description', 'price'])
+            messages.success(request, "Your rental has been updated.")
+            print("your rental has been updated")
+        else:
+            messages.error(request, "Please correct the errors below.")
+            print("your rental is invalid")
+            print(form.errors)
+            
+        return redirect('add_unavailable_dates', rental_id=done.id)
+
+    else:
+        form = RentalForm(instance=rental)
+
+    context = {
+        'rental': rental,
+        'form': form,
+        }
+    return render(request, 'rentals/edit_home.html', context)
+
+
+@login_required
 def load_images(request, rental_id):
 
     if request.user != Rentals.objects.get(pk=rental_id).owner_name:
