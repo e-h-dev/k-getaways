@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from tkinter.font import names
 from django.forms import modelformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -222,11 +223,16 @@ def add_unavailable_dates(request, rental_id):
 
     if request.method == 'POST':
         form = UnavailableDatesForm(request.POST)
+        start_date = request.POST.getlist('start_date')
+        end_date = request.POST.getlist('end_date')
 
         if form.is_valid():
-            unavailable_date = form.save(commit=False)
-            unavailable_date.rental = rental
-            unavailable_date.save()
+            for f, n in zip(start_date, end_date):
+                UnavailableDates.objects.create(
+                    rental=rental,
+                    start_date=f,
+                    end_date=n
+                )
             messages.success(request, "Your unavailable date has been saved.")
             print("your unavailable date has been saved")
         else:
@@ -244,3 +250,33 @@ def add_unavailable_dates(request, rental_id):
         'rental': rental
         }
     return render(request, 'rentals/add_unavailable_dates.html', context)
+
+
+# def add_more_unavailable_dates(request, rental_id):
+
+#     rental = get_object_or_404(Rentals, pk=rental_id)
+
+#     if request.method == 'POST':
+#         form = UnavailableDatesForm(request.POST)
+
+#         if form.is_valid():
+#             unavailable_date = form.save(commit=False)
+#             unavailable_date.rental = rental
+#             unavailable_date.save()
+#             messages.success(request, "Your unavailable date has been saved.")
+#             print("your unavailable date has been saved")
+#         else:
+#             messages.error(request, "Please correct the errors below.")
+#             print("your unavailable date is invalid")
+#             print(form.errors)
+            
+#         return redirect('load_images', rental_id=rental.id)
+
+#     else:
+#         form = UnavailableDatesForm()
+
+#     context = {
+#         'form': form,
+#         'rental': rental
+#         }
+#     return render(request, 'rentals/add_more_unavailable_dates.html', context)
