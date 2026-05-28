@@ -1470,6 +1470,18 @@ input[type="file"]{
   display:none;
 }
 
+/* styles help_text class from python forms file */
+.helptext{
+  font-size: 0.8rem;
+  position: relative;
+  top: 40px;
+  left: 65px;
+  background-color: var(--main-background-color);
+  padding: 10px 20px;
+  border-radius:9999999px;
+}
+
+
 /* update label in add dates form */
 .form-box label{
     font-family: var(--main-font);

@@ -5,11 +5,18 @@ from .models import Rentals, Image, UnavailableDates
 
 class RentalForm(forms.ModelForm):
 
+    bathrooms = forms.CharField(
+            help_text='<i class="fa-solid fa-circle-info"></i>' \
+            ' Enter amenities separated by commas (e.g. Shabbos' \
+            ' Urn, Near Shuls, Air Conditioning, Garden)'
+        )
+
     class Meta:
         model = Rentals
-        fields = ["location", "category", "owner_number", "owner_email", "address", "post_code", "title", "sleeps", "bedrooms", "bathrooms", "amenities",
-                  "description", "price"]
-
+        fields = ["location", "category", "owner_number", "owner_email",
+                  "address", "post_code", "title", "sleeps", "bedrooms",
+                  "bathrooms", "amenities", "description", "price"]
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
