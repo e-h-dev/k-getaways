@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from tkinter.font import names
 from django.forms import modelformset_factory
@@ -18,6 +18,30 @@ def rentals(request):
     rentals = Rentals.objects.prefetch_related('images').all()
     rentals = rentals.filter(active=True)
 
+    """
+    This block checks each rental's listing date and marks it as inactive if it's been listed for over 30 days.
+    This ensures that only recently listed rentals are active, improving the relevance of search results for users.
+    """
+    today = datetime.today().date()
+    print(f"Today's date is: {today}")
+
+    for rental in rentals:
+        listed = rental.date_added
+        print(f"Rental '{rental.title}' was listed on: {listed}")
+
+        listing_expires = today - timedelta(days=30)
+
+        if listed < listing_expires:
+            rental.active = False
+            rental.save()
+            print(f"Rental '{rental.title}' has been marked as inactive due to being listed for over 30 days.")
+    
+    """
+    This block handles search and filtering based on user input from the search form.
+    It checks for various query parameters and applies filters accordingly.
+    The filters include text search, price, number of bedrooms, sleeps, and availability based on check-in/check-out dates.
+    The final filtered queryset is then passed to the template for rendering.
+    """
     query = request.GET.get('q')
     if query:
         rentals = rentals.filter(
