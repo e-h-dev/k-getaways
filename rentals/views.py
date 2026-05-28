@@ -16,6 +16,7 @@ from .forms import RentalForm, ImageForm, UnavailableDatesForm
 def rentals(request):
 
     rentals = Rentals.objects.prefetch_related('images').all()
+    rentals = rentals.filter(active=True)
 
     query = request.GET.get('q')
     if query:
@@ -75,6 +76,9 @@ def rentals(request):
 
 def rental_detail(request, rental_id):
     rental = get_object_or_404(Rentals.objects.prefetch_related('images').all(), pk=rental_id)
+    if rental.active == False:
+        messages.info(request, "This rental is currently inactive. Please contact us if you are interested in listing your property or have any questions.")
+        return redirect('rentals')
     amenities = rental.amenities.split(",")
     amenities.sort()  # Sort amenities alphabetically
     amenities[0].upper()
@@ -101,25 +105,6 @@ def rental_availability_json(request, rental_id):
     rentals = Rentals.objects.filter(id=rental_id)
     
     events = []
-    # for item in rentals:
-    #     events.append({
-    #         'start': item.available_from.isoformat(),
-    #         'end': item.available_till.isoformat(),
-    #         'title':'Available',
-    #         'display': 'background',  # Blurs/greys out the area
-    #         'color': 'rgba(6, 6, 190)',       # Blue color for the background
-    #         'overlap': False,         # Prevents double booking
-    #     })
-
-    #     events.append({
-    #         'start': item.available_from.isoformat(),
-    #         'end': item.available_till.isoformat(),
-    #         'title':'Unavailable',
-    #         'display': 'inverse-background',
-    #         'color': 'rgb(190, 6, 6)', # Light Red
-    #         'groupId': 'unavailableArea',    # Groups these to avoid visual glitches
-    #     })
-
 
     for unavailable in UnavailableDates.objects.filter(rental_id=rental_id):
         events.append({
@@ -300,31 +285,15 @@ def add_unavailable_dates(request, rental_id):
     return render(request, 'rentals/add_unavailable_dates.html', context)
 
 
-# def add_more_unavailable_dates(request, rental_id):
+# def delete_image(request, image_id):
+#     image = get_object_or_404(Image, pk=image_id)
+#     rental_id = image.name.id
 
-#     rental = get_object_or_404(Rentals, pk=rental_id)
+#     if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+#         messages.error(request, "You are not authorized to edit this rental.")
+#         return redirect('rentals')
 
-#     if request.method == 'POST':
-#         form = UnavailableDatesForm(request.POST)
-
-#         if form.is_valid():
-#             unavailable_date = form.save(commit=False)
-#             unavailable_date.rental = rental
-#             unavailable_date.save()
-#             messages.success(request, "Your unavailable date has been saved.")
-#             print("your unavailable date has been saved")
-#         else:
-#             messages.error(request, "Please correct the errors below.")
-#             print("your unavailable date is invalid")
-#             print(form.errors)
-            
-#         return redirect('load_images', rental_id=rental.id)
-
-#     else:
-#         form = UnavailableDatesForm()
-
-#     context = {
-#         'form': form,
-#         'rental': rental
-#         }
-#     return render(request, 'rentals/add_more_unavailable_dates.html', context)
+#     image.delete()
+#     messages.success(request, "Image deleted successfully.")
+#     print("Image deleted successfully.")
+#     return redirect('load_images', rental_id=rental_id)

@@ -30,8 +30,8 @@ class Rentals(models.Model):
     class Meta:
         verbose_name_plural = "Rentals"
 
-    # active = models.BooleanField(default=False)
-    # date_added = models.DateField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+    date_added = models.DateField(auto_now_add=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='rentals')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE,  null=True, blank=True)
@@ -39,13 +39,13 @@ class Rentals(models.Model):
     owner_email = models.EmailField(null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     post_code = models.CharField(max_length=100, null=True, blank=True)
-    # title = models.CharField(max_length=100)
-    title = models.TextField(max_length=100)
+    title = models.CharField(max_length=100)
+    # title = models.TextField(max_length=100)
     sleeps = models.IntegerField(default=2)
     bedrooms = models.IntegerField(default=1)
     bathrooms = models.IntegerField(default=1)
-    amenities = models.CharField(max_length=1254, null=True, blank=True)
-    # amenities = models.TextField(null=True, blank=True)
+    # amenities = models.CharField(max_length=1254, null=True, blank=True)
+    amenities = models.TextField(null=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     available_from = models.DateField(default=timezone.now)
