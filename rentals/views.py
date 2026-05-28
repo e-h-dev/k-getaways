@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, UnavailableDates
-from .forms import RentalForm, ImageForm, UnavailableDatesForm
+from .forms import RentalForm, ImageForm, UnavailableDatesForm, CheckOutForm
 
 # Create your views here.
 
@@ -321,3 +321,20 @@ def add_unavailable_dates(request, rental_id):
 #     messages.success(request, "Image deleted successfully.")
 #     print("Image deleted successfully.")
 #     return redirect('load_images', rental_id=rental_id)
+
+def check_out(request, rental_id):
+    rental = get_object_or_404(Rentals, pk=rental_id)
+    
+    if request.method == 'POST':
+        form = CheckOutForm(request.POST, instance=rental)
+        if form.is_valid():
+            rental.active = True
+            rental.save()
+        messages.success(request, " You have successfully paid or your listing! Thank you for listing your home with Kosher Getaways!")
+    
+        return redirect('rentals')
+    context = {
+        # 'form': form,
+        'rental': rental
+        }
+    return render(request, 'rentals/check_out.html', context)

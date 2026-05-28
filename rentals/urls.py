@@ -8,4 +8,5 @@ urlpatterns = [
     path('load_images/<int:rental_id>', views.load_images, name='load_images'),
     path('add_unavailable_dates/<int:rental_id>', views.add_unavailable_dates, name='add_unavailable_dates'),
     path('edit_home/<int:rental_id>', views.edit_home, name='edit_home'),
+    path('check_out/<int:rental_id>', views.check_out, name='check_out'),
 ]
