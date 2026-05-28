@@ -17,7 +17,12 @@
             <div class="form-container shadow" id="form-container">
                 <button class="btn btn-btn mt-3"><a href="{% url 'load_images' rental.id %}">Cancel</a></button>
                 <h1 class="center form-header mb-5">Fill in the Form below to add unavailable dates for your home</h1>
-                <p>You may have multiple unavailable dates for your home.</p>
+                <div class="dates_instructions">
+                    <p>PLEASE NOTE! all homes listed will automatically be marked as available. As the home owner, you can must specify which dates the property will not be available for booking.   </p>
+                    <p>You will likely have multiple unavailable dates for your home.</p>
+                    <p>For example if you are only listing your home for a few weeks in the summer: You will mark from the day you list it to be unavailable until the day you want it to be available and from the day you wan tit to be unavailable till the next time you may want to rent out your home.</p>
+                    <p>These dates can be updated at any time.</p>
+                </div>
                 <p>Click the "Add more Dates" button to add additional unavailable date ranges.</p>
                 <form action="{% url 'add_unavailable_dates' rental.id %}" method="POST" enctype="multipart/form-data">
                    {% csrf_token %}
