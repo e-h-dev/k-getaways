@@ -98,6 +98,22 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Tell Django to use the standard SMTP backend
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Official IONOS outgoing server configuration
+# EMAIL_HOST = 'smtp.ionos.co.uk'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+
+# Your professional mailbox credentials
+# EMAIL_HOST_USER = 'office@koshergetaways.co.uk'
+# EMAIL_HOST_PASSWORD = '********'
+
+# The default address that appears in the "From:" line
+# DEFAULT_FROM_EMAIL = 'Kosher Getaways <office@koshergetaways.co.uk>'
+
 
 
 '''

@@ -3,6 +3,7 @@ import json
 from tkinter.font import names
 from django.forms import modelformset_factory
 from django.http import JsonResponse
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib import messages
@@ -213,6 +214,15 @@ def edit_home(request, rental_id):
                                     'amenities', 'description', 'price'])
             messages.success(request, "Your rental has been updated.")
             print("your rental has been updated")
+            send_mail(
+                    'Home Edited Successfully',
+                    f"Dear {rental.owner_name}! \
+                        You have successfully edited your home listing '{done.title}' on Kosher Getaways. \
+                        If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
+                    "office@koshergetaways.co.uk",
+                    [rental.owner_email],
+                    fail_silently=False,
+                )
         else:
             messages.error(request, "Please correct the errors below.")
             print("your rental is invalid")
