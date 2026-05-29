@@ -27,14 +27,18 @@ def rentals(request):
 
     for rental in rentals:
         listed = rental.date_added
+        expiry_date = listed + timedelta(days=30)
         print(f"Rental '{rental.title}' was listed on: {listed}")
 
         listing_expires = today - timedelta(days=30)
+
+        print(f"Rental '{rental.title}' will expire on: {expiry_date}")
 
         if listed < listing_expires:
             rental.active = False
             rental.save()
             print(f"Rental '{rental.title}' has been marked as inactive due to being listed for over 30 days.")
+            
     
     """
     This block handles search and filtering based on user input from the search form.
