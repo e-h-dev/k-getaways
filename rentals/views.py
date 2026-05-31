@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 import json
+from kosher_getaways import settings
+import stripe
 from tkinter.font import names
 from django.forms import modelformset_factory
 from django.http import JsonResponse
@@ -361,33 +363,47 @@ def add_unavailable_dates(request, rental_id):
 #     print("Image deleted successfully.")
 #     return redirect('load_images', rental_id=rental_id)
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def check_out(request, rental_id):
-    """
-    refuses to render template if user not owner of rental, 
-    this is a safety feature to prevent unauthorized access to the checkout page.
-    Only the owner of the rental can access the checkout page to complete the payment process. 
-    If a user who is not the owner tries to access the checkout page, 
-    they will receive an error message and be redirected to the rentals page.
-    this block of code is therfore located at the start of the function.
-    """
-    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+    # 1. Fetch the object safely first (Prevents crash if ID doesn't exist)
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    # 2. Check ownership safely using the fetched object
+    if request.user != rental.owner_name:
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
+
+    # 3. Calculate charge (Ensure rental.price * 50 evaluates to a clean integer)
+    charge_amount = int(rental.price * 50) 
     
-    rental = get_object_or_404(Rentals, pk=rental_id)
-    
-    if request.method == 'POST':
-        form = CheckOutForm(request.POST, instance=rental)
-        if form.is_valid():
-            rental.active = True
-            rental.save()
-        messages.success(request, " You have successfully paid or your listing! Thank you for listing your home with Kosher Getaways!")
-    
-        return redirect('rentals')
-    context = {
-        # 'form': form,
-        'rental': rental
+    try:
+        # 4. Create the Stripe configuration session
+        intent = stripe.PaymentIntent.create(
+            amount=charge_amount,
+            currency='gbp',
+            description=f'Payment for rental {rental.id}',
+            payment_method_types=['card'],
+            metadata={
+                'rental_id': rental.id,
+                'user_id': request.user.id
+            }
+        )
+        
+        # NOTE: Do NOT add a messages.success() here. 
+        # The frontend JavaScript code will handle the actual successful charge later.
+
+        context = {
+            'rental': rental,
+            'client_secret': intent.client_secret,
+            'stripe_public_key': settings.STRIPE_PUBLIC_KEY
         }
-    return render(request, 'rentals/check_out.html', context)
+        return render(request, 'rentals/check_out.html', context)
+
+    except stripe.error.StripeError as e:
+        messages.error(request, f"Stripe Setup Error: {e.user_message if hasattr(e, 'user_message') else e}")
+        return redirect('rentals')
+    except Exception as e:
+        messages.error(request, f"An unexpected system error occurred: {str(e)}")
+        return redirect('rentals')
