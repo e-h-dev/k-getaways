@@ -195,8 +195,17 @@ def list_home(request):
 @login_required
 def edit_home(request, rental_id):
     """
-    View for editing an existing rental. Only the owner can edit their rental."""
+    View for editing an existing rental. Only the owner can edit their rental.
+    """
 
+    """
+    refuses to render template if user not owner of rental, 
+    this is a safety feature to prevent unauthorized access to edit rental.
+    Only the owner of the rental can access the edit rental page. 
+    If a user who is not the owner tries to access the edit rental page, 
+    they will receive an error message and be redirected to the rentals page.
+    this block of code is therfore located at the start of the function.
+    """
     if request.user != Rentals.objects.get(pk=rental_id).owner_name:
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
@@ -243,6 +252,14 @@ def edit_home(request, rental_id):
 @login_required
 def load_images(request, rental_id):
 
+    """
+    refuses to render template if user not owner of rental, 
+    this is a safety feature to prevent unauthorized access to load images.
+    Only the owner of the rental can access the load images. 
+    If a user who is not the owner tries to access load images, 
+    they will receive an error message and be redirected to the rentals page.
+    this block of code is therfore located at the start of the function.
+    """
     if request.user != Rentals.objects.get(pk=rental_id).owner_name:
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
@@ -285,6 +302,14 @@ def load_images(request, rental_id):
 @login_required
 def add_unavailable_dates(request, rental_id):
 
+    """
+    refuses to render template if user not owner of rental, 
+    this is a safety feature to prevent unauthorized access to the create unavailable dates.
+    Only the owner of the rental can access the create unavailable dates to complete the payment process. 
+    If a user who is not the owner tries to access unavailable dates page, 
+    they will receive an error message and be redirected to the rentals page.
+    this block of code is therfore located at the start of the function.
+    """
     if request.user != Rentals.objects.get(pk=rental_id).owner_name:
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
@@ -336,7 +361,21 @@ def add_unavailable_dates(request, rental_id):
 #     print("Image deleted successfully.")
 #     return redirect('load_images', rental_id=rental_id)
 
+
+@login_required
 def check_out(request, rental_id):
+    """
+    refuses to render template if user not owner of rental, 
+    this is a safety feature to prevent unauthorized access to the checkout page.
+    Only the owner of the rental can access the checkout page to complete the payment process. 
+    If a user who is not the owner tries to access the checkout page, 
+    they will receive an error message and be redirected to the rentals page.
+    this block of code is therfore located at the start of the function.
+    """
+    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+    
     rental = get_object_or_404(Rentals, pk=rental_id)
     
     if request.method == 'POST':
