@@ -377,6 +377,7 @@ def check_out(request, rental_id):
 
     # 3. Calculate charge (Ensure rental.price * 50 evaluates to a clean integer)
     charge_amount = int(rental.price * 50) 
+    charge_display = float(charge_amount/100)
     
     try:
         # 4. Create the Stripe configuration session
@@ -396,6 +397,7 @@ def check_out(request, rental_id):
 
         context = {
             'rental': rental,
+            'charge_amount': charge_display,
             'client_secret': intent.client_secret,
             'stripe_public_key': settings.STRIPE_PUBLIC_KEY
         }
