@@ -16,7 +16,10 @@ in the bottom of the hero image -->
             <div class="col-12">
                 <!-- area of hero image -->
                 <div id="half-hero">
-                    <img src="{% static 'media/hero.gif' %}" alt="hero image" class="half-hero" id="half-hero">
+                    <video class="half-hero" id="half-hero" autoplay muted loop playsinline>
+                        <source src="{% static 'media/hero.webm' %}" type="video/webm">
+                    </video>
+                    <!-- <img src="{% static 'media/hero.gif' %}" alt="hero image" class="half-hero" id="half-hero"> -->
                     <div class="hero-message" id="hero-message">
                         <h2 class="fypg">Find Your perfect getaway</h2>
                         <div class="row">
@@ -59,7 +62,7 @@ in the bottom of the hero image -->
                 <h3 id="change">Unwind without compromise</h3>
             </div>
         </div>
-        <img src="/static/media/center_fixed_image_main.jpg" alt="" class="center-image">
+        <img src="/static/media/center_fixed_image_main.webp" alt="center image" class="center-image">
 </section>
 
 <!-- about section of home page, 
