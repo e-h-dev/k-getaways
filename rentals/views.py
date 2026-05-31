@@ -391,9 +391,10 @@ def check_out(request, rental_id):
                 'user_id': request.user.id
             }
         )
+
+        rental.active = True
+        rental.save()
         
-        # NOTE: Do NOT add a messages.success() here. 
-        # The frontend JavaScript code will handle the actual successful charge later.
 
         context = {
             'rental': rental,
