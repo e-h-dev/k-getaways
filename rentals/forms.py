@@ -49,11 +49,3 @@ class UnavailableDatesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-
-class CheckOutForm(forms.ModelForm):
-    class Meta:
-        model = Rentals
-        fields = ['active']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)

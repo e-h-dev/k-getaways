@@ -3,6 +3,8 @@ import json
 from kosher_getaways import settings
 import stripe
 from tkinter.font import names
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from django.forms import modelformset_factory
 from django.http import JsonResponse
 from django.core.mail import send_mail
@@ -11,7 +13,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, UnavailableDates
-from .forms import RentalForm, ImageForm, UnavailableDatesForm, CheckOutForm
+from .forms import RentalForm, ImageForm, UnavailableDatesForm
 
 # Create your views here.
 
@@ -392,19 +394,6 @@ def check_out(request, rental_id):
             }
         )
 
-        rental.active = True
-        rental.save()
-        send_mail(
-        'Home Listed Successfully',
-        f"Dear {rental.owner_name}! \
-            You have successfully listed your home '{rental.title}' on Kosher Getaways. You have been charged £{charge_display} for listing your home. \
-            If you have any questions or need further assistance, please contact us at office@koshergetaways.com.",
-        'office@koshergetaways.com',
-        [rental.owner_email],
-        fail_silently=False,
-    )
-        return redirect('check_out_confirmation', rental_id=rental_id)
-        
 
         context = {
             'rental': rental,
@@ -420,6 +409,53 @@ def check_out(request, rental_id):
     except Exception as e:
         messages.error(request, f"An unexpected system error occurred: {str(e)}")
         return redirect('rentals', rental_id=rental_id)
+
+
+@csrf_exempt
+def check_out_webhook(request):
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+    event = None
+
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    charge_amount = int(rental.price * 50) 
+    charge_display = float(charge_amount/100)
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except (ValueError, stripe.error.SignatureVerificationError):
+        return HttpResponse(status=400)
+
+    # Handle the successful payment event
+    if event['type'] == 'payment_intent.succeeded':
+        intent = event['data']['object']
+        rental_id = intent['metadata']['rental_id']
+        
+        # Safely activate and email now that money is received
+        try:
+            rental = Rentals.objects.get(pk=rental_id)
+            if not rental.active:
+                rental.active = True
+                rental.save()
+                
+                # Send email code here safely...
+                send_mail(
+                    'Home Listed Successfully',
+                    f"Dear {rental.owner_name}! \
+                        You have successfully listed your home '{rental.title}' on Kosher Getaways. You have been charged £{charge_display} for listing your home. \
+                        If you have any questions or need further assistance, please contact us at office@koshergetaways.com.",
+                    'office@koshergetaways.com',
+        [rental.owner_email],
+        fail_silently=False,
+        
+        )
+        except Rentals.DoesNotExist:
+            return HttpResponse(status=404)
+
+    return HttpResponse(status=200)
 
 
 def check_out_confirmation(request, rental_id):
