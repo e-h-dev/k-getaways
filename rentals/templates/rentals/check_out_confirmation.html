@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Confirmation {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row d-none d-md-block">
+        <div class="col-3"></div>
+        <div class="col-6">
+            
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="d-none d-md-block col-2"></div>
+        <div class="col-12 col-md-8">
+            <div class="form-container shadow" id="form-container">
+                <h1 class="center form-header mb-5">Check Out Confirmation</h1>
+                <p>Your payment for listing {{ rental.title }} has been successful!</p>
+                <p>You will receive an email confirmation shortly.</p>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="receipt-container shadow" id="receipt">
+                            <h2>Receipt</h2>
+                            <h4>Receipt ID: 001{{ rental.id }}</h4>
+                            <table class="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Listing Fee for {{ rental.title }}</td>
+                                        <td>£{{ charge_display }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="signed mt-3 ml-5">
+                                <p>Thank you for your support!</p>
+                                <img src="{% static 'media/logo_3.png' %}" alt="Signature" class="logo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                    <button class="btn btn-btn ml-3" onclick="downloadPDF()">Download PDF <i class="fa-solid fa-download"></i></button>
+                </div>
+                <a href="{% url 'rentals' %}" class="btn btn-btn mt-4">Return to Rentals</a>
+            </div>
+        </div>
+        <div class="d-none d-md-block col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('receipt');
+            const options = {
+                margin:       10,
+                filename:     'receipt.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 }, // Improves PDF sharpness
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(options).from(element).save();
+}
+    </script>
+{% endblock %}

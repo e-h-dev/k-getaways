@@ -394,6 +394,16 @@ def check_out(request, rental_id):
 
         rental.active = True
         rental.save()
+        send_mail(
+        'Home Listed Successfully',
+        f"Dear {rental.owner_name}! \
+            You have successfully listed your home '{rental.title}' on Kosher Getaways. You have been charged £{charge_display} for listing your home. \
+            If you have any questions or need further assistance, please contact us at office@koshergetaways.com.",
+        'office@koshergetaways.com',
+        [rental.owner_email],
+        fail_silently=False,
+    )
+        return redirect('check_out_confirmation', rental_id=rental_id)
         
 
         context = {
@@ -409,4 +419,22 @@ def check_out(request, rental_id):
         return redirect('rentals')
     except Exception as e:
         messages.error(request, f"An unexpected system error occurred: {str(e)}")
+        return redirect('rentals', rental_id=rental_id)
+
+
+def check_out_confirmation(request, rental_id):
+    
+    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
+
+    rental = get_object_or_404(Rentals, pk=rental_id)
+    charge_amount = int(rental.price * 50) 
+    charge_display = float(charge_amount/100)
+
+   
+    context = {
+        'rental': rental,
+        'charge_display': charge_display
+    }
+    return render(request, 'rentals/check_out_confirmation.html', context)

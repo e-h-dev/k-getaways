@@ -1683,6 +1683,31 @@ input[type="file"]{
   background-color: var(--main-background-color);
 }
 
+/* check_out_confirmation page styles */
+
+.receipt-container{
+  font-family: var(--main-font);
+  color:var(--main-text-color);
+  width:80%;
+  margin:20px auto;
+  padding:20px;
+  border-radius: 10px;
+}
+
+.receipt-container h2,
+.receipt-container h4{
+  text-align: center;
+}
+
+.invoice-table th,
+.invoice-table td{
+  border: solid 0.5px var(--main-text-color) !important;
+  width: 100%;
+  padding:10px;
+  border-radius: 10px;
+  
+}
+
 
 /*---------------------------------------------------------------------- media queries */
 /* tablet size */
