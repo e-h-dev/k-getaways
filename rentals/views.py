@@ -435,22 +435,29 @@ def check_out_webhook(request):
             rental = Rentals.objects.get(pk=rental_id)
             charge_amount = int(rental.price * 50) 
             charge_display = float(charge_amount/100)
-            
+
             if not rental.active:
                 rental.active = True
                 rental.save()
-                
+                email_message = f"""Dear {rental.owner_name}! 
+                        You have successfully listed your home '{rental.title}' on Kosher Getaways. You have been charged £{charge_display} for listing your home. 
+                        If you have any questions or need further assistance, please contact us at office@koshergetaways.com."""
                 # Send email code here safely...
-                send_mail(
-                    'Home Listed Successfully',
-                    f"Dear {rental.owner_name}! \
-                        You have successfully listed your home '{rental.title}' on Kosher Getaways. You have been charged £{charge_display} for listing your home. \
-                        If you have any questions or need further assistance, please contact us at office@koshergetaways.com.",
-                    'office@koshergetaways.com',
-        [rental.owner_email],
-        fail_silently=False,
-        
-        )
+
+                try:
+                    print(f"📧 Webhook attempting email delivery to: {rental.owner_email}")
+                    send_mail(
+                        subject='Home Listed Successfully',
+                        message=email_message,
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[rental.owner_email],
+                        fail_silently=True,  # This tells Django to ignore SMTP failures completely
+                    )
+                    print("🚀 send_mail execution completed.")
+                except Exception as email_error:
+                    # This captures any stubborn smtplib system errors safely
+                    print(f"⚠️ SMTP Server rejected the email, but database was saved! Error details: {email_error}")
+
         except Rentals.DoesNotExist:
             return HttpResponse(status=404)
 
