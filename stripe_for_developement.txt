@@ -1,0 +1,14 @@
+When Continuing Development in Codespaces
+For as long as you are writing and testing code inside GitHub Codespaces, 
+you will need to keep using this workflow.
+Every time you open your project to work on it, 
+you will open one terminal window to run 
+
+python manage.py runserver 0.0.0.0:8000
+
+You will open a second terminal window to run 
+
+stripe listen --forward-to 127.0.0.1:8000/rentals/stripe_webhook/
+
+As long as those two terminals are running side-by-side, 
+your development workspace will smoothly process test payments.

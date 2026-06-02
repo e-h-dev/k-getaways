@@ -417,10 +417,6 @@ def check_out_webhook(request):
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     event = None
 
-    rental = get_object_or_404(Rentals, pk=rental_id)
-
-    charge_amount = int(rental.price * 50) 
-    charge_display = float(charge_amount/100)
 
     try:
         event = stripe.Webhook.construct_event(
@@ -437,6 +433,9 @@ def check_out_webhook(request):
         # Safely activate and email now that money is received
         try:
             rental = Rentals.objects.get(pk=rental_id)
+            charge_amount = int(rental.price * 50) 
+            charge_display = float(charge_amount/100)
+            
             if not rental.active:
                 rental.active = True
                 rental.save()
