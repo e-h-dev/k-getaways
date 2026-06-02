@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import certifi
 from dotenv import load_dotenv
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -158,12 +159,24 @@ SOCIALACCOUNT_PROVIDERS = {
 #     }
 # }
 
+# database for production
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sql',
     }
 }
+
+# neon database for deployment
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL'),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
 
 
 # Password validation
