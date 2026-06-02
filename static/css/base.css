@@ -1699,6 +1699,11 @@ input[type="file"]{
   text-align: center;
 }
 
+h5, h6{
+  font-family: var(--main-font);
+  color:var(--main-text-color);
+}
+
 .invoice-table th,
 .invoice-table td{
   border: solid 0.5px var(--main-text-color) !important;
