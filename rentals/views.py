@@ -291,7 +291,7 @@ def load_images(request, rental_id):
             print(form.errors)
             messages.error(request, "Please correct the errors below.") 
             
-        return redirect('rentals')
+        return redirect('check_out', rental_id=rental.id)
 
     else:
         form = ImageForm()
