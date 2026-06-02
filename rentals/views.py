@@ -164,6 +164,9 @@ def rental_availability_json(request, rental_id):
         
     return JsonResponse(events, safe=False)
 
+def listing_instructions(request):
+    return render(request, 'rentals/listing_instructions.html')
+
 
 @login_required
 def list_home(request):

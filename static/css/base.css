@@ -1398,6 +1398,63 @@ or other calendar elements */
 .close-icon:hover{
   transform: scale(1.2);
 }
+/* ----------------------------------instructions on how to list home page */
+
+.instructions-header {
+     font-size: 1.4rem;
+     color: #1e293b;
+     margin-top: 0;
+     margin-bottom: 20px;
+     font-weight: 700;
+     border-bottom: 2px solid #f1f5f9;
+     padding-bottom: 12px;
+     font-family: var(--main-font);
+     color: var(--main-text-color);
+     text-align: center;
+ }
+.instructions-list {
+  font-family: var(--main-font);
+     color: var(--main-text-color);
+     list-style: none;
+     padding: 0;
+     margin: 0;
+ }
+
+ .instructions-list li{
+  padding-bottom: 10px;
+  border-bottom: solid var(--main-background-color) 2px;
+ }
+
+ .instruction-step {
+     display: flex;
+     align-items: flex-start;
+     margin-bottom: 16px;
+     font-size: 0.95rem;
+     line-height: 1.6;
+     color: #475569;
+ }
+ .instruction-step::before {
+     content: "✓";
+     color: #059669;
+     font-weight: bold;
+     margin-right: 12px;
+     font-size: 1.1rem;
+     line-height: 1.4;
+ }
+ .step-highlight {
+     font-weight: 600;
+     color: #0f172a;
+     margin-right: 15px;
+     width:200px;
+ }
+ .step-link {
+     color: #2563eb;
+     text-decoration: none;
+     font-weight: 500;
+ }
+ .step-link:hover {
+     text-decoration: underline;
+ }
 
 /* ---------------------list your home page includes styles for all forms */
 
