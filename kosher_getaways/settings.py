@@ -182,7 +182,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
+        default=os.getenv('DATABASE_URL', f"sqlite:///{os.path.join(BASE_DIR, 'db.sql')}"),
         conn_max_age=600,
         ssl_require=True
     )
@@ -223,18 +223,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# 1. Base configuration for static URLs
+STATIC_URL = 'static/'
 
-# storages
+# 2. Tell Django where to compile static files in production (CRUCIAL FIX)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
+# 3. Directories where your custom local static files sit (if any)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-# Combine WhiteNoise and Cloudinary into Django's storage system
+# 4. Storage configuration combining WhiteNoise and Cloudinary
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -244,7 +244,17 @@ STORAGES = {
     },
 }
 
+# 5. Media URL configuration
 MEDIA_URL = '/media/'
+
+# storages
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
