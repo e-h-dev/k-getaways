@@ -230,10 +230,11 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # 3. Directories where your custom local static files sit (if any)
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
+STATICFILES_DIRS = []
+LOCAL_STATIC_DIR = os.path.join(BASE_DIR, 'static')
+if os.path.exists(LOCAL_STATIC_DIR):
+    STATICFILES_DIRS.append(LOCAL_STATIC_DIR)
+    
 # 4. Storage configuration combining WhiteNoise and Cloudinary
 STORAGES = {
     "default": {
