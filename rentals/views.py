@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 import json
 from kosher_getaways import settings
 import stripe
-from tkinter.font import names
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.forms import modelformset_factory
