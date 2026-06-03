@@ -35,7 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.render.com',
-    'www.koshergetaways.co.uk'
+    'www.koshergetaways.co.uk',
     'kosher-getaways.onrender.com', 
     'localhost',
     '127.0.0.1']
