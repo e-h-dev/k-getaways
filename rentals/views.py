@@ -226,18 +226,22 @@ def edit_home(request, rental_id):
             done.save(update_fields=['location', 'category', 'owner_number',
                                     'owner_email', 'address', 'post_code',
                                     'title', 'sleeps', 'bedrooms', 'bathrooms',
-                                    'amenities', 'description', 'price'])
+                                    'amenities', 'description'])
             messages.success(request, "Your rental has been updated.")
             print("your rental has been updated")
-            send_mail(
-                    'Home Edited Successfully',
-                    f"Dear {rental.owner_name}! \
-                        You have successfully edited your home listing '{done.title}' on Kosher Getaways. \
-                        If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
-                    "office@koshergetaways.co.uk",
-                    [rental.owner_email],
-                    fail_silently=False,
-                )
+
+            """
+            commented out email send for moment it seems that render on free tier will not allow sending mail
+            """
+            # send_mail(
+            #         'Home Edited Successfully',
+            #         f"Dear {rental.owner_name}! \
+            #             You have successfully edited your home listing '{done.title}' on Kosher Getaways. \
+            #             If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
+            #         "office@koshergetaways.co.uk",
+            #         [rental.owner_email],
+            #         fail_silently=False,
+            #     )
         else:
             messages.error(request, "Please correct the errors below.")
             print("your rental is invalid")
