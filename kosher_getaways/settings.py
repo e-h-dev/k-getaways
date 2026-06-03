@@ -234,14 +234,15 @@ STATICFILES_DIRS = []
 LOCAL_STATIC_DIR = os.path.join(BASE_DIR, 'static')
 if os.path.exists(LOCAL_STATIC_DIR):
     STATICFILES_DIRS.append(LOCAL_STATIC_DIR)
-    
+
 # 4. Storage configuration combining WhiteNoise and Cloudinary
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        # Using the core Django storage prevents WhiteNoise from crashing during build
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 
