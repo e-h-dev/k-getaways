@@ -234,11 +234,15 @@ STATIC_URL = 'static/'
 # 2. Tell Django where to compile static files in production (CRUCIAL FIX)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 # 3. Directories where your custom local static files sit (if any)
-STATICFILES_DIRS = []
-LOCAL_STATIC_DIR = os.path.join(BASE_DIR, 'static')
-if os.path.exists(LOCAL_STATIC_DIR):
-    STATICFILES_DIRS.append(LOCAL_STATIC_DIR)
+# STATICFILES_DIRS = []
+# LOCAL_STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# if os.path.exists(LOCAL_STATIC_DIR):
+#     STATICFILES_DIRS.append(LOCAL_STATIC_DIR)
 
 # 4. Storage configuration combining WhiteNoise and Cloudinary
 STORAGES = {
@@ -250,6 +254,7 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
 
 # 5. Media URL configuration
 MEDIA_URL = '/media/'
@@ -276,3 +281,5 @@ STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+
+WHITENOISE_USE_FINDERS = True
