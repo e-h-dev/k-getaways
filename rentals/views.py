@@ -121,8 +121,6 @@ def rental_detail(request, rental_id):
 
     print(f"Unavailable dates for rental {rental_id}: {unavalable}")
 
-    messages.info(request, "This is a demo site. Please contact us if you are interested in listing your property or have any questions.")
-
     context = {
         "rental": rental,
         "image": image,
@@ -247,7 +245,8 @@ def edit_home(request, rental_id):
             print("your rental is invalid")
             print(form.errors)
             
-        return redirect('add_unavailable_dates', rental_id=done.id)
+        return redirect('add_unavailable_dates', rental_id=rental.id)
+        # return redirect('rentals')
 
     else:
         form = RentalForm(instance=rental)

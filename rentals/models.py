@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
-from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -28,9 +27,6 @@ class Category(models.Model):
 
 class Rentals(models.Model):
 
-    phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$', 
-    )
 
     class Meta:
         verbose_name_plural = "Rentals"
@@ -40,7 +36,7 @@ class Rentals(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='rentals')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE,  null=True, blank=True)
-    owner_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    owner_number = models.CharField(max_length=17, blank=True)
     owner_email = models.EmailField(null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     post_code = models.CharField(max_length=100, null=True, blank=True)
