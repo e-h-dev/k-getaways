@@ -10,6 +10,11 @@ class RentalForm(forms.ModelForm):
             ' Enter amenities separated by commas (e.g. Shabbos' \
             ' Urn, Near Shuls, Air Conditioning, Garden)'
         )
+    
+    price = forms.CharField(
+            help_text='<i class="fa-solid fa-circle-info"></i>' \
+            'The price you set will be per night. Please note this price can not be edited. If you want to update the price, please contact us.'
+        )
 
     class Meta:
         model = Rentals
