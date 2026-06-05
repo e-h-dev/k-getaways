@@ -33,13 +33,20 @@
                                 <thead>
                                     <tr>
                                         <th>Description</th>
+                                        {% if rental.id < 15 %}
+                                        <th>Discounts</th>
+                                        {% endif %}
                                         <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Listing Fee for {{ rental.title }}</td>
+                                        {% if rental.id < 15 %}
+                                        <td style="font-size: 0.8rem;">50% off £{{ discounted }}</td>
+                                        {% endif %}
                                         <td>£{{ charge_display }}</td>
+                                    
                                     </tr>
                                 </tbody>
                             </table>
