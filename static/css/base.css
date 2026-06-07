@@ -2,7 +2,7 @@
 :root{
     --main-font:Playfair Display;
     --main-text-color:#48515a;
-    --main-background-color:rgba(117, 187, 167, 0.14);
+    --main-background-color:rgba(117, 187, 167, 0.4);
 }
 
 /* styles across the site */
@@ -104,7 +104,7 @@ header{
 }
 
 .message-line{
-  background-color: rgb(117, 187, 167);
+  background-color: rgb(159, 196, 185);
   height: 3px;
   border-radius: 5px;
   width:100%;
@@ -403,7 +403,7 @@ footer{
 }
 
 .location-date-number-filter{
-  background-color:rgb(221, 241, 236);
+  background-color:rgb(159, 196, 185);
   height:50px;
   width:720px;
   border-radius: 25px;
@@ -427,7 +427,7 @@ footer{
 
 
 .fa-magnifying-glass:hover{
-  color: rgb(117, 187, 167);
+  color:rgb(159, 196, 185);
 }
 
 
@@ -495,7 +495,7 @@ footer{
   padding:10px;
   z-index: 3;
   font-style: normal;
-  background-color:rgb(221, 241, 236);
+  background-color:rgb(159, 196, 185);
   cursor: pointer;
 }
 
@@ -503,7 +503,7 @@ footer{
 #category-dropdown, #location-dropdown{
   position: absolute;
   z-index: 5;
-  background-color:rgb(221, 241, 236);
+  background-color:rgb(159, 196, 185);
   width:500px;
   border-radius: 10px;
   margin-top:15px;
