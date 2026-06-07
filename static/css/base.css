@@ -1,7 +1,7 @@
 /* root styles */
 :root{
     --main-font:Playfair Display;
-    --main-text-color:#707070;
+    --main-text-color:#48515a;
     --main-background-color:rgba(117, 187, 167, 0.14);
 }
 
@@ -588,7 +588,7 @@ footer{
 .half-hero{
   height:520px;
   width:100%;
-  opacity: 0.7;
+  opacity: 0.95;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 45%;
@@ -1447,6 +1447,12 @@ or other calendar elements */
      margin-right: 15px;
      width:200px;
  }
+
+ .instruction-point{
+  margin-left: 20px;
+  width:70%;
+ }
+
  .step-link {
      color: #2563eb;
      text-decoration: none;
