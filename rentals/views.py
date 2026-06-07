@@ -176,8 +176,6 @@ def list_home(request):
             done = form.save(commit=False)
             done.owner_name = request.user
             done.save()
-            messages.success(request, "Your rental has been saved.")
-            print("your rental has been saved")
         else:
             messages.error(request, "Please correct the errors below.")
             print("your rental is invalid")
