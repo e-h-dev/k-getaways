@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.core.mail import send_mail
 from contact.forms import ContactForm
 from .models import Contacts
 from rentals.models import Rentals
@@ -39,6 +40,16 @@ def compose_message(request, rental_id):
             contactform.send_to_id = rental.owner_name_id
             contactform.save()
             messages.success(request, "Your message has been sent.")
+
+            send_mail(
+                 'New Message',
+                    f"Dear {rental.owner_name}! \
+                        You have recieved a message from {compose.email} in regard to you home '{rental.title}' listed on Kosher Getaways. \
+                        Checkout you messages to read you new message",
+                    "office@koshergetaways.co.uk",
+                    [rental.owner_email],
+                    fail_silently=False,
+            )
             return redirect('home')  # Redirect to the home page after sending the message
 
     else:
