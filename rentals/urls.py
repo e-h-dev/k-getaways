@@ -12,4 +12,7 @@ urlpatterns = [
     path('check_out/<int:rental_id>', views.check_out, name='check_out'),
     path('check_out_confirmation/<int:rental_id>', views.check_out_confirmation, name='check_out_confirmation'),
     path('stripe_webhook/', views.check_out_webhook, name='check_out_stripe_webhook'),
+    # urls for promo entries before 17th of tamuz
+    path('final_check_out/<int:rental_id>', views.promo_check_out, name='promo_check_out'),
+    path('activate/<int:rental_id>', views.activate, name='activate'),
 ]

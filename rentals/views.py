@@ -296,7 +296,7 @@ def load_images(request, rental_id):
             print(form.errors)
             messages.error(request, "Please correct the errors below.") 
             
-        return redirect('check_out', rental_id=rental.id)
+        return redirect('promo_check_out', rental_id=rental.id)
 
     else:
         form = ImageForm()
@@ -386,7 +386,7 @@ def check_out(request, rental_id):
     # charge_amount = int(rental.price * 50) 
     # charge_display = float(charge_amount/100)
 
-    if rental_id < 15:
+    if rental_id < 2:
         charge_amount = int(rental.price * 25)
         discounted_from = int(rental.price * 50) 
         discounted = float(discounted_from/100)
@@ -507,3 +507,45 @@ def check_out_confirmation(request, rental_id):
         'discounted': discounted
     }
     return render(request, 'rentals/check_out_confirmation.html', context)
+
+
+@login_required
+def promo_check_out(request, rental_id):
+    # 1. Fetch the object safely first (Prevents crash if ID doesn't exist)
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    # 2. Check ownership safely using the fetched object
+    if request.user != rental.owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+
+    charge_amount = int(rental.price * 50) 
+
+    charge_display = float(charge_amount/100)
+
+    context = {
+            'rental': rental,
+            'charge_amount': charge_display
+        }
+
+    return render(request, 'rentals/promo_check_out.html', context)
+
+
+def activate(request, rental_id):
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    rental.active = True
+    rental.save()
+
+    messages.success(request, f"You have succesfully listed you home { rental.title }")
+    send_mail(
+        'Home Listed Successfully',
+        f"Dear {rental.owner_name}! \
+            You have successfully listed your home '{rental.title}' on Kosher Getaways. \
+            If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
+        "office@koshergetaways.co.uk",
+        [rental.owner_email],
+        fail_silently=False,
+    )
+    return redirect('rentals')
+

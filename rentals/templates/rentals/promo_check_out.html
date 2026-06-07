@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Check Out {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row d-none d-md-block">
+        <div class="col-3"></div>
+        <div class="col-6">
+            
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="d-none d-md-block col-2"></div>
+        <div class="col-12 col-md-8">
+            <div class="form-container shadow" id="form-container">
+                <h1 class="center form-header mb-5">Checkout</h1>
+                
+                <P>Item: Payment for listing of {{ rental.title }}</P>
+                
+                <p>The full cost of listing {{ rental.title}} is £{{ charge_amount }}</p>
+                <p style="font-size: 1.3rem; padding:20px;">Thank you {{ rental.owner_name }}! As one of our early listers, you are eligible to a full 100% discount!</p>
+                <p>You will be charged £<strike>{{ charge_amount }}</strike> <strong>£0</strong> to list this property.</p>
+                <div id="payment-element"></div>
+                <button id="submit" class="btn btn-btn mt-4">
+                    <a href="{% url 'activate' rental.id %}">List Home</a>
+                </button>
+                
+            </div>
+        </div>
+        <div class="d-none d-md-block col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}
