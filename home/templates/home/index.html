@@ -180,23 +180,5 @@ our mission and we are here for you -->
             locationDropdown.style.display = "none";
         }
     });
-
-
-//   script to animate the hero message on scroll
-    var heroMessage = document.getElementById("hero-message");
-        window.onscroll = function() {myFunction()};
-        
-        function myFunction() {
-          if (document.documentElement.scrollTop > 350) {
-            document.getElementById("scroll-down-hero-message").style.display = "block";
-            document.getElementById("half-hero").style.opacity = "1";
-            document.getElementById("hero-message").style.display = "none"
-            
-          } else {
-            document.getElementById("half-hero").style.opacity = "0.95";
-            document.getElementById("hero-message").style.display = "block"
-          }
-
-        }
 </script>
 {% endblock %}
