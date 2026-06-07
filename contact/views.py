@@ -33,18 +33,22 @@ def compose_message(request, rental_id):
 
     compose = Contacts.objects.filter(send_to=rental.owner_name_id)
 
+    contact = Contacts.objects.all()
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             contactform = form.save(commit=False)
             contactform.send_to_id = rental.owner_name_id
             contactform.save()
+
+            sender_name = form.cleaned_data.get('name')
             messages.success(request, "Your message has been sent.")
 
             send_mail(
                  'New Message',
                     f"Dear {rental.owner_name}! \
-                        You have recieved a message from {compose.email} in regard to you home '{rental.title}' listed on Kosher Getaways. \
+                        You have recieved a message from {sender_name} in regard to you home '{rental.title}' listed on Kosher Getaways. \
                         Checkout you messages to read you new message",
                     "office@koshergetaways.co.uk",
                     [rental.owner_email],
