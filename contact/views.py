@@ -10,7 +10,7 @@ from rentals.models import Rentals
 
 
 def contacts(request):
-    contacts = Contacts.objects.all().order_by('-date', '-time')
+    contacts = Contacts.objects.all().order_by('-date_sent', '-time_sent')
     
     context = {
         'contacts': contacts,
