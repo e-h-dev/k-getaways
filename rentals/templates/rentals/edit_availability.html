@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} - Edit Available Dates {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%} Help{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6"></div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="d-none d-md-block col-2"></div>
+        <div class="col-12 col-md-8">
+            <div class="form-container shadow" id="form-container">
+                <button class="btn btn-btn mt-3"><a href="{% url 'load_images' rental.id %}">Skip</a></button>
+                <h1 class="center form-header mb-5">Fill in the Form below to Edit available dates for your home</h1>
+                <div class="dates_instructions">
+                    <p>Please select your updated rental dates.</p>
+                </div>
+                <p>Click the "Add more Dates" button to add additional available date ranges.</p>
+                <form action="{% url 'edit_availability' rental.id %}" method="POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   
+                    <div class="form-box">
+                        {{ form.as_div }}
+                    </div>
+                    <button class="btn btn-btn mt-3" id="add-form">Add more Dates</button>
+                    <div class="next-form">
+                    </div>
+                    <button class="btn btn-btn mt-3" type="submit">Next</button>
+                </form>
+                <button class="btn btn-btn mt-3" onclick="window.history.back()">Back</button>
+            </div>
+        </div>
+        <div class="d-none d-md-block col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+<script>
+    let dateForm = document.querySelector(".form-box");
+    let addButton = document.querySelector("#add-form");
+    let formSpace = document.querySelector(".next-form");
+
+    addButton.addEventListener('click', addForm);
+
+    function addForm(){
+        let newForm = dateForm.cloneNode(true);
+        newForm.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.checked = false;
+});
+        formSpace.parentNode.insertBefore(newForm, addButton);
+        
+    }
+</script>
+
+
+{% endblock %}

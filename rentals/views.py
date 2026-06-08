@@ -119,7 +119,7 @@ def rental_detail(request, rental_id):
 
     available = AvailableDates.objects.filter(rental_id=rental_id)
 
-    print(f"Unavailable dates for rental {rental_id}: {available}")
+    print(f"Available dates for rental {rental_id}: {available}")
 
     context = {
         "rental": rental,
@@ -353,6 +353,73 @@ def add_available_dates(request, rental_id):
         'rental': rental
         }
     return render(request, 'rentals/add_available_dates.html', context)
+
+
+@login_required
+def edit_availability(request, rental_id):
+    """
+    View for editing an existing rental. Only the owner can edit their rental.
+    """
+
+    """
+    refuses to render template if user not owner of rental, 
+    this is a safety feature to prevent unauthorized access to edit rental.
+    Only the owner of the rental can access the edit rental page. 
+    If a user who is not the owner tries to access the edit rental page, 
+    they will receive an error message and be redirected to the rentals page.
+    this block of code is therfore located at the start of the function.
+    """
+    if request.user != Rentals.objects.get(pk=rental_id).owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+    
+    rental = get_object_or_404(Rentals, pk=rental_id)
+    dates = get_object_or_404(AvailableDates, rental_id=rental_id)
+
+    if request.method == 'POST':
+        form = AvailableDatesForm(request.POST, instance=dates)
+        
+        if form.is_valid():  # and image_form.is_valid():
+            form.save()
+            
+            messages.success(request, "Your rental has been updated.")
+            print("your rental has been updated")
+
+            """
+            commented out email send for moment it seems that render on free tier will not allow sending mail
+            """
+            try:
+                send_mail(
+                    'Home Edited Successfully',
+                    f"Dear {rental.owner_name}! \
+                        You have successfully edited the availbility dates for your home listing '{rental.title}' on Kosher Getaways. \
+                        If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
+                    "office@koshergetaways.co.uk",
+                    [rental.owner_email],
+                    fail_silently=False,
+                )
+
+            except Exception as e:
+                print(f"Email failed to send: {e}")
+        
+
+        else:
+            messages.error(request, "Please correct the errors below.")
+            print("your rental is invalid")
+            print(form.errors)
+            
+        return redirect('rentals')
+        # return redirect('rentals')
+
+    else:
+        form = AvailableDatesForm(instance=dates)
+
+    context = {
+        'rental': rental,
+        'dates': dates,
+        'form': form,
+        }
+    return render(request, 'rentals/edit_availability.html', context)
 
 
 # def delete_image(request, image_id):
