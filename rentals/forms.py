@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
-from .models import Rentals, Image, UnavailableDates
+from .models import Rentals, Image, AvailableDates
 
 
 class RentalForm(forms.ModelForm):
@@ -41,10 +41,10 @@ class ImageForm(forms.ModelForm):
 
 
 
-class UnavailableDatesForm(forms.ModelForm):
+class AvailableDatesForm(forms.ModelForm):
 
     class Meta:
-        model = UnavailableDates
+        model = AvailableDates
         fields = ['start_date', 'end_date']
 
         widgets = {

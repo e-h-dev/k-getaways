@@ -59,13 +59,13 @@ class Rentals(models.Model):
         return self.title
 
 
-class UnavailableDates(models.Model):
-    rental = models.ForeignKey(Rentals, on_delete=models.CASCADE, related_name='unavailable_dates')
+class AvailableDates(models.Model):
+    rental = models.ForeignKey(Rentals, on_delete=models.CASCADE, related_name='available_dates')
     start_date = models.DateField()
     end_date = models.DateField()
 
     def __str__(self):
-        return f'Unavailable from {self.start_date} to {self.end_date} for {self.rental.title}'
+        return f'Available from {self.start_date} to {self.end_date} for {self.rental.title}'
 
 
 class Image(models.Model):

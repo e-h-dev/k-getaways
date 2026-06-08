@@ -11,8 +11,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Rentals, Image, UnavailableDates
-from .forms import RentalForm, ImageForm, UnavailableDatesForm
+from .models import Rentals, Image, AvailableDates
+from .forms import RentalForm, ImageForm, AvailableDatesForm
 
 # Create your views here.
 
@@ -117,9 +117,9 @@ def rental_detail(request, rental_id):
     amenities_number = len(amenities)
     image = Image.objects.all()
 
-    unavalable = UnavailableDates.objects.filter(rental_id=rental_id)
+    available = AvailableDates.objects.filter(rental_id=rental_id)
 
-    print(f"Unavailable dates for rental {rental_id}: {unavalable}")
+    print(f"Unavailable dates for rental {rental_id}: {available}")
 
     context = {
         "rental": rental,
@@ -136,23 +136,23 @@ def rental_availability_json(request, rental_id):
     
     events = []
 
-    for unavailable in UnavailableDates.objects.filter(rental_id=rental_id):
+    for available in AvailableDates.objects.filter(rental_id=rental_id):
         events.append({
-            'start': unavailable.start_date.isoformat(),
-            'end': unavailable.end_date.isoformat(),
-            'title':'Available',
+            'start': available.start_date.isoformat(),
+            'end': available.end_date.isoformat(),
+            'title':'Unavailable',
             'display': 'inverse-background',
-            'color': 'rgb(6, 6, 190)', # Light Red
-            'groupId': 'unavailableArea',    # Groups these to avoid visual glitches
-            'overlap': False,         # Prevents double booking
+            'color': 'rgb(190, 6, 6)', 
+            'groupId': 'availableArea',  
+            'overlap': False,        
         })
 
         events.append({
-            'start': unavailable.start_date.isoformat(),
-            'end': unavailable.end_date.isoformat(),
-            'title':'Unavailable',
+            'start': available.start_date.isoformat(),
+            'end': available.end_date.isoformat(),
+            'title':'Available',
             'display': 'background',  # Blurs/greys out the area
-            'color': 'rgba(190, 6, 6)',       # Blue color for the background
+            'color': 'rgba(6, 6, 190)',       # Blue color for the background
         })
     
     print("\n--- JSON DATA FOR HOUSE {} ---".format(rental_id))
@@ -181,7 +181,7 @@ def list_home(request):
             print("your rental is invalid")
             print(form.errors)
             
-        return redirect('add_unavailable_dates', rental_id=done.id)
+        return redirect('add_available_dates', rental_id=done.id)
 
     else:
         form = RentalForm()
@@ -307,7 +307,7 @@ def load_images(request, rental_id):
 
 
 @login_required
-def add_unavailable_dates(request, rental_id):
+def add_available_dates(request, rental_id):
 
     """
     refuses to render template if user not owner of rental, 
@@ -324,35 +324,35 @@ def add_unavailable_dates(request, rental_id):
     rental = get_object_or_404(Rentals, pk=rental_id)
 
     if request.method == 'POST':
-        form = UnavailableDatesForm(request.POST)
+        form = AvailableDatesForm(request.POST)
         start_date = request.POST.getlist('start_date')
         end_date = request.POST.getlist('end_date')
 
         if form.is_valid():
             for f, n in zip(start_date, end_date):
-                UnavailableDates.objects.create(
+                AvailableDates.objects.create(
                     rental=rental,
                     start_date=f,
                     end_date=n
                 )
 
-            messages.success(request, "Your unavailable date has been saved.")
-            print("your unavailable date has been saved")
+            messages.success(request, "Your available date has been saved.")
+            print("your available date has been saved")
         else:
             messages.error(request, "Please correct the errors below.")
-            print("your unavailable date is invalid")
+            print("your available date is invalid")
             print(form.errors)
             
         return redirect('load_images', rental_id=rental.id)
 
     else:
-        form = UnavailableDatesForm()
+        form = AvailableDatesForm()
 
     context = {
         'form': form,
         'rental': rental
         }
-    return render(request, 'rentals/add_unavailable_dates.html', context)
+    return render(request, 'rentals/add_available_dates.html', context)
 
 
 # def delete_image(request, image_id):
