@@ -84,8 +84,8 @@ def rentals(request):
             check_out = datetime.strptime(check_out, '%d-%m-%Y').date()
 
             rentals = rentals.exclude(
-                unavailable_dates__start_date__lt=check_out,
-                unavailable_dates__end_date__gt=check_in
+                available_dates__start_date__gt=check_in,
+                available_dates__end_date__gt=check_out,
             )
         
         except ValueError as e:
@@ -102,7 +102,6 @@ def rentals(request):
         "rentals": rentals,
         "rental_number": rental_number,
         "filtered": filtered,
-        # "filters_applied": filters_applied
         }
     return render(request, 'rentals/rentals_display.html', context)
 
