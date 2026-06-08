@@ -5,6 +5,7 @@ import stripe
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.forms import modelformset_factory
+from django .http import Http404
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
@@ -243,7 +244,7 @@ def edit_home(request, rental_id):
             print("your rental is invalid")
             print(form.errors)
             
-        return redirect('add_unavailable_dates', rental_id=rental.id)
+        return redirect('edit_availability', rental_id=rental.id)
         # return redirect('rentals')
 
     else:
@@ -355,70 +356,33 @@ def add_available_dates(request, rental_id):
     return render(request, 'rentals/add_available_dates.html', context)
 
 
+
 @login_required
 def edit_availability(request, rental_id):
-    """
-    View for editing an existing rental. Only the owner can edit their rental.
-    """
+    rental = get_object_or_404(Rentals, pk=rental_id)
 
-    """
-    refuses to render template if user not owner of rental, 
-    this is a safety feature to prevent unauthorized access to edit rental.
-    Only the owner of the rental can access the edit rental page. 
-    If a user who is not the owner tries to access the edit rental page, 
-    they will receive an error message and be redirected to the rentals page.
-    this block of code is therfore located at the start of the function.
-    """
     if request.user != Rentals.objects.get(pk=rental_id).owner_name:
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
     
-    rental = get_object_or_404(Rentals, pk=rental_id)
-    dates = get_object_or_404(AvailableDates, rental_id=rental_id)
+    # 1. Simply grab all dates as a list and send them to the template
+    dates_queryset = AvailableDates.objects.filter(rental_id=rental_id).order_by('id')
 
     if request.method == 'POST':
-        form = AvailableDatesForm(request.POST, instance=dates)
+        # 2. Extract the specific date entry ID being updated from the form submission
+        target_id = request.POST.get('date_row_id')
+        specific_date_row = get_object_or_404(AvailableDates, pk=target_id)
         
-        if form.is_valid():  # and image_form.is_valid():
+        form = AvailableDatesForm(request.POST, instance=specific_date_row)
+        if form.is_valid():
             form.save()
-            
-            messages.success(request, "Your rental has been updated.")
-            print("your rental has been updated")
-
-            """
-            commented out email send for moment it seems that render on free tier will not allow sending mail
-            """
-            try:
-                send_mail(
-                    'Home Edited Successfully',
-                    f"Dear {rental.owner_name}! \
-                        You have successfully edited the availbility dates for your home listing '{rental.title}' on Kosher Getaways. \
-                        If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
-                    "office@koshergetaways.co.uk",
-                    [rental.owner_email],
-                    fail_silently=False,
-                )
-
-            except Exception as e:
-                print(f"Email failed to send: {e}")
-        
-
-        else:
-            messages.error(request, "Please correct the errors below.")
-            print("your rental is invalid")
-            print(form.errors)
-            
-        return redirect('rentals')
-        # return redirect('rentals')
-
-    else:
-        form = AvailableDatesForm(instance=dates)
+            messages.success(request, f"Updated successfully.")
+            return redirect('rentals')
 
     context = {
         'rental': rental,
-        'dates': dates,
-        'form': form,
-        }
+        'all_dates': dates_queryset, # Send the loopable collection to HTML
+    }
     return render(request, 'rentals/edit_availability.html', context)
 
 
