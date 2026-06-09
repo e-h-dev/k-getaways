@@ -69,6 +69,10 @@ header{
     color:#fff !important;
 }
 
+.btn-btn a:hover{
+  color:#fff !important;
+}
+
 .btn-btn:active:focus,
 .btn.active:focus{
     border: var(--main-text-color) outset 0.5px !important;
