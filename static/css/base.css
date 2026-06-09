@@ -419,7 +419,8 @@ footer{
 }
 
 .location-date-number-filter{
-  background-color:rgb(159, 196, 185);
+  /* background-color:rgb(159, 196, 185); */
+  background-color: rgba(255, 255, 255,0.9);
   height:50px;
   width:720px;
   border-radius: 25px;
@@ -523,7 +524,8 @@ footer{
   padding:10px;
   z-index: 3;
   font-style: normal;
-  background-color:rgb(159, 196, 185);
+  /* background-color:rgb(159, 196, 185); */
+  background-color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
 
@@ -531,7 +533,8 @@ footer{
 #category-dropdown, #location-dropdown{
   position: absolute;
   z-index: 5;
-  background-color:rgb(159, 196, 185);
+  /* background-color:rgb(159, 196, 185); */
+  background-color: rgba(255, 255, 255, 0.9);
   width:500px;
   border-radius: 10px;
   margin-top:15px;
