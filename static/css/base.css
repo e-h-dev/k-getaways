@@ -436,7 +436,7 @@ footer{
 }
 
 .location-date-number-filter select{
-  background-color: var(--main-background-color) !important;
+  background-color: rgba(255, 255, 255,0.9) !important;
 }
 
 .location-date-number-filter option{
@@ -445,6 +445,22 @@ footer{
 
 .location-date-number-filter option:hover{
   background-color: var(--main-text-color) !important;
+}
+
+.dropdown-items{
+  display:none;
+  position: absolute;
+  z-index:9999999999;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  width:220px;
+  padding-left: 40px;
+}
+
+
+.dropdown-items li:hover{
+  background-color: var(--main-text-color);
+  color: #fff;
 }
 
 .category-location-li{
