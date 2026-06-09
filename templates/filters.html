@@ -1,6 +1,12 @@
 <div class="location-date-number-filter d-none d-lg-block shadow">
     <form action="{% url 'rentals' %}" method="GET">
-        <input type="text" placeholder="Location" name="q" class="ldnf-input">
+        <!-- <input type="text" placeholder="Location" name="q" class="ldnf-input"> -->
+        <select type="text" placeholder="Location" name="q" class="ldnf-input">
+            <option value="">Location</option>
+            {% for loc in locations %}
+            <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+        </select>
         <input type="text" placeholder="Check in" name="check_in" class="ldnf-input" id="datepicker-in">
         <input type="text" placeholder="Check out" name="check_out" class="ldnf-input" id="datepicker-out">
         <input type="number" placeholder="Sleeps" name="sleeps" class="ldnf-input">
