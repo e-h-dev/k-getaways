@@ -143,6 +143,18 @@ header{
   border: solid 1px blue;
 }
 
+/* promo bar */
+
+.promo-bar{
+  background-color: var(--main-text-color);
+  color:#fff;
+  font-family: var(--main-font);
+  font-size:1rem;
+  height:60px;
+  padding-top:20px;
+  padding-left:10px;
+}
+
 
 /* nav bar styles  */
 
@@ -1781,6 +1793,13 @@ h5, h6{
 /* tablet size */
 @media screen and (max-width:850px){
 
+  /* promo bar */
+  .promo-bar{
+    height:40px;
+    padding-top:10px;
+    font-size: 0.9rem;
+  }
+
   .bottom-bar{
     position: fixed;
     z-index:3;
@@ -2203,6 +2222,14 @@ h5, h6{
     font-size: 1.2rem;
     text-align: center;
   }
+
+  /* promo bar */
+  .promo-bar{
+    font-size: 0.6rem;
+    height:30px;
+    padding-left:20px;
+  }
+
   .logo{
     bottom:15px;
     width:120px;
