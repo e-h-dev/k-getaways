@@ -434,6 +434,18 @@ footer{
   font-family: var(--main-font);
 }
 
+.location-date-number-filter select{
+  background-color: var(--main-background-color) !important;
+}
+
+.location-date-number-filter option{
+  color:var(--main-text-color)
+}
+
+.location-date-number-filter option:hover{
+  background-color: var(--main-text-color) !important;
+}
+
 .category-location-li{
   columns: 2;
   -webkit-columns: 2;

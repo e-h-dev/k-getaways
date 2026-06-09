@@ -2,7 +2,7 @@
     <form action="{% url 'rentals' %}" method="GET">
         <!-- <input type="text" placeholder="Location" name="q" class="ldnf-input"> -->
         <select type="text" placeholder="Location" name="q" class="ldnf-input">
-            <option value="">Location</option>
+            <option value="" disabled selected>Location</option>
             {% for loc in locations %}
             <option value="{{ loc }}">{{ loc }}</option>
             {% endfor %}
