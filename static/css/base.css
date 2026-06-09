@@ -1546,12 +1546,8 @@ input[type="file"]{
 
 /* -------------------------------------style for add dates form */
 .dates_instructions{
-  background-color: var(--main-background-color);
-  padding: 20px;
   width: 80%;
-  border-radius: 20px;
   margin-left:10%;
-  font-size:0.9rem;
 }
 
 /* update label in add dates form */
