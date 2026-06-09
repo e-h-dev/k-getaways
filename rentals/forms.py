@@ -11,10 +11,10 @@ class RentalForm(forms.ModelForm):
             ' Urn, Near Shuls, Air Conditioning, Garden)'
         )
     
-    description = forms.CharField(
-            help_text='<i class="fa-solid fa-circle-info"></i>' \
-            ' The price you set is per night.'
-        )
+    # description = forms.TextField(
+    #         help_text='<i class="fa-solid fa-circle-info"></i>' \
+    #         ' The price you set is per night.'
+    #     )
     
 
     class Meta:
@@ -25,6 +25,9 @@ class RentalForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        price_label = " per night"
+        self.fields['price'].label = f"{self.fields['price'].label}{price_label}"
 
 
 class ImageForm(forms.ModelForm):
