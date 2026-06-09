@@ -447,9 +447,9 @@ footer{
 }
 
 .category-location-li{
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
   width: 100%;
 }
 
@@ -542,7 +542,7 @@ footer{
 
 #category-dropdown{
   display: none;
-  right:-20px;
+  left:50px;
 }
 
 #location-dropdown{
