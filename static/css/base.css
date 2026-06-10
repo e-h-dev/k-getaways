@@ -1527,6 +1527,7 @@ or other calendar elements */
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="number"],
+.form-container input[type="password"],
 .form-container textarea,
 .form-container select{
   border-bottom: 1px rgba(117, 187, 167, 0.9) solid !important;
