@@ -981,6 +981,13 @@ thead{
   text-align: justify;
 }
 
+/* add height to price line on display */
+
+.rental-header,
+.price{
+  height:40px;
+}
+
 .filter-content{
   display:none;
 }

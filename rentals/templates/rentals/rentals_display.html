@@ -170,14 +170,6 @@
                             </div>
                             <hr>
                             {% endif %}
-                            <!-- <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-10 description ml-3">
-                                    {{ r.description|truncatechars:50 }}
-                                </div>
-                                <div class="col-1"></div>
-                            </div>
-                            <hr> -->
                             <div class="price ml-3">
                                 <i class="fa-solid fa-tags"></i>
                                 {% if r.pricing_type == "daily" %}
@@ -192,7 +184,6 @@
                                 Block Booking only!
                                 {% endif %}
                             </div>
-                            <hr>
                             <!-- rating and review system has been put on hold for moment subject of הלכות לשון הרע -->
                             <!-- <div class="rating">
                         Rating:
@@ -276,6 +267,21 @@
         $('#open-filter-mob').css("display", "block");
         $('#close-filter-mob').css("display", "none");
     }
+
+    // create dynamic title for each rental to keep overall rental boxes equal sizes
+    const titles = document.querySelectorAll('.rental-header') 
+    
+    titles.forEach(title => {
+        const charCount = title.textContent.length;
+
+    if (charCount > 35) {
+            title.style.fontSize = '1.2rem';
+            } else if (charCount > 25) {
+                title.style.fontSize = '1.3rem';
+            } else {
+                title.style.fontSize = '1.5rem';
+            }
+        });
 
 
     // price filtering and display
