@@ -40,7 +40,7 @@ class Rentals(models.Model):
     owner_email = models.EmailField(null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     post_code = models.CharField(max_length=100, null=True, blank=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=45)
     # title = models.TextField(max_length=100)
     sleeps = models.IntegerField(default=2)
     bedrooms = models.IntegerField(default=1)
