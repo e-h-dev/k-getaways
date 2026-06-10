@@ -49,6 +49,16 @@ class Rentals(models.Model):
     amenities = models.TextField(null=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    # radio buttons to select price model
+    PRICING_TYPES = [
+        ('daily', 'Daily'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+        ('flat_rate', 'Flat Rate')
+    ]
+    pricing_type = models.CharField(max_length=10, choices=PRICING_TYPES, default='daily')
+
     available_from = models.DateField(default=timezone.now)
     available_till = models.DateField(default=timezone.now() + timedelta(days=365))
     rating = models.IntegerField(default=0,

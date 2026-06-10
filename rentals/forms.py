@@ -21,13 +21,17 @@ class RentalForm(forms.ModelForm):
         model = Rentals
         fields = ["location", "category", "owner_number", "owner_email",
                   "address", "post_code", "title", "sleeps", "bedrooms",
-                  "bathrooms", "amenities", "description", "price"]
+                  "bathrooms", "amenities", "description", "pricing_type", "price"]
+        
+        widgets = {
+            'pricing_type': forms.RadioSelect(),
+        }
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        price_label = " per night"
-        self.fields['price'].label = f"{self.fields['price'].label}{price_label}"
+        pricing_type_label = ": Select one option"
+        self.fields['pricing_type'].label = f"{self.fields['pricing_type'].label}{pricing_type_label}"
 
 
 class ImageForm(forms.ModelForm):
