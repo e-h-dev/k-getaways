@@ -180,7 +180,15 @@
                             <hr> -->
                             <div class="price ml-3">
                                 <i class="fa-solid fa-tags"></i>
+                                {% if r.pricing_type == "daily" %}
                                 £{{ r.price }} per night
+                                {% elif r.pricing_type == "weekly" %}
+                                £{{ r.price }} per week
+                                {% elif r.pricing_type == "monthly" %}
+                                £{{ r.price }} per month
+                                {% else %} 
+                                Block Booking only!
+                                {% endif %}
                             </div>
                             <hr>
                             <!-- rating and review system has been put on hold for moment subject of הלכות לשון הרע -->
