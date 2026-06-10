@@ -182,6 +182,8 @@
                                 <i class="fa-solid fa-tags"></i>
                                 {% if r.pricing_type == "daily" %}
                                 £{{ r.price }} per night
+                                {% elif r.pricing_type == "over_Shabbos" %}
+                                £{{ r.price }} for Shabbos
                                 {% elif r.pricing_type == "weekly" %}
                                 £{{ r.price }} per week
                                 {% elif r.pricing_type == "monthly" %}
