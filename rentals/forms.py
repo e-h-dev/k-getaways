@@ -24,7 +24,13 @@ class RentalForm(forms.ModelForm):
                   "bathrooms", "amenities", "description", "pricing_type", "price"]
         
         widgets = {
-            'pricing_type': forms.RadioSelect(),
+            'pricing_type': forms.RadioSelect(attrs={'class': 'pricing-radio'}),
+        }
+
+    
+    class Media:
+        css = {
+            'all': ('css/base.css',)
         }
         
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,24 @@
+#pricing_type_0 input[type="checkbox"] {
+  display: none; 
+}
+
+/* Hide the "checked" text by default */
+#pricing_type_0 .text-checked {
+  display: none;
+}
+
+/* When checked, hide the "unchecked" text */
+#pricing_type_0 input:checked ~ .text-unchecked {
+  display: none;
+}
+
+/* When checked, show the "checked" text */
+#pricing_type_0 input:checked ~ .text-checked {
+  display: inline;
+  background-color: var(--main-background-color); /* Optional styling */
+  font-weight: bold;
+}
+
+#pricing_type_0 span{
+  cursor: pointer;
+}
