@@ -188,7 +188,7 @@ SOCIALACCOUNT_PROVIDERS = {
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', f"sqlite:///{os.path.join(BASE_DIR, 'db.sql')}"),
-        conn_max_age=600,
+        conn_max_age=60,
         ssl_require=True
     )
 }
