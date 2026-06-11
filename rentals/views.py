@@ -9,6 +9,7 @@ from django .http import Http404
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Prefetch
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -20,7 +21,9 @@ from .forms import RentalForm, ImageForm, AvailableDatesForm
 
 def rentals(request):
 
-    rentals = Rentals.objects.prefetch_related('images').all().order_by('-date_added')
+    ordered_images = Image.objects.order_by('id')
+    
+    rentals = Rentals.objects.prefetch_related(Prefetch('images', queryset=ordered_images)).all().order_by('-date_added')
     rentals = rentals.filter(active=True)
 
     """
