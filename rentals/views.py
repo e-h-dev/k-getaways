@@ -20,7 +20,7 @@ from .forms import RentalForm, ImageForm, AvailableDatesForm
 
 def rentals(request):
 
-    rentals = Rentals.objects.prefetch_related('images').all()
+    rentals = Rentals.objects.prefetch_related('images').all().order_by('-date_added')
     rentals = rentals.filter(active=True)
 
     """
