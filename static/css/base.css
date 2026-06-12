@@ -1204,9 +1204,10 @@ thead{
 }
 
 .gallery-images{
-  height:300px;
-  width:450px;
-  position: relative;
+  width: 105%;          /* Fills the horizontal space of its card container */
+  height: 300px;        /* Set whatever fixed height your design needs */
+  object-fit: cover;    /* CRITICAL: Cuts and centers the image; stops all stretching */
+  object-position: center; 
 }
 
 .gallery-images:hover{
@@ -1396,6 +1397,7 @@ or other calendar elements */
   position: relative;
   top:30%;
   left:15%;
+  
 }
 
 .rental-detail-image-display{
@@ -1403,6 +1405,9 @@ or other calendar elements */
   width:800px;
   margin:1px;
   border-radius: 10px;
+  
+  object-fit: cover;    /* CRITICAL: Cuts and centers the image; stops all stretching */
+  object-position: center; 
 }
 
 .image-name{
