@@ -388,6 +388,12 @@ def edit_availability(request, rental_id):
     return render(request, 'rentals/edit_availability.html', context)
 
 
+def delete_dates(request, available_id):
+    selected_date = get_object_or_404(AvailableDates, pk=available_id)
+    selected_date.delete()
+    messages.success(request, "You Have updated you rentals availability.")
+    return redirect('rentals')
+
 # def delete_image(request, image_id):
 #     image = get_object_or_404(Image, pk=image_id)
 #     rental_id = image.name.id

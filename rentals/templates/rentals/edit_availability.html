@@ -39,6 +39,9 @@
                     <input type="date" name="end_date" value="{{ dates.end_date|date:'Y-m-d' }}">
                     
                     <button class="btn btn-btn mt-3" type="submit">Save Only This Slot</button>
+                    <div>Delete this date?</div>
+                    <button class="btn btn-btn"><a href="{% url 'delete_dates' dates.id %}">Delete</a></button>
+                    
                 </form>
                 {% endfor %}
                 <p>Add new dates</p>
