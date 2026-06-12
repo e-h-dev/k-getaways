@@ -127,7 +127,7 @@
             <div class="row">
                 {% for r in rentals %}
                 
-                <div class="col-12 col-md-6 col-lg-3 column-change">
+                <div class="col-12 col-md-6 col-lg-3 column-change mt-3">
                     <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
                         <div class="rental-display-box pt-4 shadow">
                             <div class="rental-header">{{ r.title }}</div>
@@ -183,6 +183,10 @@
                                 {% else %} 
                                 £{{ r.price }} (Block Booking only!)
                                 {% endif %}
+                            </div>
+                            <hr>
+                            <div class="post_code">
+                                <i class="fa-solid fa-address-card"></i> {{ r.post_code }}
                             </div>
                             <!-- rating and review system has been put on hold for moment subject of הלכות לשון הרע -->
                             <!-- <div class="rating">

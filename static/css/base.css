@@ -974,17 +974,29 @@ thead{
 
 .description, .price,
 .rating, .availability,
+.post_code,
 .filters{
   color:var(--main-text-color);
   font-family: var(--main-font);
   text-align: justify;
 }
 
+.post_code{
+  position: relative;
+  margin-left:20px;
+  bottom:20px;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
 /* add height to price line on display */
 
-.rental-header,
+.rental-header{
+  height:40px
+}
+
 .price{
-  height:40px;
+  height:20px;
 }
 
 .filter-content{
