@@ -1207,7 +1207,9 @@ thead{
   width: 105%;          /* Fills the horizontal space of its card container */
   height: 300px;        /* Set whatever fixed height your design needs */
   object-fit: cover;    /* CRITICAL: Cuts and centers the image; stops all stretching */
-  object-position: center; 
+  object-position: center;
+  content-visibility: auto;     /* Tells the browser to skip rendering it until close to viewport */
+  image-rendering: auto;
 }
 
 .gallery-images:hover{

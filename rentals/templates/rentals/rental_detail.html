@@ -42,12 +42,12 @@
                 {% if rental.images.all %}
                 {% for i in rental.images.all|slice:":1" %}
                 <div class="col-12">
-                    <img src="{{ i.image.url|cut:"image/upload/"|add:"w_600,h_600,c_fill,g_auto/" }}" alt="{{ rental.title }}" class="gallery-images">
+                    <img src="{{ i.image.url }}" alt="{{ rental.title }}" class="gallery-images" loading="lazy">
                 </div>
                 {% endfor %}
                 {% else %}
                 <div class="col-12">
-                    <img src="/static/media/awaiting.png" alt="Awaiting Images" class="gallery-images">
+                    <img src="/static/media/awaiting.png" alt="Awaiting Images" class="gallery-images" loading="lazy">
                 </div>
                 {% endif %}
             </div>
