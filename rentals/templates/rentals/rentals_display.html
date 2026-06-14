@@ -2,233 +2,243 @@
 {% load static %}
 
 {% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
+{% block extra_body %}
+<div id="loading-overlay">
+    <img src="{% static 'media/outside_spinner.png' %}" alt="" class="outside-spinner shadow">
+    <img src="{% static 'media/inside_spinner.png' %}" alt="" class="spinner">
+    
+</div>
+{% endblock %}
 {% block extra_class%} active{% endblock %}
 {% block content%}
-<div class="filter-container rentals-filter-container">
+
+<div id="main-content" style="display:none">
+    <div class="filter-container rentals-filter-container">
     {% include 'filters.html' %}
-</div>
-<div class="filters-header">Filters 
-    {% if filtered %}
-    <span class="filter-count">({{ filtered | length }}) Filters applied</span>
-    <span><button class="btn sml-btn"><a href="{% url 'rentals' %}">Clear All</a></button></span>
-    {% endif %}
-    <!-- active on desktop only -->
-    <div class="d-none d-lg-block">
-        <div class="filter-icon" id="open-filter" onclick="openFilter()">
+    </div>
+    <div class="filters-header">Filters 
+        {% if filtered %}
+        <span class="filter-count">({{ filtered | length }}) Filters applied</span>
+        <span><button class="btn sml-btn"><a href="{% url 'rentals' %}">Clear All</a></button></span>
+        {% endif %}
+        <!-- active on desktop only -->
+        <div class="d-none d-lg-block">
+            <div class="filter-icon" id="open-filter" onclick="openFilter()">
+                <i class="fa-solid fa-sliders"></i>
+            </div>    
+            <div class="filter-icon" id="close-filter" onclick="closeFilter()">
+                <i class="fa-solid fa-sliders"></i>
+            </div>
+        </div>
+        
+        <!-- active on mobile only -->
+        <div class="d-block d-lg-none">
+            <div class="filter-icon" id="open-filter-mob" onclick="openFilterMob()">
             <i class="fa-solid fa-sliders"></i>
         </div>    
-        <div class="filter-icon" id="close-filter" onclick="closeFilter()">
+        <div class="filter-icon" id="close-filter-mob" onclick="closeFilterMob()">
             <i class="fa-solid fa-sliders"></i>
         </div>
+        </div>   
     </div>
-    
-    <!-- active on mobile only -->
-    <div class="d-block d-lg-none">
-        <div class="filter-icon" id="open-filter-mob" onclick="openFilterMob()">
-        <i class="fa-solid fa-sliders"></i>
-    </div>    
-    <div class="filter-icon" id="close-filter-mob" onclick="closeFilterMob()">
-        <i class="fa-solid fa-sliders"></i>
-    </div>
-    </div>   
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-lg-3 filter-content mobile-filters-box">
-            <aside class="filters">
-                <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
-                <div>
-                    <form action="{% url 'rentals' %}" method="GET">
-                        <ul>
-                            <li>
-                                <div class="slidecontainer">
-                                    <label for="priceRange">Price per night <span id="priceRangeValue">£1500</span></label>
-                                    <input type="range" min="20" max="1500" value="1500" name="price" class="slider shadow" id="priceRange">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 filter-content mobile-filters-box">
+                <aside class="filters">
+                    <!-- <h3 onclick="openFilter()">Filter <i class="fa-solid fa-filter"></i></h3> -->
+                    <div>
+                        <form action="{% url 'rentals' %}" method="GET">
+                            <ul>
+                                <li>
+                                    <div class="slidecontainer">
+                                        <label for="priceRange">Price per night <span id="priceRangeValue">£1500</span></label>
+                                        <input type="range" min="20" max="1500" value="1500" name="price" class="slider shadow" id="priceRange">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="slidecontainer">
+                                        <label for="bedroomsRange">Bedrooms <span id="bedroomsRangeValue">1</span></label>
+                                        <input type="range" min="1" max="20" value="1" name="bedrooms" class="slider shadow" id="bedroomsRange">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="slidecontainer">
+                                        <label for="sleepsRange">Sleeps <span id="sleepsRangeValue">2</span></label>
+                                        <input type="range" min="2" max="100" name="sleeps" value="2" class="slider shadow" id="sleepsRange">
+                                    </div>
+                                </li>
+                                <div class="filter-items">
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="garden">
+                                            <span class="text-unchecked{% if 'garden' in filtered %} filter-checked{% endif %}">Garden</span>
+                                            <span class="text-checked">Garden</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="parking">
+                                            <span class="text-unchecked{% if 'parking' in filtered %} filter-checked{% endif %}">Parking</span>
+                                            <span class="text-checked">Parking</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="shuls">
+                                            <span class="text-unchecked{% if 'shuls' in filtered %} filter-checked{% endif %}">Close to Shuls</span>
+                                            <span class="text-checked">Close to Shuls</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="shops">
+                                            <span class="text-unchecked{% if 'shops' in filtered %} filter-checked{% endif %}">Close to Shops</span>
+                                            <span class="text-checked">Close to Shops</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="learning">
+                                            <span class="text-unchecked{% if 'learning' in filtered %} filter-checked{% endif %}">Quiet learning room</span>
+                                            <span class="text-checked">Quiet learning room</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="microwave">
+                                            <span class="text-unchecked{% if 'microwave' in filtered %} filter-checked{% endif %}">Microwave</span>
+                                            <span class="text-checked">Microwave</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="dryer">
+                                            <span class="text-unchecked{% if 'dryer' in filtered %} filter-checked{% endif %}">Dryer</span>
+                                            <span class="text-checked">Dryer</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="q" value="shabbos">
+                                            <span class="text-unchecked{% if 'shabbos' in filtered %} filter-checked{% endif %}">Shabbos anemities</span>
+                                            <span class="text-checked">Shabbos anemities</span>
+                                        </label>
+                                    </li>
                                 </div>
-                            </li>
-                            <li>
-                                <div class="slidecontainer">
-                                    <label for="bedroomsRange">Bedrooms <span id="bedroomsRangeValue">1</span></label>
-                                    <input type="range" min="1" max="20" value="1" name="bedrooms" class="slider shadow" id="bedroomsRange">
+                            </ul>
+                            <button class="btn btn-btn apply-filters-btn shadow" type="submit">Apply Filters</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+            <div class="col-12" id="row-change">
+                <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rental{% if rental_number != 1 %}s{% endif %}.</h3>
+                <div class="row">
+                    {% for r in rentals %}
+                    
+                    <div class="col-12 col-md-6 col-lg-3 column-change mt-3">
+                        <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
+                            <div class="rental-display-box pt-4 shadow">
+                                <div class="rental-header">{{ r.title }}</div>
+                                <div class="rental-sub-header">
+                                    <i class="fa-solid fa-location-dot"></i> {{ r.location }}
                                 </div>
-                            </li>
-                            <li>
-                                <div class="slidecontainer">
-                                    <label for="sleepsRange">Sleeps <span id="sleepsRangeValue">2</span></label>
-                                    <input type="range" min="2" max="100" name="sleeps" value="2" class="slider shadow" id="sleepsRange">
-                                </div>
-                            </li>
-                            <div class="filter-items">
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="garden">
-                                        <span class="text-unchecked{% if 'garden' in filtered %} filter-checked{% endif %}">Garden</span>
-                                        <span class="text-checked">Garden</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="parking">
-                                        <span class="text-unchecked{% if 'parking' in filtered %} filter-checked{% endif %}">Parking</span>
-                                        <span class="text-checked">Parking</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="shuls">
-                                        <span class="text-unchecked{% if 'shuls' in filtered %} filter-checked{% endif %}">Close to Shuls</span>
-                                        <span class="text-checked">Close to Shuls</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="shops">
-                                        <span class="text-unchecked{% if 'shops' in filtered %} filter-checked{% endif %}">Close to Shops</span>
-                                        <span class="text-checked">Close to Shops</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="learning">
-                                        <span class="text-unchecked{% if 'learning' in filtered %} filter-checked{% endif %}">Quiet learning room</span>
-                                        <span class="text-checked">Quiet learning room</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="microwave">
-                                        <span class="text-unchecked{% if 'microwave' in filtered %} filter-checked{% endif %}">Microwave</span>
-                                        <span class="text-checked">Microwave</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="dryer">
-                                        <span class="text-unchecked{% if 'dryer' in filtered %} filter-checked{% endif %}">Dryer</span>
-                                        <span class="text-checked">Dryer</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="q" value="shabbos">
-                                        <span class="text-unchecked{% if 'shabbos' in filtered %} filter-checked{% endif %}">Shabbos anemities</span>
-                                        <span class="text-checked">Shabbos anemities</span>
-                                    </label>
-                                </li>
-                            </div>
-                        </ul>
-                        <button class="btn btn-btn apply-filters-btn shadow" type="submit">Apply Filters</button>
-                    </form>
-                </div>
-            </aside>
-        </div>
-        <div class="col-12" id="row-change">
-            <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rental{% if rental_number != 1 %}s{% endif %}.</h3>
-            <div class="row">
-                {% for r in rentals %}
-                
-                <div class="col-12 col-md-6 col-lg-3 column-change mt-3">
-                    <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
-                        <div class="rental-display-box pt-4 shadow">
-                            <div class="rental-header">{{ r.title }}</div>
-                            <div class="rental-sub-header">
-                                <i class="fa-solid fa-location-dot"></i> {{ r.location }}
-                            </div>
-                            {% if r.images.all %}
-                            {% for i in r.images.all %}
+                                {% if r.images.all %}
+                                {% for i in r.images.all %}
+                                    <div class="image-slider-{{ r.id }}">
+                                        <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
+                                    {% if r.images.count > 1 %}
+                                        <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
+                                        <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
+                                    {% endif %}
+                                    </div>
+                                {% endfor %}
+                            
+                                {% else %}
                                 <div class="image-slider-{{ r.id }}">
-                                    <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
-                                 {% if r.images.count > 1 %}
-                                    <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
-                                    <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
-                                {% endif %}
+                                    <img src="/static/media/awaiting.png" alt="Awaiting Images" class="featured-image shadow border">
                                 </div>
-                            {% endfor %}
-                           
-                            {% else %}
-                            <div class="image-slider-{{ r.id }}">
-                                <img src="/static/media/awaiting.png" alt="Awaiting Images" class="featured-image shadow border">
-                            </div>
-                            {% endif %}
+                                {% endif %}
 
-                            <!-- <div class="description">{{ r.description }}</div> -->
-                            <div class="row mt-2 ml-2">
-                                <div class="col-6">
-                                    <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
+                                <!-- <div class="description">{{ r.description }}</div> -->
+                                <div class="row mt-2 ml-2">
+                                    <div class="col-6">
+                                        <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fa-solid fa-people-roof"></i> {{ r.sleeps }}
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <i class="fa-solid fa-people-roof"></i> {{ r.sleeps }}
+                                <hr>
+                                {% if user.is_authenticated and r.owner_name == user %}
+                                <div class="row">
+                                    <div class="col-2"></div>
+                                    <div class="col-10">
+                                        <a style="font-size: 0.8rem;" href="{% url 'edit_home' r.id %}">Edit this Rental</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
-                            {% if user.is_authenticated and r.owner_name == user %}
-                            <div class="row">
-                                <div class="col-2"></div>
-                                <div class="col-10">
-                                    <a style="font-size: 0.8rem;" href="{% url 'edit_home' r.id %}">Edit this Rental</a>
-                                </div>
-                            </div>
-                            <hr>
-                            {% endif %}
-                            <div class="price ml-3">
-                                <i class="fa-solid fa-tags"></i>
-                                {% if r.pricing_type == "daily" %}
-                                £{{ r.price }} per night
-                                {% elif r.pricing_type == "over_Shabbos" %}
-                                £{{ r.price }} for Shabbos
-                                {% elif r.pricing_type == "weekly" %}
-                                £{{ r.price }} per week
-                                {% elif r.pricing_type == "monthly" %}
-                                £{{ r.price }} per month
-                                {% else %} 
-                                £{{ r.price }} (Block Booking only!)
+                                <hr>
                                 {% endif %}
+                                <div class="price ml-3">
+                                    <i class="fa-solid fa-tags"></i>
+                                    {% if r.pricing_type == "daily" %}
+                                    £{{ r.price }} per night
+                                    {% elif r.pricing_type == "over_Shabbos" %}
+                                    £{{ r.price }} for Shabbos
+                                    {% elif r.pricing_type == "weekly" %}
+                                    £{{ r.price }} per week
+                                    {% elif r.pricing_type == "monthly" %}
+                                    £{{ r.price }} per month
+                                    {% else %} 
+                                    £{{ r.price }} (Block Booking only!)
+                                    {% endif %}
+                                </div>
+                                <hr>
+                                <div class="post_code">
+                                    <i class="fa-solid fa-address-card"></i> {{ r.post_code }}
+                                </div>
+                                <!-- rating and review system has been put on hold for moment subject of הלכות לשון הרע -->
+                                <!-- <div class="rating">
+                            Rating:
+                            {% if r.rating == 1 %}
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            {% elif r.rating == 2 %}
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            {% elif r.rating == 3 %}
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            {% elif r.rating == 4 %}
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            {% else %}
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            {% endif %}
                             </div>
-                            <hr>
-                            <div class="post_code">
-                                <i class="fa-solid fa-address-card"></i> {{ r.post_code }}
+                            <hr> -->
+                            
                             </div>
-                            <!-- rating and review system has been put on hold for moment subject of הלכות לשון הרע -->
-                            <!-- <div class="rating">
-                        Rating:
-                        {% if r.rating == 1 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% elif r.rating == 2 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% elif r.rating == 3 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% elif r.rating == 4 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% else %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        {% endif %}
-                        </div>
-                        <hr> -->
-                        
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
@@ -238,6 +248,19 @@
 {% block js %}
 
 <script>
+    //loading spinner functions
+
+    // Fired ONLY after HTML, stylesheets, and ALL images are fully downloaded
+    window.addEventListener("load", function() {
+        const overlay = document.getElementById("loading-overlay");
+        const mainContent = document.getElementById("main-content");
+
+        if (overlay && mainContent) {
+            overlay.style.display = "none";
+            mainContent.style.display = "block";
+        }
+    });
+
     // functions for desktop
     function openFilter(){
         $('.filter-content').css("display", "block");
