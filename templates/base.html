@@ -49,7 +49,20 @@
                 <div class="col-12 col-md-8 col-lg-6">
                     Limited Promotion! List your rental by שבעה עשר בתמוז and pay zero listing fees!
                 </div>
-                <div class="d-none d-md-block col-md-2 col-lg-3"></div>
+                <div class="d-none d-md-block col-md-2 col-lg-3">
+                    <!-- <div class="timer-container">
+                        <div id="countdown">
+                            <div class="time-box"><span class="count-down-number">Only</span></div>
+                            <div class="time-box"><span class="count-down-number" id="weeks">00</span><span class="count-down-number">Weeks</span></div>
+                            <div class="time-box"><span class="count-down-number" id="days">00</span><span class="count-down-number">Days</span></div>
+                            <div class="time-box"><span class="count-down-number" id="hours">00</span><span class="count-down-number">Hours</span></div>
+                            <div class="time-box"><span class="count-down-number" id="minutes">00</span><span class="count-down-number">Minutes</span></div>
+                            <div class="time-box"><span class="count-down-number" id="seconds">00</span><span class="count-down-number">Seconds</span></div>
+                            <div class="time-box"><span class="count-down-number">Left!</span></div>
+                        </div>
+                    </div> -->
+
+                </div>
             </div>
         </div>
         <nav>
@@ -70,16 +83,27 @@
                             <div class="col-2 d-lg-block d-none"><a href="/contact/compose/1" class="top-nav-link">Contact</a></div>
                             <div class="col-1 d-lg-block d-none">{% block extra_nav%}{% endblock %}</div>
                             <div class="col-lg-3 col-md-12">
-                                <div class="sign-in-box">
+                                <div class="sign-in-box" onmouseenter="navAvatarChange()" onmouseleave="navAvatarReturn()">
                                     {% if request.user.is_authenticated %}
                                     
-                                    <span class="user-avatar">{{ user.username|first|capfirst }}</span>
+                                    <span class="user-avatar">
+                                        {% if unread_message_count < 1 %}
+                                        <span>{{ user.username|first|capfirst }}</span>
+                                        {% else %}
+                                        <span class="bell" id="nav-bell"><i class="fa-solid fa-bell"></i></span>
+                                        <span class="bell-gone" id="nav-name">{{ user.username|first|capfirst }}</span>
+                                        {% endif %}
+                                    </span>
                                     <div class="member-dropdown shadow" id="drop-down">
                                         <ul>
                                             <li style="text-align: center;" class="welcome-name">Welcome <strong>{{ user.username }}!</strong></li>
                                             <hr>
                                             <li><a href="{% url 'rentals' %}?q={{ user }}">Your Rentals</a></li>
-                                            <li><a href="{% url 'contacts' %}" class="top-nav-link">Messages ({{ unread_message_count }})</a></li>
+                                            <li><a href="{% url 'contacts' %}" class="top-nav-link">Messages ({{ unread_message_count }})
+                                                {% if unread_message_count %}
+                                                <span id="message-bell"><i class="fa-solid fa-bell"></i></span>
+                                                {% endif %}
+                                            </a></li>
                                             <li><a href="{% url 'account_logout' %}" class="top-nav-link">Sign Out</a></li>
                                         </ul>
                                     </div>
@@ -183,6 +207,48 @@
     {% block js %}
     
     {% endblock %}
+    <!-- script to run count down timer till promotion runs out -->
+    <script>
+        // 1. SET YOUR TARGET DATE HERE (Format: YYYY-MM-DDTHH:MM:SS)
+        const targetDate = new Date("2026-07-02T23:59:59").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeRemaining = targetDate - now;
+
+            // If the countdown is finished
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                document.querySelector(".timer-container").innerHTML = "<h2>The Event Has Arrived!</h2>";
+                return;
+            }
+
+            // 2. TIME CALCULATIONS (including weeks)
+            const msPerSecond = 1000;
+            const msPerMinute = msPerSecond * 60;
+            const msPerHour = msPerMinute * 60;
+            const msPerDay = msPerHour * 24;
+            const msPerWeek = msPerDay * 7;
+
+            const weeks = Math.floor(timeRemaining / msPerWeek);
+            const days = Math.floor((timeRemaining % msPerWeek) / msPerDay);
+            const hours = Math.floor((timeRemaining % msPerDay) / msPerHour);
+            const minutes = Math.floor((timeRemaining % msPerHour) / msPerMinute);
+            const seconds = Math.floor((timeRemaining % msPerMinute) / msPerSecond);
+
+            // 3. DISPLAY VALUE FORMATTING (Adds a leading zero if number < 10)
+            document.getElementById("weeks").innerText = String(weeks).padStart(2, '0');
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        // Run the function immediately once, then update every 1 second
+        updateCountdown();
+        const timerInterval = setInterval(updateCountdown, 1000);
+    </script>
+
     <script>
         let messageContainer = document.getElementById('messages-container');
         
@@ -191,6 +257,21 @@
         }, 3500);
     
     </script>
+    <!-- script for nav notification -->
+     <script>
+        let navBell = document.getElementById('nav-bell');
+        let navName = document.getElementById('nav-name')
+
+        function navAvatarChange(){
+            navBell.style.display="none"
+            navName.style.display="block"
+        }
+
+        function navAvatarReturn(){
+            navBell.style.display="block"
+            navName.style.display="none"
+        }
+     </script>
     <script>
 
         $( function() {

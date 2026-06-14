@@ -154,6 +154,33 @@ header{
   padding-left:10px;
 }
 
+/* promo countdown */
+ 
+#countdown {
+   display: flex;
+   gap: 15px;
+   justify-content: center;
+   position: relative;
+   bottom:5px;
+}
+
+.timer-container{
+ 
+  padding:5px;
+  border-radius: 5px;
+  position: relative;
+  bottom:5px;
+}
+
+.count-down-number{
+  color:#fff;
+  background-color: var(--main-text-color);
+  margin:2px;
+  padding:5px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
 
 /* nav bar styles  */
 
@@ -239,6 +266,29 @@ h1,p{
     background-image: linear-gradient(to right, rgba(117, 187, 167, 0.8), #6c809a, var(--main-text-color));
     font-size: 1.2rem;
     padding-left:10px;
+ }
+
+ /* css logic to flash on bell notification to show user new message */
+
+
+ .bell-gone{
+  display:none
+ }
+
+
+ .bell{
+  color: rgba(255, 255, 255, 0.8);
+  animation: gone 1s infinite
+ }
+
+ @keyframes gone {
+  0%{
+    font-size: 0.8rem;
+  }
+
+  100%{
+    font-size:1.2rem
+  }
  }
 
  .member-dropdown, .sign-up-dropdown{
