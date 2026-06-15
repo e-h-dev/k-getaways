@@ -33,21 +33,11 @@ def rentals(request):
     today = datetime.today().date()
     print(f"Today's date is: {today}")
 
-    for rental in rentals:
-        listed = rental.date_added
-        expiry_date = listed + timedelta(days=30)
-        print(f"Rental '{rental.title}' was listed on: {listed}")
-
-        listing_expires = today - timedelta(days=30)
-
-        print(f"Rental '{rental.title}' will expire on: {expiry_date}")
-
-        if listed < listing_expires:
-            rental.active = False
-            rental.save()
-            print(f"Rental '{rental.title}' has been marked as inactive due to being listed for over 30 days.")
             
-    
+    listing_expires = datetime.today().date() - timedelta(days=30)
+    Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
+
+
     """
     This block handles search and filtering based on user input from the search form.
     It checks for various query parameters and applies filters accordingly.

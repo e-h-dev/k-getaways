@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -81,7 +82,7 @@ class AvailableDates(models.Model):
 
 class Image(models.Model):
     name = models.ForeignKey('Rentals', on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='rentals/', null=True, blank=True)
+    image = CloudinaryField('image', folder='rentals/', null=True, blank=True)
     image_name = models.CharField(max_length=24, null=True, blank=True)
    
     def __str__(self):

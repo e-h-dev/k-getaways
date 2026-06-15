@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load cloudinary_opt %}
 {% load static %}
 
 {% block extra_title %} - {{ rental.title }} {% endblock %}
@@ -42,7 +43,7 @@
                 {% if rental.images.all %}
                 {% for i in rental.images.all|slice:":1" %}
                 <div class="col-12">
-                    <img src="{{ i.image.url }}" alt="{{ rental.title }}" class="gallery-images" loading="lazy">
+                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" class="gallery-images" loading="lazy">
                 </div>
                 {% endfor %}
                 {% else %}
@@ -57,7 +58,7 @@
                 {% if rental.images.all %}
                 {% for i in rental.images.all|slice:":2" %}
                 <div class="col-6">
-                    <img src="{{ i.image.url }}" alt="{{ rental.title }}"
+                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}"
                     class="gallery-images {% if forloop.first %} gallery-image-left {% else %} gallery-image-right{% endif %}">
                 </div>
                 {% endfor %}
@@ -186,7 +187,7 @@
     
     const images = [
         {% for i in rental.images.all %}
-        '{{ i.image.url }}',
+        '{{ i.image.url|cloud_opt }}',
         {% endfor %}
     ]
 

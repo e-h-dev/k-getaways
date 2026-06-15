@@ -1,16 +1,11 @@
 {% extends "base.html" %}
+{% load cloudinary_opt %}
 {% load static %}
+
 
 {% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
 {% block extra_body %}
-<!-- <div id="loading-overlay_under_construction">
-    <div class="outside-spinner shadow">
-        <h2>
-            The site is currently under maintenance, we will be back very soon!
-        </h2>
-    </div>
-    
-</div> -->
+
 <div id="loading-overlay">
     <img src="{% static 'media/outside_spinner.png' %}" alt="" class="outside-spinner shadow">
     <img src="{% static 'media/inside_spinner.png' %}" alt="" class="spinner">
@@ -154,7 +149,7 @@
                                 {% if r.images.all %}
                                 {% for i in r.images.all %}
                                     <div class="image-slider-{{ r.id }}">
-                                        <img src="{{ i.image.url }}" alt="" class="featured-image shadow border">
+                                        <img src="{{ i.image.url|cloud_opt }}" alt="" class="featured-image shadow border">
                                     {% if r.images.count > 1 %}
                                         <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
                                         <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
