@@ -3,6 +3,14 @@
 
 {% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
 {% block extra_body %}
+<!-- <div id="loading-overlay_under_construction">
+    <div class="outside-spinner shadow">
+        <h2>
+            The site is currently under maintenance, we will be back very soon!
+        </h2>
+    </div>
+    
+</div> -->
 <div id="loading-overlay">
     <img src="{% static 'media/outside_spinner.png' %}" alt="" class="outside-spinner shadow">
     <img src="{% static 'media/inside_spinner.png' %}" alt="" class="spinner">
@@ -303,7 +311,7 @@
 
     if (charCount > 35) {
             title.style.fontSize = '1rem';
-            } else if (charCount > 25) {
+            } else if (charCount > 20) {
                 title.style.fontSize = '1.3rem';
             } else {
                 title.style.fontSize = '1.5rem';
