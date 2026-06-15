@@ -104,7 +104,8 @@ def rental_detail(request, rental_id):
     if rental.active == False:
         messages.info(request, "This rental is currently inactive. Please contact us if you are interested in listing your property or have any questions.")
         return redirect('rentals')
-    amenities = rental.amenities.split(",")
+    
+    amenities = rental.amenities
     amenities.sort()  # Sort amenities alphabetically
     amenities[0].upper()
     amenities_number = len(amenities)
