@@ -5,11 +5,11 @@ from .models import Rentals, Image, AvailableDates
 
 class RentalForm(forms.ModelForm):
 
-    bathrooms = forms.CharField(
-            help_text='<i class="fa-solid fa-circle-info"></i>' \
-            ' Enter amenities separated by commas (e.g. Shabbos' \
-            ' Urn, Near Shuls, Air Conditioning, Garden)'
-        )
+    # bathrooms = forms.CharField(
+    #         help_text='<i class="fa-solid fa-circle-info"></i>' \
+    #         ' Enter amenities separated by commas (e.g. Shabbos' \
+    #         ' Urn, Near Shuls, Air Conditioning, Garden)'
+    #     )
     
     # description = forms.TextField(
     #         help_text='<i class="fa-solid fa-circle-info"></i>' \
@@ -21,10 +21,11 @@ class RentalForm(forms.ModelForm):
         model = Rentals
         fields = ["location", "category", "owner_number", "owner_email",
                   "address", "post_code", "title", "sleeps", "bedrooms",
-                  "bathrooms", "amenities", "description", "pricing_type", "price"]
+                  "bathrooms", "description", "amenities", "pricing_type", "price"]
         
         widgets = {
             'pricing_type': forms.RadioSelect(attrs={'class': 'pricing-radio'}),
+            'amenities': forms.CheckboxSelectMultiple(attrs={'class': 'amenities-check'}),
         }
 
     
@@ -37,7 +38,9 @@ class RentalForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         pricing_type_label = ": Select one option"
+        amenities_label = ": Select all relevant options"
         self.fields['pricing_type'].label = f"{self.fields['pricing_type'].label}{pricing_type_label}"
+        self.fields['amenities'].label = f"{self.fields['amenities'].label}{amenities_label}"
 
 
 class ImageForm(forms.ModelForm):
@@ -45,10 +48,7 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['image', 'image_name']
-        # widgets = {
-        #     'image': forms.ClearableFileInput(attrs={'multiple': True}),
-        # }
-
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

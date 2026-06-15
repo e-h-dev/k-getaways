@@ -1,8 +1,7 @@
 from django.db import models
-from django.utils import timezone
-from datetime import timedelta
 from django.contrib.auth.models import User
-from cloudinary.models import CloudinaryField
+from multiselectfield import MultiSelectField
+
 
 # Create your models here.
 
@@ -42,12 +41,52 @@ class Rentals(models.Model):
     address = models.CharField(max_length=100, null=True, blank=True)
     post_code = models.CharField(max_length=100, null=True, blank=True)
     title = models.CharField(max_length=45)
-    # title = models.TextField(max_length=100)
     sleeps = models.IntegerField(default=2)
     bedrooms = models.IntegerField(default=1)
     bathrooms = models.IntegerField(default=1)
-    # amenities = models.CharField(max_length=1254, null=True, blank=True)
-    amenities = models.TextField(null=True, blank=True)
+
+    # checkbox options for anemities
+    AMENITIES_OPTIONS = [
+        ('near_shul', 'Near Shuls'),
+        ('eruv', 'Within Eruv'),
+        ('separate_ovens', 'Two Ovens'),
+        ('shabbos_mode', 'Shabbos Clock'),
+        ('hot_plate', 'Hot Plate'),
+        ('blech', 'Blech Available'),
+        ('shabbos_kettle', 'Shabbos Kettle / Urn'),
+        ('shabbos_lights', 'Shabbos Lamps'),
+        ('shabbos_timer', 'Shabbos Timers'),
+        ('near_kosher_shops', 'Near Kosher Shops'),
+        ('near_mikvah', 'Near Mikvah'),
+        ('near_park', 'Near Parks / Playgrounds'),
+        ('near_public_transport', 'Near Public Transport'),
+        ('kids_beds', 'Kids Beds / Cots'),
+        ('high_chair', 'High Chair'),
+        ('baby_bath', 'Baby Bath'),
+        ('large_dining_table', 'Large Dining Table'),
+        ('sukkah_available', 'Sukkah Available'),
+        ('sukkah_space', 'Space for Sukkah'),
+        ('pesach_kitchen', 'Pesach Kitchen'),
+        ('wifi', 'WiFi'),
+        ('air_con', 'Air Conditioning'),
+        ('garden', 'Garden'),
+        ('private_garden', 'Private Garden'),
+        ('parking', 'Parking'),
+        ('off_street_parking', 'Off-Street Parking'),
+        ('wheelchair_access', 'Wheelchair Accessible'),
+        ('washing_machine', 'Washing Machine'),
+        ('dryer', 'Dryer'),
+        ('linen_provided', 'Linen Provided'),
+        ('towels_provided', 'Towels Provided'),
+        ('family_friendly', 'Family Friendly'),
+        ('quiet_area', 'Quiet Area'),
+        ('safe_neighbourhood', 'Safe Neighbourhood'),
+        ('near_lake_beach', 'Near Lake / Beach'),
+        ('near_attractions', 'Near Local Attractions'),
+        ('work_desk', 'Work Desk'),
+    ]
+    amenities = MultiSelectField(choices=AMENITIES_OPTIONS, max_length=500, null=True, blank=True)
+    old_amenities = models.TextField(null=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -61,8 +100,6 @@ class Rentals(models.Model):
     ]
     pricing_type = models.CharField(max_length=18, choices=PRICING_TYPES, default='daily')
 
-    available_from = models.DateField(default=timezone.now)
-    available_till = models.DateField(default=timezone.now() + timedelta(days=365))
     rating = models.IntegerField(default=0,
                                  choices=((i, i) for i in range(1, 6)))
     review = models.TextField(max_length=600, null=True, blank=True)
@@ -82,7 +119,7 @@ class AvailableDates(models.Model):
 
 class Image(models.Model):
     name = models.ForeignKey('Rentals', on_delete=models.CASCADE, related_name='images')
-    image = CloudinaryField('image', folder='rentals/', null=True, blank=True)
+    image = models.ImageField(upload_to='rentals/', null=True, blank=True)
     image_name = models.CharField(max_length=24, null=True, blank=True)
    
     def __str__(self):

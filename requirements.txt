@@ -23,9 +23,9 @@ defusedxml==0.7.1
 dj-database-url==2.3.0
 Django==4.2
 django-allauth==0.50.0
-django-binary-database-files==1.0.18
 django-cloudinary-storage==0.3.0
 django-extensions==4.1
+django-multiselectfield==1.0.1
 djangorestframework==3.17.1
 executing==2.2.1
 fastjsonschema==2.21.2

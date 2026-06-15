@@ -1721,7 +1721,8 @@ input[type="file"]{
 }
 
 /* 2. COMPLETELY STRIP THE RADIO CIRCLE BUTTON */
-.pricing-radio input[type="radio"] {
+.pricing-radio input[type="radio"],
+.amenities-check input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     position: absolute;
@@ -1745,11 +1746,35 @@ input[type="file"]{
     transition: all 0.2s ease-in-out;
 }
 
+
+.amenities-check label{
+  display: inline-block;
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 400;
+  color:var(--main-text-color);
+  cursor: pointer;
+}
+
+.amenities-check label:hover{
+  font-weight: 600;
+  border-radius: 20px;
+  border: solid 2px var(--main-background-color);
+  padding:5px;
+}
+
 /* 4. FIX: Use :has() to style the label containing a checked radio */
 .pricing-radio label:has(input[type="radio"]:checked) {
     color: #ffffff;
     background-color: var(--main-text-color);
     border-color: var(--main-background-color);
+}
+
+.amenities-check label:has(input[type="checkbox"]:checked){
+  color: #ffffff;
+  background-color: var(--main-text-color);
+  padding:5px;
+  border-radius: 20px;
 }
 
 /* Optional hover styles */
