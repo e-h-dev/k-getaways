@@ -114,7 +114,7 @@ def rental_detail(request, rental_id):
     
     amenities = rental.amenities
     amenities.sort()  # Sort amenities alphabetically
-    amenities[0].upper()
+    
     amenities_number = len(amenities)
     image = Image.objects.all()
 
