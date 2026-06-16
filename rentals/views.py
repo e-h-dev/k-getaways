@@ -4,6 +4,7 @@ from kosher_getaways import settings
 import stripe
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django .http import Http404
 from django.http import JsonResponse
@@ -36,6 +37,11 @@ def rentals(request):
             
     listing_expires = datetime.today().date() - timedelta(days=30)
     Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
+
+    paginator = Paginator(rentals, 12)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
 
     """
@@ -93,6 +99,7 @@ def rentals(request):
 
     context = {
         "rentals": rentals,
+        'page_obj': page_obj,
         "rental_number": rental_number,
         "filtered": filtered,
         }

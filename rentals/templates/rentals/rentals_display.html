@@ -137,7 +137,7 @@
             <div class="col-12" id="row-change">
                 <h3 class="rental-count">Found <strong>({{ rental_number }})</strong> Rental{% if rental_number != 1 %}s{% endif %}.</h3>
                 <div class="row">
-                    {% for r in rentals %}
+                    {% for r in page_obj %}
                     
                     <div class="col-12 col-md-6 col-lg-3 column-change mt-3">
                         <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
@@ -241,6 +241,23 @@
                         </a>
                     </div>
                     {% endfor %}
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1#reviews" class="next_page_btn">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}#reviews" class="next_page_btn shadow">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}#reviews" class="next_page_btn shadow">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}#reviews" class="next_page_btn shadow">last &raquo;</a>
+                        {% endif %}
+                    </span>
                 </div>
             </div>
         </div>
