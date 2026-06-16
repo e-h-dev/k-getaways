@@ -1270,6 +1270,40 @@ thead{
   background-color: var(--main-background-color);
 }
 
+/* pagination buttons styles */
+
+.pagination{
+  position: relative;
+  z-index: 2;
+  font-size: 1rem;
+  margin-left:30%;
+  text-align: center;
+  color: var(--main-text-color);
+  font-family: var(--main-font);
+  height:40px;
+  margin-top: 30px;
+}
+
+.next_page_btn{
+  width:50px;
+  height:20px;
+  color:#f9f9f9;
+  background-color: var(--main-text-color);
+  padding:10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.next_page_btn:hover{
+  color:var(--text-color);
+  background-color: rgba(80, 77, 100, 0.2);
+}
+
+.current{
+  text-align: center;
+  font-size: 1.3rem;
+}
+
 /* ------------------------------------------------rental details page */
 
 .main-container{
