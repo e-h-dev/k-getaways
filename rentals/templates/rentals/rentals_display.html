@@ -246,7 +246,7 @@
                     <span class="step-links">
                         {% if page_obj.has_previous %}
                             <a href="?page=1#reviews" class="next_page_btn">&laquo; first</a>
-                            <a href="?page={{ page_obj.previous_page_number }}#reviews" class="next_page_btn shadow">previous</a>
+                            <a href="?page={{ page_obj.previous_page_number }}" class="next_page_btn shadow">previous</a>
                         {% endif %}
                 
                         <span class="current">
@@ -254,8 +254,8 @@
                         </span>
                 
                         {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}#reviews" class="next_page_btn shadow">next</a>
-                            <a href="?page={{ page_obj.paginator.num_pages }}#reviews" class="next_page_btn shadow">last &raquo;</a>
+                            <a href="?page={{ page_obj.next_page_number }}" class="next_page_btn shadow">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="next_page_btn shadow">last &raquo;</a>
                         {% endif %}
                     </span>
                 </div>
@@ -361,7 +361,7 @@
 </script>
 
 <script>
-    {% for r in rentals %}
+    {% for r in page_obj %}
     let slideIndex{{ r.id }} = 1;
     showSlides{{ r.id }}(slideIndex{{ r.id }});
 
