@@ -38,11 +38,6 @@ def rentals(request):
     listing_expires = datetime.today().date() - timedelta(days=30)
     Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
 
-    paginator = Paginator(rentals, 8)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
 
     """
     This block handles search and filtering based on user input from the search form.
@@ -96,6 +91,11 @@ def rentals(request):
 
     if filtered:
         messages.info(request, f"You have added {len(filtered)} filters to your search")
+
+    paginator = Paginator(rentals, 12)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         "rentals": rentals,
