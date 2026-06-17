@@ -58,7 +58,7 @@
                 {% if rental.images.all %}
                 {% for i in rental.images.all|slice:":2" %}
                 <div class="col-6">
-                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}"
+                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" loading="lazy"
                     class="gallery-images {% if forloop.first %} gallery-image-left {% else %} gallery-image-right{% endif %}">
                 </div>
                 {% endfor %}

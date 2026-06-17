@@ -149,7 +149,7 @@
                                 {% if r.images.all %}
                                 {% for i in r.images.all %}
                                     <div class="image-slider-{{ r.id }}">
-                                        <img src="{{ i.image.url|cloud_opt }}" alt="" class="featured-image shadow border">
+                                        <img src="{{ i.image.url|cloud_opt }}" alt="" class="featured-image shadow border" loading="lazy">
                                     {% if r.images.count > 1 %}
                                         <a class="prev" onclick="plusSlides{{ r.id }}(-1)">&#10094;</a>
                                         <a class="next" onclick="plusSlides{{ r.id }}(1)">&#10095;</a>
