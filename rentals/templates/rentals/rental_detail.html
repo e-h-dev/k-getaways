@@ -62,11 +62,15 @@
                     class="gallery-images {% if forloop.first %} gallery-image-left {% else %} gallery-image-right{% endif %}">
                 </div>
                 {% endfor %}
+                <div class="gallery-open">
+                    Show all pictures <i class="fa-solid fa-circle-chevron-right"></i>
+                </div>
                 {% else %}
                 <div class="col-6">
                     <img src="/static/media/awaiting.png" alt="Awaiting Images" class="gallery-images gallery-image-left">
                 </div>
                 {% endif %}
+                
             </div>
         </div>
         <div class="col-1 col-lg-2"></div>
