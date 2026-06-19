@@ -1872,6 +1872,30 @@ input[type="file"]{
     left:10px;
   }
 
+/* hides price in edit form */
+.edit-home-form .pricing-radio,
+.edit-home-form input[name="price"],
+.edit-home-form label[for="id_price"],
+.edit-home-form label[for="id_price"],
+.edit-home-form p label{
+  display:none
+}
+
+.edit-home-form p label[for="id_location"],
+.edit-home-form p label[for="id_category"],
+.edit-home-form p label[for="id_owner_number"],
+.edit-home-form p label[for="id_owner_email"],
+.edit-home-form p label[for="id_address"],
+.edit-home-form p label[for="id_post_code"],
+.edit-home-form p label[for="id_title"],
+.edit-home-form p label[for="id_sleeps"],
+.edit-home-form p label[for="id_bedrooms"],
+.edit-home-form p label[for="id_bathrooms"],
+.edit-home-form p label[for="id_description"],
+.edit-home-form p label[for="id_amenities"]{
+  display:block !important;
+}
+
 /* -------------------------------------------------sign up etc */
 .form-container input[type="checkbox"]{
   position: relative;
