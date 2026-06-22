@@ -118,6 +118,8 @@ def rental_detail(request, rental_id):
     amenities_number = len(amenities)
     image = Image.objects.all()
 
+    amenities_choices = dict(Rentals._meta.get_field('amenities').choices)
+
     available = AvailableDates.objects.filter(rental_id=rental_id)
 
     print(f"Available dates for rental {rental_id}: {available}")
@@ -126,6 +128,7 @@ def rental_detail(request, rental_id):
         "rental": rental,
         "image": image,
         "amenities": amenities,
+        "amenities_choices": amenities_choices,
         "amenities_number": amenities_number
         }
     return render(request, 'rentals/rental_detail.html', context)

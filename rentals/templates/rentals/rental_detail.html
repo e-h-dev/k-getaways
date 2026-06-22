@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load cloudinary_opt %}
+{% load dictextras %}
+
 {% load static %}
 
 {% block extra_title %} - {{ rental.title }} {% endblock %}
@@ -152,7 +154,7 @@
                 <div class="amenities-container shadow" style="display:none">
                     <ul style="width:100%; text-align: justify;">
                     {% for am in amenities %}
-                        <li style="text-transform: capitalize;">{{ am }}</li>
+                        <li style="text-transform: capitalize;">{{ amenities_choices|dict_get:am }}</li>
                     {% endfor %}
                     {% if rental.amenities == "" %}
                         <li>No amenities listed.</li>
