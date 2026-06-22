@@ -146,6 +146,9 @@
                     </span> -->
                 </h2>
                 <hr class="d-none d-md-block" style="width:50%; margin-left:80px">
+                {% if amenities_number < 1 %}
+                        <h4 class="ml-5">No amenities listed</h4>
+                {% else %}
                 <div id="amenities-display-btn">
                     <button class="btn btn-btn" onclick="$('.amenities-container').toggle()">
                         Show all {{ amenities_number }} Amenities
@@ -156,11 +159,9 @@
                     {% for am in amenities %}
                         <li style="text-transform: capitalize;">{{ amenities_choices|dict_get:am }}</li>
                     {% endfor %}
-                    {% if rental.amenities == "" %}
-                        <li>No amenities listed.</li>
-                    {% endif %}
                     </ul>
                 </div>
+                {% endif %}
             </div>
             <div class="d-none d-md-block col-2"></div>
             <div class="col-12 col-md-5 col-lg-4">

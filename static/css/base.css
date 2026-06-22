@@ -2096,7 +2096,7 @@ input[type="file"]{
   text-align: center;
 }
 
-h5, h6{
+h4, h5, h6{
   font-family: var(--main-font);
   color:var(--main-text-color);
 }
