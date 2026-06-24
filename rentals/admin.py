@@ -6,6 +6,8 @@ from .models import Location, Category, Rentals, Image, AvailableDates
 class RentalsAdmin(admin.ModelAdmin):
     list_display = (
         'active',
+        'location',
+        'title',
         'date_added',
         'owner_name', 
         'owner_number',
