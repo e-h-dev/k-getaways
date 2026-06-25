@@ -53,6 +53,13 @@ class ImageForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
+ImageFormSet = modelformset_factory(
+    Image,
+    fields=('image', 'image_name'),
+    extra=0
+)
+
+
 
 class AvailableDatesForm(forms.ModelForm):
 

@@ -311,6 +311,31 @@ def load_images(request, rental_id):
 
 
 @login_required
+def edit_images(request, rental_id):
+
+    rental = get_object_or_404(Rentals, pk=rental_id)
+
+    if request.user != rental.owner_name:
+        messages.error(request, "You are not authorized to edit this rental.")
+        return redirect('rentals')
+
+    images = Image.objects.filter(name=rental)
+
+    return render(request, 'rentals/edit_images.html', {
+        'rental': rental,
+        'images': images
+    })
+
+
+def delete_image(request, image_id):
+    image = get_object_or_404(Image, pk=image_id)
+    # name = image.name
+    image.delete()
+    # name.delete() 
+    messages.success(request, "Image deleted successfully.")
+    return redirect('home')
+
+@login_required
 def add_available_dates(request, rental_id):
 
     """
@@ -380,7 +405,7 @@ def edit_availability(request, rental_id):
         if form.is_valid():
             form.save()
             messages.success(request, f"Updated successfully.")
-            return redirect('rentals')
+            return redirect('edit_images', rental_id=rental.id)
 
     context = {
         'rental': rental,
@@ -393,7 +418,7 @@ def delete_dates(request, available_id):
     selected_date = get_object_or_404(AvailableDates, pk=available_id)
     selected_date.delete()
     messages.success(request, "You Have updated you rentals availability.")
-    return redirect('rentals')
+    return redirect('edit_images', rental_id=selected_date.rental.id)
 
 # def delete_image(request, image_id):
 #     image = get_object_or_404(Image, pk=image_id)

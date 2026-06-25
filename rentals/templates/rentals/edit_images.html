@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load cloudinary_opt %}
+{% load static %}
+
+{% block extra_title %} - Edit Images {% endblock %}
+{% block extra_class_list%} active{% endblock %}
+{% block extra_nav%}{% endblock %}
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6"></div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="d-none d-md-block col-2"></div>
+        <div class="col-12 col-md-8">
+            <div class="form-container shadow" id="form-container">
+                <button class="btn btn-btn mt-3"><a href="{% url 'promo_check_out' rental.id %}">Skip</a></button>
+                <h1 class="center form-header mb-5">Edit Images for {{ rental.title }}</h1>
+                <div class="image-list">
+
+                    {% for image in images %}
+                        <div class="image-block">
+
+                            <!-- Show the image -->
+                            <img src="{{ image.image.url|cloud_opt }}"
+                                alt="{{ image.image_name }}" 
+                                style="width:80px; height:auto; border:1px solid #ccc;" loading="lazy">
+                            <!-- <p><strong>Image:</strong><a href="{{ image.image.url }}" target="_blank"> {{ rental.title }} Image {{ image.id }}</a></p> -->
+                            <!-- Show the image name -->
+                            <p><strong>Name:</strong> {{ image.image_name }}</p>
+
+                            <!-- Delete button -->
+                            <a href="{% url 'delete_image' image.id %}" 
+                            class="btn btn-btn"
+                            onclick="return confirm('Delete this image?');">
+                                Delete Image
+                            </a>
+
+                        </div>
+
+                        <hr>
+                    {% endfor %}
+
+                </div>
+
+
+                <button class="btn btn-btn mt-3" onclick="window.history.back()">Back</button>
+            </div>
+        </div>
+        <div class="d-none d-md-block col-2"></div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+<script>
+    let imageForm = document.querySelector(".form-box");
+    let addButton = document.querySelector("#add-form");
+    let formSpace = document.querySelector(".next-form");
+
+    addButton.addEventListener('click', addForm);
+
+    function addForm(){
+        let newForm = imageForm.cloneNode(true);
+        newForm.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.checked = false;
+});
+        formSpace.parentNode.insertBefore(newForm, addButton);
+        
+    }
+</script>
+
+
+{% endblock %}
