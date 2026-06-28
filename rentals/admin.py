@@ -14,8 +14,16 @@ class RentalsAdmin(admin.ModelAdmin):
         'owner_email',
     )
 
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'image',
+        'image_name'
+    )
+
 admin.site.register(Rentals, RentalsAdmin)
 admin.site.register(Category)
-admin.site.register(Image)
+admin.site.register(Image, ImageAdmin)
 admin.site.register(Location)
 admin.site.register(AvailableDates)
