@@ -1354,7 +1354,8 @@ thead{
   display:none;
 }
 
-.gallery-images{
+.gallery-images,
+.non-image{
   width: 105%;          /* Fills the horizontal space of its card container */
   height: 300px;        /* Set whatever fixed height your design needs */
   object-fit: cover;    /* CRITICAL: Cuts and centers the image; stops all stretching */
