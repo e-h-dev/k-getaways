@@ -5,18 +5,7 @@ from .models import Rentals, Image, AvailableDates
 
 class RentalForm(forms.ModelForm):
 
-    # bathrooms = forms.CharField(
-    #         help_text='<i class="fa-solid fa-circle-info"></i>' \
-    #         ' Enter amenities separated by commas (e.g. Shabbos' \
-    #         ' Urn, Near Shuls, Air Conditioning, Garden)'
-    #     )
     
-    # description = forms.TextField(
-    #         help_text='<i class="fa-solid fa-circle-info"></i>' \
-    #         ' The price you set is per night.'
-    #     )
-    
-
     class Meta:
         model = Rentals
         fields = ["location", "category", "owner_number", "owner_email",
@@ -39,8 +28,10 @@ class RentalForm(forms.ModelForm):
 
         pricing_type_label = ": Select one option"
         amenities_label = ": Select all relevant options"
+        title_label = " of Rental:"
         self.fields['pricing_type'].label = f"{self.fields['pricing_type'].label}{pricing_type_label}"
         self.fields['amenities'].label = f"{self.fields['amenities'].label}{amenities_label}"
+        self.fields['title'].label = f"{self.fields['title'].label}{title_label}"
 
 
 class ImageForm(forms.ModelForm):
@@ -48,9 +39,14 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['image', 'image_name']
+
+        widgets = {'image_name': forms.TextInput(attrs={'placeholder': 'Name this image'}),}
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        image_name_label = ": (Add caption for your image)"
+        self.fields['image_name'].label = f"{self.fields['image_name'].label}{image_name_label}"
 
 
 ImageFormSet = modelformset_factory(
