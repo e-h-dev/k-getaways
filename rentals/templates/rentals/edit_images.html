@@ -30,6 +30,13 @@
                             <p><strong>Image:</strong><a href="{{ image.image.url }}" target="_blank"> {{ rental.title }} Image {{ image.id }}</a></p>
                             <!-- Show the image name -->
                             <p><strong>Name:</strong> {{ image.image_name }}</p>
+                            <form action="{% url 'edit_image_name' image.id %}" method="POST" style="margin-top: 10px;">
+                                {% csrf_token %}
+                                <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                                    <input type="text" name="image_name" value="{{ image.image_name }}" required style="max-width: 200px;">
+                                    <button type="submit" class="btn btn-btn">Edit Name</button>
+                                </div>
+                            </form>
 
                             <!-- Delete button -->
                             <a href="{% url 'delete_image' image.id %}" 

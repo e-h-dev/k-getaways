@@ -15,7 +15,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, AvailableDates
-from .forms import RentalForm, ImageForm, AvailableDatesForm
+from .forms import RentalForm, ImageForm, AvailableDatesForm, ImageNameForm
 
 # Create your views here.
 
@@ -364,7 +364,29 @@ def delete_image(request, image_id):
     image.delete()
     # name.delete() 
     messages.success(request, "Image deleted successfully.")
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
+def edit_image_name(request, image_id):
+    image = get_object_or_404(Image, pk=image_id)
+
+    if request.method == 'POST':
+        form = ImageNameForm(request.POST, instance=image)
+
+        if form.is_valid():
+            form.save()
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
+    else:
+        form = ImageNameForm(instance=image)
+        
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
 
 @login_required
 def add_available_dates(request, rental_id):

@@ -55,6 +55,15 @@ ImageFormSet = modelformset_factory(
     extra=0
 )
 
+class ImageNameForm(forms.ModelForm):
+
+    class Meta:
+        model = Image
+        fields = ['image_name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 
 
 class AvailableDatesForm(forms.ModelForm):

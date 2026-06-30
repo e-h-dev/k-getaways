@@ -12,6 +12,7 @@ urlpatterns = [
     path('edit_availability/<int:rental_id>', views.edit_availability, name='edit_availability'),
     path('delete_dates/<int:available_id>/', views.delete_dates, name='delete_dates'),
     path('edit_images/<int:rental_id>', views.edit_images, name='edit_images'),
+    path('edit_image_name/<int:image_id>', views.edit_image_name, name='edit_image_name'),
     path('delete_image/<int:image_id>/', views.delete_image, name='delete_image'),
     path('check_out/<int:rental_id>', views.check_out, name='check_out'),
     path('check_out_confirmation/<int:rental_id>', views.check_out_confirmation, name='check_out_confirmation'),
