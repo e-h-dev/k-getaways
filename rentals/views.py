@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, date, timedelta
 import json
 from kosher_getaways import settings
 import stripe
@@ -152,29 +152,44 @@ def rental_availability_json(request, rental_id):
     
     events = []
 
-    for available in AvailableDates.objects.filter(rental_id=rental_id):
-        events.append({
-            'start': available.start_date.isoformat(),
-            'end': available.end_date.isoformat(),
-            'title':'Unavailable',
-            'display': 'inverse-background',
-            'color': 'rgb(190, 6, 6)', 
-            'groupId': 'availableArea',  
-            'overlap': False,        
-        })
+    available_dates = AvailableDates.objects.filter(rental_id=rental_id)
+
+    # CASE 1: No dates entered → mark everything as available (blue)
+    if not available_dates.exists():
+        start = date.today()
+        end = start + timedelta(days=365 * 3)  # 3 years range
 
         events.append({
-            'start': available.start_date.isoformat(),
-            'end': available.end_date.isoformat(),
-            'title':'Available',
-            'display': 'background',  # Blurs/greys out the area
-            'color': 'rgba(6, 6, 190)',       # Blue color for the background
+            'start': start.isoformat(),
+            'end': end.isoformat(),
+            'title': 'Available',
+            'display': 'background',
+            'color': 'rgba(6, 6, 190)',
         })
-    
-    print("\n--- JSON DATA FOR HOUSE {} ---".format(rental_id))
-    print(json.dumps(events, indent=4)) # indent makes it readable
-    print("-------------------------------\n")
-        
+
+    # CASE 2: Dates entered → show unavailable (red) + available (blue)
+    else:
+        for available in available_dates:
+            # Unavailable (red)
+            events.append({
+                'start': available.start_date.isoformat(),
+                'end': available.end_date.isoformat(),
+                'title': 'Unavailable',
+                'display': 'inverse-background',
+                'color': 'rgb(190, 6, 6)',
+                'groupId': 'availableArea',
+                'overlap': False,
+            })
+
+            # Available (blue)
+            events.append({
+                'start': available.start_date.isoformat(),
+                'end': available.end_date.isoformat(),
+                'title': 'Available',
+                'display': 'background',
+                'color': 'rgba(6, 6, 190)',
+            })
+
     return JsonResponse(events, safe=False)
 
 def listing_instructions(request):
