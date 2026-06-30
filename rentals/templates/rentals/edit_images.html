@@ -16,7 +16,7 @@
         <div class="d-none d-md-block col-2"></div>
         <div class="col-12 col-md-8">
             <div class="form-container shadow" id="form-container">
-                <button class="btn btn-btn mt-3"><a href="{% url 'promo_check_out' rental.id %}">Skip</a></button>
+                <button class="btn btn-btn mt-3"><a href="{% url 'rentals' %}">Skip</a></button>
                 <h1 class="center form-header mb-5">Edit Images for {{ rental.title }}</h1>
                 <div class="image-list">
 
@@ -45,7 +45,8 @@
 
                 </div>
 
-
+                <p>Add more Images</p>
+                <button class="btn btn-btn"><a href="{% url 'load_images' rental.id %}">Add Images</a></button>
                 <button class="btn btn-btn mt-3" onclick="window.history.back()">Back</button>
             </div>
         </div>
