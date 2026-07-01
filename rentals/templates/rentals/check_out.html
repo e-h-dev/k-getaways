@@ -20,11 +20,7 @@
                 <h1 class="center form-header mb-5">Check Out</h1>
                 <form id="payment-form">
                     <P>Item: Payment for listing of {{ rental.title }}</P>
-                    {% if rental.id < 15 %}
-                    <p>The full cost of listing {{ rental.title}} is £{{ discounted_from }}</p>
-                    <p style="font-size: 1.3rem; padding:20px;"><mark style="background-color: var(--main-background-color);">Thank you {{ rental.owner_name }}! as one of our early listers, you are eligible to a 50% discount!</mark></p>
-                    {% endif %}
-                    <p>You will be charged £{{ charge_amount }} to list this property.</p>
+                    <p style="font-size:1.3rem; font-weight:bolder">You will be charged £{{ charge_amount }} to list this property.</p>
                     <div id="payment-element"></div>
                     <button id="submit" class="btn btn-btn mt-4">
                         <div class="spinner hidden" id="spinner"></div>

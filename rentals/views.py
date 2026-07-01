@@ -499,19 +499,22 @@ def check_out(request, rental_id):
         return redirect('rentals')
 
     # 3. Calculate charge (Ensure rental.price * 50 evaluates to a clean integer)
-    # charge_amount = int(rental.price * 50) 
-    # charge_display = float(charge_amount/100)
 
-    if rental_id < 2:
-        charge_amount = int(rental.price * 25)
-        discounted_from = int(rental.price * 50) 
-        discounted = float(discounted_from/100)
-        charge_display = float(charge_amount/100)
+    if rental.pricing_type == 'daily':
+        charge_amount = int(rental.price * 50)
+    elif rental.pricing_type == 'over_Shabbos':
+        charge_frac = int(rental.price / 2)
+        charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'weekly':
+        charge_frac = int(rental.price / 7)
+        charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'monthly':
+        charge_frac = int(rental.price / 30)
+        charge_amount = int(charge_frac * 50)
     else:
-        discounted = None
-        charge_amount = int(rental.price * 50) 
+        charge_amount = int(rental.price * 10)
 
-        charge_display = float(charge_amount/100)
+    charge_display = float(charge_amount/100)
     
     try:
         # 4. Create the Stripe configuration session
@@ -530,7 +533,6 @@ def check_out(request, rental_id):
         context = {
             'rental': rental,
             'charge_amount': charge_display,
-            'discounted_from': discounted,
             'client_secret': intent.client_secret,
             'stripe_public_key': settings.STRIPE_PUBLIC_KEY
         }
@@ -566,7 +568,20 @@ def check_out_webhook(request):
         # Safely activate and email now that money is received
         try:
             rental = Rentals.objects.get(pk=rental_id)
-            charge_amount = int(rental.price * 50) 
+            if rental.pricing_type == 'daily':
+                charge_amount = int(rental.price * 50)
+            elif rental.pricing_type == 'over_Shabbos':
+                charge_frac = int(rental.price / 2)
+                charge_amount = int(charge_frac * 50)
+            elif rental.pricing_type == 'weekly':
+                charge_frac = int(rental.price / 7)
+                charge_amount = int(charge_frac * 50)
+            elif rental.pricing_type == 'monthly':
+                charge_frac = int(rental.price / 30)
+                charge_amount = int(charge_frac * 50)
+            else:
+                charge_amount = int(rental.price * 10)
+
             charge_display = float(charge_amount/100)
 
             if not rental.active:
@@ -605,22 +620,26 @@ def check_out_confirmation(request, rental_id):
 
     rental = get_object_or_404(Rentals, pk=rental_id)
 
-    if rental_id < 15:
-        charge_amount = int(rental.price * 25)
-        discounted_from = int(rental.price * 50) 
-        discounted = float(discounted_from/100)
-        charge_display = float(charge_amount/100)
+    if rental.pricing_type == 'daily':
+        charge_amount = int(rental.price * 50)
+    elif rental.pricing_type == 'over_Shabbos':
+        charge_frac = int(rental.price / 2)
+        charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'weekly':
+        charge_frac = int(rental.price / 7)
+        charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'monthly':
+        charge_frac = int(rental.price / 30)
+        charge_amount = int(charge_frac * 50)
     else:
-        discounted = None
-        charge_amount = int(rental.price * 50) 
+        charge_amount = int(rental.price * 10)
 
-        charge_display = float(charge_amount/100)
+    charge_display = float(charge_amount/100)
 
    
     context = {
         'rental': rental,
         'charge_display': charge_display,
-        'discounted': discounted
     }
     return render(request, 'rentals/check_out_confirmation.html', context)
 
@@ -635,7 +654,19 @@ def promo_check_out(request, rental_id):
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
 
-    charge_amount = int(rental.price * 50) 
+    if rental.pricing_type == 'daily':
+        charge_amount = int(rental.price * 50)
+    elif rental.pricing_type == 'over_Shabbos':
+        charge_frac = int(rental.price / 2)
+        charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'weekly':
+        charge_frac = int(rental.price / 7)
+        charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'monthly':
+        charge_frac = int(rental.price / 30)
+        charge_amount = int(charge_frac * 50)
+    else:
+        charge_amount = int(rental.price * 10)
 
     charge_display = float(charge_amount/100)
 
