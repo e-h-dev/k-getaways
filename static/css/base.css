@@ -372,6 +372,27 @@ li{
   bottom:350px;
 }
 
+/* back to top button */
+.back-to-top{
+  display:none;
+  position:fixed;
+  z-index: 5;
+  left:95%;
+  bottom:10%;
+  font-size: 3rem;
+  color:var(--main-text-color);
+  cursor: pointer;
+}
+
+.bg-wte{
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.bg-wte:hover{
+  background-color: var(--main-background-color);
+}
+
 /* footer styles */
 
 footer{
