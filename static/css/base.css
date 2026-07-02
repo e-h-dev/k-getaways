@@ -145,6 +145,7 @@ header{
 /* promo bar */
 
 .promo-bar{
+  display: none;
   background-color: var(--main-text-color);
   color:#fff;
   font-family: var(--main-font);
