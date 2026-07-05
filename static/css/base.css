@@ -208,7 +208,22 @@ header{
   height:90px;
   object-fit: contain;
   }
+ /* style logo in error pages */
+  .error-logo{
+  position:relative;
+  z-index:1;
+  left:30%; 
+  top:20px;
+  width:350px;
+  height:190px;
+  object-fit: contain;
+  }
 
+  .error-logo:hover{
+    width:380px;
+    height:210px;
+    left:29%;
+  }
 
 h1,p{
     font-family:var(--main-font);
