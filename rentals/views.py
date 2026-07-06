@@ -586,6 +586,7 @@ def check_out_webhook(request):
 
             if not rental.active:
                 rental.active = True
+                rental.date_added = datetime.now()
                 rental.save()
                 email_message = f"""Dear {rental.owner_name}! 
                         You have successfully listed your home '{rental.title}' on Kosher Getaways. You have been charged £{charge_display} for listing your home. 
@@ -682,6 +683,7 @@ def activate(request, rental_id):
     rental = get_object_or_404(Rentals, pk=rental_id)
 
     rental.active = True
+    rental.date_added = datetime.now()
     rental.save()
 
     messages.success(request, f"You have succesfully listed you home { rental.title }")
