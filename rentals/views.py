@@ -698,3 +698,12 @@ def activate(request, rental_id):
     )
     return redirect('rentals')
 
+
+def dashboard(request):
+    """
+    function to create user dashboard to manage all rentals
+    """
+    rentals = Rentals.objects.filter(owner_name=request.user.id)
+
+    return render(request, 'rentals/dashboard.html', {'rentals': rentals})
+

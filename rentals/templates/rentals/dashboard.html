@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load cloudinary_opt %}
+{% load dictextras %}
+
+{% load static %}
+
+{% block extra_title %} - {{ user.username }} {% endblock %}
+{% block extra_class%} active{% endblock %}
+{% block content%}
+<h1 style="text-align: center;">Welcome {{ user.username }} to your Dashboard</h1>
+<hr>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12 col-md-3 col-lg-4" style="height:100%; border-right: 2px solid black;">
+            {% for rental in rentals %}
+            <div class="dashboard-side-display ml-5" style="background-color: rgba(211, 211, 211, 0.5); padding:20px">
+                <h4>{{ rental.title }}</h4>
+                <p>{{ rental.location }}</p>
+                <p>{{ rental.active }}</p>
+                <p>£{{rental.price }} {{ rental.pricing_type }}</p>
+                <p>Click here to edit deatails on this rental</p>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="d-none d-md-block col-md-9 col-lg-8">
+            {% for rental in rentals %}
+                <div id="display-{{ rental.id }}" style="display:none;">
+                    <h4>{{ rental.title }}</h4>
+                    <p>{{ rental.location }}</p>
+                    <p>{{ rental.active }}</p>
+                    <p>£{{rental.price }} {{ rental.pricing_type }}</p>
+                    <p>Click here to edit deatails on this rental</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    {% for rental in rentals %}
+    let display{{ rental.id }} = document.getElementById('display-{{ rental.id }}')
+    {% endfor %}
+</script>
+
+{% endblock %}
