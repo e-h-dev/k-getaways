@@ -6,31 +6,45 @@
 
 {% block extra_title %} - {{ user.username }} {% endblock %}
 {% block extra_class%} active{% endblock %}
+
+{% block extra_body %}
+
+{% endblock %}
 {% block content%}
 <h1 style="text-align: center;">Welcome {{ user.username }} to your Dashboard</h1>
 <hr>
-<div class="container-fluid mt-5">
-    <div class="row">
-        <div class="col-12 col-md-3 col-lg-4" style="height:100%; border-right: 2px solid black;">
+<div class="container-fluid">
+    <div class="row" style="height: 100vh">
+        <div class="col-12 col-md-3 pt-5" style="height:100%; border-right: 2px solid whitesmoke;">
             {% for rental in rentals %}
-            <div class="dashboard-side-display ml-5" style="background-color: rgba(211, 211, 211, 0.5); padding:20px">
+            <div class="dashboard-side-display ml-5" id="side-bar-{{ rental.id }}" style="border-radius: 20px; padding:20px; cursor: pointer; {% if rental.active == False %} border: solid 2px red; {% else %} border: solid 2px blue; {% endif %}">
+                {% if rental.active == False %} Unavailable {% else %} Available {% endif %}
                 <h4>{{ rental.title }}</h4>
                 <p>{{ rental.location }}</p>
-                <p>{{ rental.active }}</p>
-                <p>£{{rental.price }} {{ rental.pricing_type }}</p>
-                <p>Click here to edit deatails on this rental</p>
+                {% if rental.images.all %}
+                {% for i in rental.images.all|slice:":1" %}
+                <div class="col-12">
+                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" style="height:70px; width:70px;" loading="lazy">
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="col-12">
+                    <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
+                </div>
+                {% endif %}
+                <p>Click here to edit details on this rental</p>
             </div>
             <hr>
             {% endfor %}
         </div>
-        <div class="d-none d-md-block col-md-9 col-lg-8">
+        <div class="d-none d-md-block col-md-9 shadow" style="position:relative; z-index: 9999999; background-color: rgba(211, 211, 211, 0.5);">
             {% for rental in rentals %}
                 <div id="display-{{ rental.id }}" style="display:none;">
                     <h4>{{ rental.title }}</h4>
                     <p>{{ rental.location }}</p>
                     <p>{{ rental.active }}</p>
                     <p>£{{rental.price }} {{ rental.pricing_type }}</p>
-                    <p>Click here to edit deatails on this rental</p>
+                    <a href="{% url 'edit_home' rental.id %}">Click here to edit this rental</a>
                 </div>
             {% endfor %}
         </div>
@@ -43,6 +57,13 @@
 <script>
     {% for rental in rentals %}
     let display{{ rental.id }} = document.getElementById('display-{{ rental.id }}')
+    let sideBar{{ rental.id }} = document.getElementById('side-bar-{{ rental.id }}')
+
+    function showItems{{ rental.id }}(){
+        display{{ rental.id }}.style.display = "block";
+    }
+
+    sideBar{{ rental.id }}.addEventListener("click", showItems{{ rental.id }});
     {% endfor %}
 </script>
 
