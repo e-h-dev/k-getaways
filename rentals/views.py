@@ -141,7 +141,8 @@ def rental_detail(request, rental_id):
         "image": image,
         "amenities": amenities,
         "amenities_choices": amenities_choices,
-        "amenities_number": amenities_number
+        "amenities_number": amenities_number,
+        "available": available,
         }
     return render(request, 'rentals/rental_detail.html', context)
 
@@ -328,7 +329,7 @@ def load_images(request, rental_id):
         if rental.active == True:
             return redirect('rentals')
         else:
-            return redirect('promo_check_out', rental_id=rental.id)
+            return redirect('check_out', rental_id=rental.id)
     
 
     else:
@@ -699,11 +700,32 @@ def activate(request, rental_id):
     return redirect('rentals')
 
 
+def coupon(request):
+
+    if request.method == 'POST':
+        form = 'coupon-entry'
+        if form.valid:
+            form.save()
+        else:
+            messages('You have entered an incorrect coupon code')
+    else:
+        messages('You have entered an invalid coupon code')
+    
+    return redirect('rentals')
+
+
+@login_required
 def dashboard(request):
     """
     function to create user dashboard to manage all rentals
     """
     rentals = Rentals.objects.filter(owner_name=request.user.id)
+    amenities_choices = dict(Rentals._meta.get_field('amenities').choices)
 
-    return render(request, 'rentals/dashboard.html', {'rentals': rentals})
+    context = {
+        'rentals': rentals,
+        'amenities_choices': amenities_choices
+    }
+
+    return render(request, 'rentals/dashboard.html', context)
 
