@@ -18,9 +18,10 @@
         <div class="col-12 col-md-3">
             <h3 class="pt-2 pb-3">Your rentals ({{ rentals.count }})</h3>
             <hr>
+            <p>Select a rental to view or edit.</p>
+            
             {% for rental in rentals %}
             <div class="dashboard-side-display" id="side-bar-{{ rental.id }}" style="border-radius: 20px; padding:20px; cursor: pointer; {% if rental.active == False %} border: solid 2px red; {% else %} border: solid 2px blue; {% endif %}">
-                {% if rental.active == False %} Unavailable {% else %} Available {% endif %}
                 <h4>{{ rental.title }}</h4>
                 <p>{{ rental.location }}</p>
                 {% if rental.images.all %}
@@ -34,13 +35,17 @@
                     <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
                 </div>
                 {% endif %}
-                <p>Click here to edit details on this rental</p>
+                {% if rental.active == False %}
+                <p>This rental has expired. To relist it, open the rental details in your Dashboard and click "relist".</p>
+                {% else %} 
+                <p>Your rental is live and visible. Click on the listing to view details, update pricing, or edit your description</p>
+                {% endif %}
             </div>
             <hr>
             {% endfor %}
         </div>
         <div class="d-none d-md-block col-md-9 shadow" style="position:relative; z-index: 9999999; background-color: rgba(211, 211, 211, 0.5);">
-            <h2 class="pt-3">Your rentals details</h2>
+            <h2 class="pt-3">Your Rental Details</h2>
             <hr>
             {% for rental in rentals %}
                 <div id="display-{{ rental.id }}" style="display:none;">
