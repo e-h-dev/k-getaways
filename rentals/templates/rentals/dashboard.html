@@ -15,9 +15,11 @@
 <hr>
 <div class="container-fluid">
     <div class="row" style="height: 100vh">
-        <div class="col-12 col-md-3 pt-5" style="height:100%; border-right: 2px solid whitesmoke;">
+        <div class="col-12 col-md-3">
+            <h3 class="pt-2 pb-3">Your rentals ({{ rentals.count }})</h3>
+            <hr>
             {% for rental in rentals %}
-            <div class="dashboard-side-display ml-5" id="side-bar-{{ rental.id }}" style="border-radius: 20px; padding:20px; cursor: pointer; {% if rental.active == False %} border: solid 2px red; {% else %} border: solid 2px blue; {% endif %}">
+            <div class="dashboard-side-display" id="side-bar-{{ rental.id }}" style="border-radius: 20px; padding:20px; cursor: pointer; {% if rental.active == False %} border: solid 2px red; {% else %} border: solid 2px blue; {% endif %}">
                 {% if rental.active == False %} Unavailable {% else %} Available {% endif %}
                 <h4>{{ rental.title }}</h4>
                 <p>{{ rental.location }}</p>
@@ -38,6 +40,8 @@
             {% endfor %}
         </div>
         <div class="d-none d-md-block col-md-9 shadow" style="position:relative; z-index: 9999999; background-color: rgba(211, 211, 211, 0.5);">
+            <h2 class="pt-3">Your rentals details</h2>
+            <hr>
             {% for rental in rentals %}
                 <div id="display-{{ rental.id }}" style="display:none;">
                     <h4>{{ rental.title }}</h4>
