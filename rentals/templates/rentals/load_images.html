@@ -15,7 +15,7 @@
         <div class="d-none d-md-block col-2"></div>
         <div class="col-12 col-md-8">
             <div class="form-container shadow" id="form-container">
-                <button class="btn btn-btn mt-3"><a href={% if rental.active == True %}"{% url 'rentals' %}" {% else %}"{% url 'promo_check_out' rental.id %}" {% endif %}>Skip</a></button>
+                <button class="btn btn-btn mt-3"><a href={% if rental.active == True %}"{% url 'rentals' %}" {% else %}"{% url 'check_out' rental.id %}" {% endif %}>Skip</a></button>
                 <h1 class="center form-header mb-5">Fill in the Form below to load images of your home</h1>
                 <form action="{% url 'load_images' rental.id %}" method="POST" enctype="multipart/form-data">
                    {% csrf_token %}
