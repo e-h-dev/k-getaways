@@ -17,6 +17,12 @@ a:hover{
   font-weight: bolder;
 }
 
+h2, h3{
+  text-align: center;
+  font-family: var(--main-font);
+  color:var(--main-text-color);
+}
+
 hr{
   border: 0.8px rgba(112, 112, 112, 0.2) solid;
 }
@@ -2143,6 +2149,78 @@ h4, h5, h6{
   padding:10px;
   border-radius: 10px;
   
+}
+
+/* -----------------------dashboard styles */
+
+.main-dashboard{
+  position: relative;
+  display: block;
+  height:auto;
+  overflow: auto;
+  z-index: 10;
+  background-color: var(--main-background-color);
+  border-radius: 20px;
+}
+
+.dashboard-details{
+  position: absolute;
+  left:5%;
+  width: 90%;
+  z-index: 20;
+  background-color: #fff;
+  border-radius: 20px;
+  padding:20px;
+}
+
+.dashboard-details table{
+  margin:20px;
+}
+
+
+.dashboard-details tr,
+.dashboard-details td{
+  border: solid 2px var(--main-background-color) !important;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.dashboard-details th{
+  text-align: center;
+  font-size: 1.2rem;
+  padding:20px;
+}
+
+.dashboard-details td{
+  font-size: 1rem;
+  border: solid 1px var(--main-text-color);
+  padding:20px;
+}
+
+.amenities-overflow{
+  max-height:300px;
+  overflow-y: scroll;
+  position: relative;
+  z-index: 25;
+  border: solid 0.4px var(--main-background-color);
+  border-radius: 10px;
+  color:var(--main-text-color);
+  font-family: var(--main-font);
+  width:200px;
+}
+
+.dashboard-side-display{
+  border-radius: 20px; 
+  padding:20px; 
+  cursor: pointer;
+}
+
+.active-dashboard{
+  background-color: var(--main-background-color);
+}
+
+.inactive-dashboard{
+  background-color: rgba(255, 100, 167, 0.3);
 }
 
 
