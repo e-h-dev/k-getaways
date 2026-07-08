@@ -21,41 +21,79 @@
             <p>Select a rental to view or edit.</p>
             
             {% for rental in rentals %}
-            <div class="dashboard-side-display" id="side-bar-{{ rental.id }}" style="border-radius: 20px; padding:20px; cursor: pointer; {% if rental.active == False %} border: solid 2px red; {% else %} border: solid 2px blue; {% endif %}">
+            <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" >
                 <h4>{{ rental.title }}</h4>
                 <p>{{ rental.location }}</p>
-                {% if rental.images.all %}
-                {% for i in rental.images.all|slice:":1" %}
-                <div class="col-12">
-                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" style="height:70px; width:70px;" loading="lazy">
-                </div>
-                {% endfor %}
-                {% else %}
-                <div class="col-12">
-                    <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
-                </div>
-                {% endif %}
                 {% if rental.active == False %}
                 <p>This rental has expired. To relist it, open the rental details in your Dashboard and click "relist".</p>
                 {% else %} 
-                <p>Your rental is live and visible. Click on the listing to view details, update pricing, or edit your description</p>
+                <p><strong>Your rental is live and visible.</strong> <br>Click on the listing to view details, update pricing, or edit your description</p>
                 {% endif %}
             </div>
             <hr>
             {% endfor %}
         </div>
-        <div class="d-none d-md-block col-md-9 shadow" style="position:relative; z-index: 9999999; background-color: rgba(211, 211, 211, 0.5);">
+        <div class="d-none d-md-block col-md-9 shadow main-dashboard">
             <h2 class="pt-3">Your Rental Details</h2>
             <hr>
-            {% for rental in rentals %}
-                <div id="display-{{ rental.id }}" style="display:none;">
-                    <h4>{{ rental.title }}</h4>
-                    <p>{{ rental.location }}</p>
-                    <p>{{ rental.active }}</p>
-                    <p>£{{rental.price }} {{ rental.pricing_type }}</p>
-                    <a href="{% url 'edit_home' rental.id %}">Click here to edit this rental</a>
+            <div>
+                {% for rental in rentals %}
+                <div class="dashboard-details shadow" id="display-{{ rental.id }}" style="display:none;">
+                    <h3>{{ rental.title }}</h3>
+                    <table>
+                        <thead style="background-color: #fff;">
+                            <tr>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Sleeps</th>
+                                <th>Bedrooms</th>
+                                <th>Bathrooms</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ rental.category }}</td>
+                                <td>{{ rental.location }}</td>
+                                <td>{{ rental.sleeps }}</td>
+                                <td>{{ rental.bedrooms }}</td>
+                                <td>{{ rental.bathrooms }}</td>
+                                <td>£{{rental.price }} {{ rental.pricing_type }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4>Description</h4>
+                    <p>{{ rental.description }}</p>
+                    <h4>Amenities</h4>
+                    <ul class="amenities-overflow">
+                    {% for am in rental.amenities %}
+                        <li>{{ amenities_choices|dict_get:am }}</li>
+                    {% endfor %}
+                    </ul>
+                    <button class="btn btn-btn"><a href="{% url 'edit_home' rental.id %}">Edit Rental</a></button>
+                    <hr>
+                    <h4>Images</h4>
+                    {% if rental.images.all %}
+                    {% for i in rental.images.all %}
+                    <div class="col-12">
+                        <div>
+                            <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" style="height:70px; width:70px;" loading="lazy">
+                            <p>{{ i.image_name }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-12">
+                        <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
+                    </div>
+                    {% endif %}
+                    <button class="btn btn-btn"><a href="{% url 'edit_images' rental.id %}">Edit Images</a></button>
+                    <hr>
                 </div>
-            {% endfor %}
+                
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
