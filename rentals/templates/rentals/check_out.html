@@ -18,9 +18,19 @@
         <div class="col-12 col-md-8">
             <div class="form-container shadow" id="form-container">
                 <h1 class="center form-header mb-5">Check Out</h1>
+                <!-- <div class="coupon-box shadow" style="width:30%; padding:20px; position: relative; z-index:5; left:60%; bottom:60%;">
+                    <form method="POST" action="{% url 'coupon' %}" enctype="multipart/form-data" name="coupon-entry">
+                        {% csrf_token %}
+                        <p style="font-weight:bolder">Enter Coupon Here: <input type="text" name="coupon" placeholder="Coupon" id="coupon-entry"></p>
+                        <input type="hidden" name="rental_id" value="{{ rental.id }}">
+                        <button class="btn btn-btn">Submit Coupon</button>
+                    </form>
+                </div> -->
+                <p></p>
                 <form id="payment-form">
-                    <P>Item: Payment for listing of {{ rental.title }}</P>
-                    <p style="font-size:1.3rem; font-weight:bolder">You will be charged £{{ charge_amount }} to list this property.</p>
+                    <P><span style="font-size:1.3rem; font-weight:bolder">Item:</span> Payment for listing of <span style="font-weight:bolder">{{ rental.title }}</span></P>
+                    <p style="font-size:1.2rem; font-weight:bold">You will be charged £{{ charge_amount }} to list this property.</p>
+                    <p></p>
                     <div id="payment-element"></div>
                     <button id="submit" class="btn btn-btn mt-4">
                         <div class="spinner hidden" id="spinner"></div>
@@ -36,6 +46,7 @@
 {% block js %}
     <script src="https://js.stripe.com/v3/"></script>
     <script>
+
         // Initialize Stripe
         var stripe = Stripe('{{ stripe_public_key }}');
         var options = {

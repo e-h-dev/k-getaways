@@ -491,60 +491,80 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def check_out(request, rental_id):
-    # 1. Fetch the object safely first (Prevents crash if ID doesn't exist)
+    # 1. Fetch the rental safely
     rental = get_object_or_404(Rentals, pk=rental_id)
 
-    # 2. Check ownership safely using the fetched object
+    # 2. Ownership check
     if request.user != rental.owner_name:
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
 
-    # 3. Calculate charge (Ensure rental.price * 50 evaluates to a clean integer)
-
+    # 3. Base charge calculation
     if rental.pricing_type == 'daily':
         charge_amount = int(rental.price * 50)
+
     elif rental.pricing_type == 'over_Shabbos':
-        charge_frac = int(rental.price / 2)
-        charge_amount = int(charge_frac * 50)
+        charge_amount = int((rental.price / 2) * 50)
+
     elif rental.pricing_type == 'weekly':
-        charge_frac = int(rental.price / 7)
-        charge_amount = int(charge_frac * 50)
+        charge_amount = int((rental.price / 7) * 50)
+
     elif rental.pricing_type == 'monthly':
-        charge_frac = int(rental.price / 30)
-        charge_amount = int(charge_frac * 50)
+        charge_amount = int((rental.price / 30) * 50)
+
     else:
         charge_amount = int(rental.price * 10)
 
-    charge_display = float(charge_amount/100)
+    # 4. Apply coupon override (if set in session)
+    if request.session.get('free_checkout'):
+        charge_amount = 0
+        client_secret = None
+
+    charge_display = float(charge_amount / 100)
+
+    # 5. If free checkout, skip Stripe entirely
     
-    try:
-        # 4. Create the Stripe configuration session
-        intent = stripe.PaymentIntent.create(
-            amount=charge_amount,
-            currency='gbp',
-            description=f'Payment for rental {rental.id}',
-            payment_method_types=['card'],
-            metadata={
-                'rental_id': rental.id,
-                'user_id': request.user.id
-            }
-        )
 
+    if charge_amount > 0:
+        stripe.api_key = settings.STRIPE_SECRET_KEY
 
-        context = {
-            'rental': rental,
-            'charge_amount': charge_display,
-            'client_secret': intent.client_secret,
-            'stripe_public_key': settings.STRIPE_PUBLIC_KEY
-        }
-        return render(request, 'rentals/check_out.html', context)
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=charge_amount,
+                currency='gbp',
+                description=f'Payment for rental {rental.id}',
+                payment_method_types=['card'],
+                metadata={
+                    'rental_id': rental.id,
+                    'user_id': request.user.id,
+                },
+            )
 
-    except stripe.error.StripeError as e:
-        messages.error(request, f"Stripe Setup Error: {e.user_message if hasattr(e, 'user_message') else e}")
-        return redirect('rentals')
-    except Exception as e:
-        messages.error(request, f"An unexpected system error occurred: {str(e)}")
-        return redirect('rentals', rental_id=rental_id)
+            client_secret = intent.client_secret
+
+        except stripe.error.StripeError as e:
+            messages.error(
+                request,
+                f"Stripe Setup Error: {getattr(e, 'user_message', str(e))}"
+            )
+            return redirect('rentals')
+
+        except Exception as e:
+            messages.error(
+                request,
+                f"An unexpected system error occurred: {str(e)}"
+            )
+            return redirect('rentals')
+
+    # 6. Render template
+    context = {
+        'rental': rental,
+        'charge_amount': charge_display,
+        'client_secret': client_secret,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+    }
+
+    return render(request, 'rentals/check_out.html', context)
 
 
 @csrf_exempt
@@ -700,17 +720,24 @@ def activate(request, rental_id):
     return redirect('rentals')
 
 
-def coupon(request):
-
+def coupon(request, rental_id):
+    rental = get_object_or_404(Rentals, pk=rental_id)
     if request.method == 'POST':
-        form = 'coupon-entry'
-        if form.valid:
-            form.save()
+        coupon_code = request.POST.get('coupon')
+
+        if coupon_code == "SUMMER26":
+            request.session['free_checkout'] = True
+            messages.success(request, "Coupon applied successfully! Your checkout is now free.")
+            rental.active = True
+            rental.date_added = datetime.now()
+            rental.save()
+
         else:
-            messages('You have entered an incorrect coupon code')
-    else:
-        messages('You have entered an invalid coupon code')
-    
+            messages.error(request, "Invalid coupon code.")
+        
+        return redirect('check_out', rental_id=request.POST.get('rental_id'))
+
+    messages.error(request, "Invalid request.")
     return redirect('rentals')
 
 
@@ -728,3 +755,4 @@ def dashboard(request):
     }
 
     return render(request, 'rentals/dashboard.html', context)
+

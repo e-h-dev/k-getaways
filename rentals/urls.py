@@ -20,5 +20,6 @@ urlpatterns = [
     # urls for promo entries before 17th of tamuz
     path('final_check_out/<int:rental_id>', views.promo_check_out, name='promo_check_out'),
     path('activate/<int:rental_id>', views.activate, name='activate'),
+    path('coupon', views.coupon, name='coupon'),
     path('dashboard', views.dashboard, name='dashboard')
 ]
