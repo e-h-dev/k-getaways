@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
@@ -31,8 +33,8 @@ class Rentals(models.Model):
     class Meta:
         verbose_name_plural = "Rentals"
 
-    active = models.BooleanField(default=False)
-    date_added = models.DateField(auto_now_add=True)
+    active = models.BooleanField(default=False) 
+    date_added = models.DateField(default=date.today)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='rentals')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE,  null=True, blank=True)
