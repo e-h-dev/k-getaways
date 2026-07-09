@@ -74,22 +74,25 @@
                     <button class="btn btn-btn"><a href="{% url 'edit_home' rental.id %}">Edit Rental</a></button>
                     <hr>
                     <h4>Images</h4>
-                    {% if rental.images.all %}
-                    {% for i in rental.images.all %}
-                    <div class="col-12">
-                        <div>
-                            <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" style="height:70px; width:70px;" loading="lazy">
-                            <p>{{ i.image_name }}</p>
-                        </div>
+
+                    <div class="images-row">
+                        {% if rental.images.all %}
+                            {% for i in rental.images.all %}
+                                <div class="image-box">
+                                    <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" style="height:70px; width:70px;" loading="lazy">
+                                    <p>{{ i.image_name }}</p>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="image-box">
+                                <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
+                            </div>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <div class="col-12">
-                        <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
-                    </div>
-                    {% endif %}
+
                     <button class="btn btn-btn"><a href="{% url 'edit_images' rental.id %}">Edit Images</a></button>
                     <hr>
+
                 </div>
                 
                 {% endfor %}
