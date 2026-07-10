@@ -445,6 +445,10 @@ footer{
   /* margin-bottom: 30px; */
 }
 
+footer h3{
+  color:#fff;
+}
+
 .footer-logo-p{
   color:#f6f6f6;
   font-size: 0.8rem;
