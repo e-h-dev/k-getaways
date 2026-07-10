@@ -40,6 +40,7 @@
                 {% for rental in rentals %}
                 <div class="dashboard-details shadow" id="display-{{ rental.id }}" style="display:none;">
                     <h3>{{ rental.title }}</h3>
+                    <button class="btn btn-btn" style="position: relative; left:90%; bottom:10%;" id="close-{{ rental.id }}">Close</button>
                     <table>
                         <thead style="background-color: #fff;">
                             <tr>
@@ -108,12 +109,19 @@
     {% for rental in rentals %}
     let display{{ rental.id }} = document.getElementById('display-{{ rental.id }}')
     let sideBar{{ rental.id }} = document.getElementById('side-bar-{{ rental.id }}')
+    let close{{ rental.id }} = document.getElementById('close-{{ rental.id }}');
 
     function showItems{{ rental.id }}(){
         display{{ rental.id }}.style.display = "block";
     }
 
+    function hideItems{{ rental.id }}(){
+        display{{ rental.id }}.style.display = "none";
+    }
+
     sideBar{{ rental.id }}.addEventListener("click", showItems{{ rental.id }});
+
+    close{{ rental.id }}.addEventListener("click", hideItems{{ rental.id }});
     {% endfor %}
 </script>
 
