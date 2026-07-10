@@ -93,7 +93,18 @@
 
                     <button class="btn btn-btn"><a href="{% url 'edit_images' rental.id %}">Edit Images</a></button>
                     <hr>
-
+                    
+                    <h4>Availability</h4>
+                    {% for available in availability %}
+                        <p>
+                            <strong>Slot {{ forloop.counter }}</strong>
+                            <br>
+                             {{ available.start_date }} - {{ available.end_date }}
+                        </p>
+                        
+                    {% endfor %}
+                    <button class="btn btn-btn"><a href="{% url 'edit_availability' rental.id %}">Edit Availability</a></button>
+                    <hr>
                 </div>
                 
                 {% endfor %}

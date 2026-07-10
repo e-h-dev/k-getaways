@@ -721,10 +721,12 @@ def dashboard(request):
     """
     rentals = Rentals.objects.filter(owner_name=request.user.id)
     amenities_choices = dict(Rentals._meta.get_field('amenities').choices)
+    availability = AvailableDates.objects.filter(rental__owner_name=request.user.id).order_by('start_date')
 
     context = {
         'rentals': rentals,
-        'amenities_choices': amenities_choices
+        'amenities_choices': amenities_choices,
+        'availability': availability
     }
 
     return render(request, 'rentals/dashboard.html', context)
