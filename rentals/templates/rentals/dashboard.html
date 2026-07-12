@@ -40,7 +40,12 @@
                 {% for rental in rentals %}
                 <div class="dashboard-details shadow" id="display-{{ rental.id }}" style="display:none;">
                     <h3>{{ rental.title }}</h3>
-                    <button class="btn btn-btn" style="position: relative; left:90%; bottom:10%;" id="close-{{ rental.id }}">Close</button>
+                    {% if rental.active == False %}
+                    <button class="btn btn-btn" style="position: relative; left:1%; bottom:10%;">
+                        <a href="{% url 'check_out' rental.id %}">Relist</a>
+                    </button>
+                    {% endif %}
+                    <button class="btn btn-btn" style="position: relative; left:80%; bottom:10%;" id="close-{{ rental.id }}">Close</button>
                     <table>
                         <thead style="background-color: #fff;">
                             <tr>
