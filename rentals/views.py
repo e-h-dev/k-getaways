@@ -46,9 +46,12 @@ def rentals(request):
     today = datetime.today().date()
     print(f"Today's date is: {today}")
 
-            
+    
     listing_expires = datetime.today().date() - timedelta(days=30)
     Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
+
+
+    print(f"THIS IS THE PRINT OUT OF THE VARIABLE listing_expires {listing_expires}")
 
 
     """
@@ -135,6 +138,7 @@ def rental_detail(request, rental_id):
     available = AvailableDates.objects.filter(rental_id=rental_id)
 
     print(f"Available dates for rental {rental_id}: {available}")
+
 
     context = {
         "rental": rental,

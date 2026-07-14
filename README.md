@@ -1,4 +1,4 @@
-# Ksher Getaways
+# Kosher Getaways
 
 Kosher Getaways is a travel-focused project designed to help users discover, plan, and manage trips with ease. It includes tools for browsing destinations, organizing itineraries, and handling booking or accommodation details.
 
@@ -6,6 +6,7 @@ Kosher Getaways is a travel-focused project designed to help users discover, pla
 
 - [Overview](#overview)
 - [Features](#features)
+- [pages](#pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
@@ -24,6 +25,38 @@ Kosher Getaways is intended to serve as a centralized application for travel pla
 - Booking and reservation support
 - User-friendly interface for travel management
 - Modular architecture for easy extensions
+
+## Pages
+
+### Home app
+#### Home page
+
+### Rentals app
+#### Rentals page
+#### Rentals detail page
+#### Listing instructions page
+#### List home page
+#### Add availability page
+#### Add images page
+#### Checkout page
+#### Checkout confirmation page
+#### Dashboard
+
+### Contacts app
+#### Messages page
+#### Compose message page
+
+### Sign up
+#### Login page
+#### Logout page
+#### Register page
+
+### Error pages
+#### 404 Error page
+#### 500 Error page
+
+
+
 
 ## Installation
 
@@ -49,7 +82,7 @@ Kosher Getaways is intended to serve as a centralized application for travel pla
 
 ## Usage
 
-- Open the app in a browser at `[http://localhost:3000](http://127.0.0.1:8000/)`.
+- Open the app in a browser at `https://www.koshergetaways.co.uk/`.
 - Browse available destinations.
 - Create and save trip itineraries.
 - Manage bookings and travel plans.
