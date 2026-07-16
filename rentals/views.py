@@ -141,6 +141,12 @@ def rental_detail(request, rental_id):
 
     print(f"Available dates for rental {rental_id}: {available}")
 
+    price = int(rental.price)
+    duration = int(rental.listing_duration)
+    rental_price = price * duration
+
+    print(f"THE COST OF LISTING THIS WILL BE {rental_price}")
+
     context = {
         "rental": rental,
         "image": image,
@@ -504,21 +510,28 @@ def check_out(request, rental_id):
         messages.error(request, "You are not authorized to edit this rental.")
         return redirect('rentals')
 
+    # create price variable to show dynamicaly dependent on duration selection
+    price = int(rental.price)
+    duration = int(rental.listing_duration)
+    rental_price = price * duration
+    
+
     # 3. Calculate charge (Ensure rental.price * 50 evaluates to a clean integer)
 
     if rental.pricing_type == 'daily':
-        charge_amount = int(rental.price * 50)
+        charge_amount = int(rental_price * 50)
     elif rental.pricing_type == 'over_Shabbos':
-        charge_frac = int(rental.price / 2)
+        charge_frac = int(rental_price / 2)
         charge_amount = int(charge_frac * 50)
     elif rental.pricing_type == 'weekly':
-        charge_frac = int(rental.price / 7)
+        charge_frac = int(rental_price / 7)
         charge_amount = int(charge_frac * 50)
     elif rental.pricing_type == 'monthly':
-        charge_frac = int(rental.price / 30)
+        charge_frac = int(rental_price / 30)
         charge_amount = int(charge_frac * 50)
     else:
-        charge_amount = int(rental.price * 10)
+        charge_amount = int(rental_price * 10)
+
 
     charge_display = float(charge_amount/100)
     
@@ -538,6 +551,7 @@ def check_out(request, rental_id):
 
         context = {
             'rental': rental,
+            'duration': duration,
             'charge_amount': charge_display,
             'client_secret': intent.client_secret,
             'stripe_public_key': settings.STRIPE_PUBLIC_KEY
@@ -558,6 +572,11 @@ def check_out_webhook(request):
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
     event = None
 
+    # create price variable to show dynamicaly dependent on duration selection
+    price = int(rental.price)
+    duration = int(rental.listing_duration)
+    rental_price = price * duration
+
 
     try:
         event = stripe.Webhook.construct_event(
@@ -575,18 +594,18 @@ def check_out_webhook(request):
         try:
             rental = Rentals.objects.get(pk=rental_id)
             if rental.pricing_type == 'daily':
-                charge_amount = int(rental.price * 50)
+                charge_amount = int(rental_price * 50)
             elif rental.pricing_type == 'over_Shabbos':
-                charge_frac = int(rental.price / 2)
+                charge_frac = int(rental_price / 2)
                 charge_amount = int(charge_frac * 50)
             elif rental.pricing_type == 'weekly':
-                charge_frac = int(rental.price / 7)
+                charge_frac = int(rental_price / 7)
                 charge_amount = int(charge_frac * 50)
             elif rental.pricing_type == 'monthly':
-                charge_frac = int(rental.price / 30)
+                charge_frac = int(rental_price / 30)
                 charge_amount = int(charge_frac * 50)
             else:
-                charge_amount = int(rental.price * 10)
+                charge_amount = int(rental_price * 10)
 
             charge_display = float(charge_amount/100)
 
