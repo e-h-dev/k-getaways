@@ -1086,6 +1086,7 @@ thead{
 .rental-display-box{
   /* padding:20px; */
   border-radius: 20px;
+  border: solid 3px var(--main-background-color);
   font-family: var(--main-font);
   color:var(--main-text-color);
   width:100%;
@@ -1306,7 +1307,7 @@ thead{
 }
 
 .next {
-  left: 90%;
+  left: 89%;
   border-radius: 6px 0 0 6px;
 }
 
