@@ -10,7 +10,8 @@ class RentalForm(forms.ModelForm):
         model = Rentals
         fields = ["location", "category", "owner_number", "owner_email",
                   "address", "post_code", "title", "sleeps", "bedrooms",
-                  "bathrooms", "description", "amenities", "pricing_type", "price"]
+                  "bathrooms", "description", "amenities", "pricing_type", 
+                  "price", "listing_duration"]
         
         widgets = {
             'pricing_type': forms.RadioSelect(attrs={'class': 'pricing-radio'}),
@@ -29,9 +30,11 @@ class RentalForm(forms.ModelForm):
         pricing_type_label = ": Select one option"
         amenities_label = ": Select all relevant options"
         title_label = " of Rental:"
+        duration_label = ": (Select number of months)"
         self.fields['pricing_type'].label = f"{self.fields['pricing_type'].label}{pricing_type_label}"
         self.fields['amenities'].label = f"{self.fields['amenities'].label}{amenities_label}"
         self.fields['title'].label = f"{self.fields['title'].label}{title_label}"
+        self.fields['listing_duration'].label = f"{self.fields['listing_duration'].label}{duration_label}"
 
 
 class ImageForm(forms.ModelForm):

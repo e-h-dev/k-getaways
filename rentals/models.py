@@ -101,6 +101,7 @@ class Rentals(models.Model):
         ('flat_rate', 'Flat Rate')
     ]
     pricing_type = models.CharField(max_length=18, choices=PRICING_TYPES, default='daily')
+    listing_duration = models.IntegerField(default=1)
 
     rating = models.IntegerField(default=0,
                                  choices=((i, i) for i in range(1, 6)))

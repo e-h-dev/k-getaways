@@ -16,6 +16,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Rentals, Image, AvailableDates
 from .forms import RentalForm, ImageForm, AvailableDatesForm, ImageNameForm
+from .utils import expire_old_rentals
+
 
 # Create your views here.
 
@@ -37,6 +39,8 @@ def rentals(request):
         .prefetch_related(Prefetch('images', queryset=ordered_images))
         .order_by('-has_images', '-date_added')
     )
+
+    expire_old_rentals()
     rentals = rentals.filter(active=True)
 
     """
@@ -46,12 +50,10 @@ def rentals(request):
     today = datetime.today().date()
     print(f"Today's date is: {today}")
 
-    
-    listing_expires = datetime.today().date() - timedelta(days=30)
-    Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
 
-
-    print(f"THIS IS THE PRINT OUT OF THE VARIABLE listing_expires {listing_expires}")
+    # listing_expires = datetime.today().date() - timedelta(days=31)
+    # Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
+   
 
 
     """
@@ -138,7 +140,6 @@ def rental_detail(request, rental_id):
     available = AvailableDates.objects.filter(rental_id=rental_id)
 
     print(f"Available dates for rental {rental_id}: {available}")
-
 
     context = {
         "rental": rental,
