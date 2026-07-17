@@ -102,7 +102,7 @@
             <div class="price-container shadow">
                 {% if rental.pricing_type == "daily" %}
                 £{{ rental.price }} Per Night
-                {% elif r.pricing_type == "two_nights" %}
+                {% elif rental.pricing_type == "two_nights" %}
                 £{{ r.price }} for Minimum 2 Nights
                 {% elif rental.pricing_type == "over_Shabbos" %} 
                 £{{ rental.price }} for Shabbos
