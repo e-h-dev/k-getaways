@@ -95,6 +95,7 @@ class Rentals(models.Model):
     # radio buttons to select price model
     PRICING_TYPES = [
         ('daily', 'Daily'),
+        ('two_nights', 'Minimum 2 Nights'),
         ('over_Shabbos', 'Over Shabbos'),
         ('weekly', 'Weekly'),
         ('monthly', 'Monthly'),

@@ -520,7 +520,7 @@ def check_out(request, rental_id):
 
     if rental.pricing_type == 'daily':
         charge_amount = int(rental_price * 50)
-    elif rental.pricing_type == 'over_Shabbos':
+    elif rental.pricing_type == 'over_Shabbos' or 'two_nights':
         charge_frac = int(rental_price / 2)
         charge_amount = int(charge_frac * 50)
     elif rental.pricing_type == 'weekly':
@@ -595,7 +595,7 @@ def check_out_webhook(request):
             rental = Rentals.objects.get(pk=rental_id)
             if rental.pricing_type == 'daily':
                 charge_amount = int(rental_price * 50)
-            elif rental.pricing_type == 'over_Shabbos':
+            elif rental.pricing_type == 'over_Shabbos' or 'two_nights':
                 charge_frac = int(rental_price / 2)
                 charge_amount = int(charge_frac * 50)
             elif rental.pricing_type == 'weekly':

@@ -1836,7 +1836,7 @@ input[type="file"]{
     display: inline-block;
     font-family: var(--main-font);
     padding: 10px 20px;
-    font-size: 15px;
+    font-size: 12.5px;
     font-weight: 600;
     color:var(--main-text-color);
     background-color: var(--main-background-color);
