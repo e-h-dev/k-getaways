@@ -29,7 +29,12 @@
                 <p></p>
                 <form id="payment-form">
                     <P><span style="font-size:1.3rem; font-weight:bolder">Item:</span> Payment for listing of <span style="font-weight:bolder">{{ rental.title }}</span> for <span style="font-weight:bolder">{{ duration }}</span> months.</P>
-                    <p style="font-size:1.2rem; font-weight:bold">You will be charged £{{ charge_amount }} to list this property.</p>
+                    {% if duration > 2 %}
+                    <p>You are eligible for out promotion and will recieve a 50% dicount!</p>
+                    {% endif %}
+                    <p style="font-size:1.2rem; font-weight:bold">
+                        You will be charged {% if duration > 2 %} <strike>£{% widthratio charge_amount 1 2 %}</strike> {% endif %}£{{ charge_amount }} to list this property.
+                    </p>
                     <p></p>
                     <div id="payment-element"></div>
                     <button id="submit" class="btn btn-btn mt-4">

@@ -515,6 +515,8 @@ def check_out(request, rental_id):
     duration = int(rental.listing_duration)
     rental_price = price * duration
     
+    if duration > 2:
+        rental_price = rental_price/2
 
     # 3. Calculate charge (Ensure rental.price * 50 evaluates to a clean integer)
 
@@ -576,6 +578,9 @@ def check_out_webhook(request):
     price = int(rental.price)
     duration = int(rental.listing_duration)
     rental_price = price * duration
+
+    if duration > 2:
+        rental_price = rental_price/2
 
 
     try:
