@@ -3,13 +3,14 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 from contact.forms import ContactForm
 from .models import Contacts
 from rentals.models import Rentals
 
 # Create your views here.
 
-
+@login_required
 def contacts(request):
     contacts = Contacts.objects.all().order_by('-date_sent', '-time_sent')
     
