@@ -60,31 +60,20 @@
 
 <body>
     <div class="container">
-        <div class="header">Home Edited Successfully</div>
+        <div class="header">New Message</div>
 
         <p>Dear {{ owner_name }},</p>
 
         <p>
-            You have successfully edited your home listing 
-            <strong>'{{ title }}'</strong> on 
+            You have recieved a message from {{sender_name}} in regard to you home 
+            <strong>'{{ title }}'</strong> listed on 
             <span class="brand">Kosher Getaways</span>.
         </p>
-        {% if changes %}
-            <div class="updates">
-                <h3 style="margin-top:20px;">What was updated:</h3>
-                <ul>
-                    {% for field, pair in changes.items %}
-                        <li>
-                            <strong>{{ field }}:</strong>
-                            <p><strong>From</strong></p>
-                            "{{ pair.0 }}" 
-                            <p><strong>To</strong></p>
-                            "{{ pair.1 }}"
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+        <h3>Your Message</h3>
+        <strong>Subject</strong>
+        <p>{{ message_subject }}</p>
+        <p>{{ message }}</p>
+        <p> Checkout your <a href="https://www.koshergetaways.co.uk/contact/">Messages</a> to read you new message</p>
         <p>
             If you have any questions or need further assistance, 
             feel free to contact us at 
