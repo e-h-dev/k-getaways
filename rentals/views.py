@@ -8,7 +8,8 @@ from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django .http import Http404
 from django.http import JsonResponse
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Case, When, IntegerField, Prefetch, Count
 from django.db.models import Q
@@ -259,6 +260,10 @@ def edit_home(request, rental_id):
 
     if request.method == 'POST':
         form = RentalForm(request.POST, instance=rental)
+
+        old_title = rental.title
+        old_description = rental.description
+        old_amenities = rental.amenities
         
         if form.is_valid():  # and image_form.is_valid():
             done = form.save(commit=False)
@@ -269,18 +274,41 @@ def edit_home(request, rental_id):
             messages.success(request, "Your rental has been updated.")
             print("your rental has been updated")
 
-            """
-            commented out email send for moment it seems that render on free tier will not allow sending mail
-            """
-            send_mail(
-                    'Home Edited Successfully',
-                    f"Dear {rental.owner_name}! \
-                        You have successfully edited your home listing '{done.title}' on Kosher Getaways. \
-                        If you have any questions or need further assistance, please contact us at office@koshergetaways.co.uk",
-                    "office@koshergetaways.co.uk",
-                    [rental.owner_email],
-                    fail_silently=False,
-                )
+            changes = {}
+
+            if old_title != done.title:
+                changes["Title"] = (old_title, done.title)
+            
+            if old_description != done.description:
+                changes["description"] = (old_description, done.description)
+
+            if old_amenities != done.amenities:
+                changes["amenities"] = (old_amenities, done.amenities)
+
+            print(changes)
+
+            subject = "Home Edited Successfully"
+            from_email = "office@koshergetaways.co.uk"
+            to = [rental.owner_email]
+
+            text_content = (
+                f"Dear {rental.owner_name},\n"
+                f"You have successfully edited your home listing '{done.title}' on Kosher Getaways.\n"
+                f"If you have any questions, contact us at office@koshergetaways.co.uk."
+            )
+
+        
+            # Render HTML template
+            html_content = render_to_string("emails/edit_home.html", {
+                "owner_name": rental.owner_name,
+                "title": done.title,
+                "changes": changes,
+                "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
+            })
+
+            msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
         else:
             messages.error(request, "Please correct the errors below.")
             print("your rental is invalid")

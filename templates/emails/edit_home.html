@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+         * {
+            font-family: 'Playfair Display', Arial, sans-serif !important;
+        }
+        body {
+           
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        p, h3, ul{
+            color:#48515a;
+            font-size: 1.2rem;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #48515a;
+            margin-bottom: 15px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+        .brand {
+            font-weight: 700;
+        }
+        .updates{
+            font-size: 1.1rem;
+            color:rgb(139, 131, 131)
+        }
+
+        .updates h3{
+            font-size: 1.5rem;
+        }
+        .signiture{
+            font-size:1.4rem !important;
+            font-style: italic;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">Home Edited Successfully</div>
+
+        <p>Dear {{ owner_name }},</p>
+
+        <p>
+            You have successfully edited your home listing 
+            <strong>'{{ title }}'</strong> on 
+            <span class="brand">Kosher Getaways</span>.
+        </p>
+        {% if changes %}
+            <div class="updates">
+                <h3 style="margin-top:20px;">What was updated:</h3>
+                <ul>
+                    {% for field, pair in changes.items %}
+                        <li>
+                            <strong>{{ field }}:</strong>
+                            <p><strong>From</strong></p>
+                            "{{ pair.0 }}" 
+                            <p><strong>To</strong></p>
+                            "{{ pair.1 }}"
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <p>
+            If you have any questions or need further assistance, 
+            feel free to contact us at 
+            <a href="mailto:office@koshergetaways.co.uk">office@koshergetaways.co.uk</a>.
+        </p>
+        <p>Best Regards</p>
+        <P class="signiture">KosherGetaways</P>
+
+        <div class="footer">
+            <img src="{{ footer_image_url }}"
+                 alt="Kosher Getaways"
+                 width="180"
+                 style="margin-bottom:10px;">
+        </div>
+    </div>
+</body>
+</html>
