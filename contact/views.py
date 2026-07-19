@@ -39,6 +39,7 @@ def compose_message(request, rental_id):
             messages.success(request, "Your message has been sent.")
 
             message_subject = contactform.subject
+            message_from = contactform.name
             message = contactform.message
             message_email = contactform.email
 
@@ -60,6 +61,7 @@ def compose_message(request, rental_id):
                 "message_subject": message_subject,
                 "message": message,
                 "message_email": message_email,
+                "message-from": message_from,
                 "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
             })
 
