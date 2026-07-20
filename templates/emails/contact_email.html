@@ -15,9 +15,17 @@
             padding: 20px;
         }
 
-        p, h3, ul{
+        p, h3, h4, ul, a{
             color:#48515a;
             font-size: 1.2rem;
+        }
+        a{
+            text-decoration: none;
+            color:#252e36 !important;
+            font-weight: 800;
+        }
+        a:hover{
+            color:#777 !important;
         }
         .container {
             background: white;
@@ -50,6 +58,27 @@
         .updates h3{
             font-size: 1.5rem;
         }
+        .message-container{
+            width: 60%;
+            border: 1px solid #48515a;
+            border-radius: 20px;
+            padding:55px;
+            background-color:rgba(139, 131, 131, 0.2);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+        .reply-btn{
+            border: 1px solid #48515a;
+            border-radius: 999999px;
+            padding-left:20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width:75px;
+            color:#48515a !important;
+        }
+        .reply-btn:hover{
+            background-color: #48515a;
+            color:#fff
+        }
         .signiture{
             font-size:1.4rem !important;
             font-style: italic;
@@ -69,12 +98,15 @@
             <strong>'{{ title }}'</strong> listed on 
             <span class="brand">Kosher Getaways</span>.
         </p>
-        <h3>Your Message</h3>
-        <strong>Subject</strong>
-        <p>{{ message_subject }}</p>
-        <p>{{ message }}</p>
-        <p>To contact {{ sender_name }}, email <a href="mailto:{{ message_email }}">{{ message_email }}</a></p>
-        <p> Checkout your <a href="https://www.koshergetaways.co.uk/contact/">Messages</a> to read you new message.</p>
+        <div class="message-container">
+            <h3 style="text-align: center;"><strong>Your Message</strong></h3>
+            <h3><strong>Subject</strong></h3>
+            <p>{{ message_subject }}</p>
+            <h4><strong>Message</strong></h4>
+            <p>{{ message }}</p>
+            <div class="reply-btn"><a href="mailto:{{ message_email }}">Reply</a></div>
+            <p> Checkout your <a href="https://www.koshergetaways.co.uk/contact/">Messages</a> to read you new message.</p>
+        </div>
         <p>
             If you have any questions or need further assistance, 
             feel free to contact us at 
