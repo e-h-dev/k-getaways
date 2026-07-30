@@ -200,20 +200,20 @@
                 <h4>Similar Rentals</h4>
             </div>
             <div class="col-2">
-                <div>
+                <!-- <div>
                     <span id="prev-load" style="margin:10px; background-color: lightgray; border-radius: 50px; padding:8px; cursor:pointer;">&#10094;</span>
                     <span id="next-load" style="margin:10px; background-color: lightgray; border-radius: 50px; padding:8px; cursor:pointer;">&#10095;</span>
-                </div>
+                </div> -->
                 
             </div>
         </div>
         <div class="row">
             {% for r in rentals %}
             {% if r.location == rental.location and r.bedrooms == rental.bedrooms and r.id != rental.id %}
-            <div class="col-12 col-md-6 col-lg-3 column-change mt-3">
+            <div class="col-12 col-md-6 col-lg-2 column-change mt-3">
                         <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
                             <div class="rental-display-box pt-4 shadow">
-                                <div class="rental-header">{{ r.title }}</div>
+                                <div class="rental-header-similar-rentals">{{ r.title }}</div>
                                 <div class="rental-sub-header">
                                     <i class="fa-solid fa-location-dot"></i> {{ r.location }}
                                 </div>
@@ -240,7 +240,7 @@
                                 </div>
                                 <hr>
 
-                                <div class="price ml-3">
+                                <div class="price ml-3 pb-5">
                                     <i class="fa-solid fa-tags"></i>
                                     {% if r.pricing_type == "daily" %}
                                     £{{ r.price }} per night
@@ -322,12 +322,19 @@
         <p class="image-name">${imageNames[currentIndex]}</p>`;
     });
 
-    // if (currentIndex === 0) {
-    //     imageChanger.style.display = 'none';
-    // }
-    // else {
-    //     imageChanger.style.display = 'block';
-    // }
+    const titles = document.querySelectorAll('.rental-header-similar-rentals') 
+    
+    titles.forEach(title => {
+        const charCount = title.textContent.length;
+
+    if (charCount > 35) {
+            title.style.fontSize = '0.5rem';
+            } else if (charCount > 20) {
+                title.style.fontSize = '0.8rem';
+            } else {
+                title.style.fontSize = '1rem';
+            }
+        });
 
 </script>
 
