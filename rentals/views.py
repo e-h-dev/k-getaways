@@ -148,6 +148,14 @@ def rental_detail(request, rental_id):
 
     print(f"THE COST OF LISTING THIS WILL BE {rental_price}")
 
+    all_rentals = Rentals.objects.filter(active=True)
+
+    # paginator = Paginator(all_rentals, 4)
+    
+    # page_number = request.GET.get('page')
+    # extra_rental_page = paginator.get_page(page_number)
+
+
     context = {
         "rental": rental,
         "image": image,
@@ -155,6 +163,8 @@ def rental_detail(request, rental_id):
         "amenities_choices": amenities_choices,
         "amenities_number": amenities_number,
         "available": available,
+        "rentals": all_rentals,
+        # "extra_rentals": extra_rental_page,
         }
     return render(request, 'rentals/rental_detail.html', context)
 

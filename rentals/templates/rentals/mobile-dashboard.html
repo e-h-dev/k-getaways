@@ -1,39 +1,6 @@
-{% extends "base.html" %}
 {% load cloudinary_opt %}
 {% load dictextras %}
-
-{% load static %}
-
-{% block extra_title %} - {{ user.username }} {% endblock %}
-{% block extra_class%} active{% endblock %}
-
-{% block extra_body %}
-
-{% endblock %}
-{% block content%}
-<h1 style="text-align: center;">Welcome {{ user.username }} to your Dashboard</h1>
-<hr>
-<div class="container-fluid">
-    <div class="row" style="height: 100vh">
-        <div id="mobile-db-side" class="col-12 col-md-4 col-lg-3">
-            <h3 class="pt-2 pb-3">Your rentals ({{ rentals.count }})</h3>
-            <hr>
-            <p>Select a rental to view or edit.</p>
-            
-            {% for rental in rentals %}
-            <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
-                <h4>{{ rental.title }}</h4>
-                <p>{{ rental.location }}</p>
-                {% if rental.active == False %}
-                <p>This rental has expired. To relist it, open the rental details in your Dashboard and click "relist".</p>
-                {% else %} 
-                <p><strong>Your rental is live and visible.</strong> <br>Click on the listing to view details, update pricing, or edit your description</p>
-                {% endif %}
-            </div>
-            <hr>
-            {% endfor %}
-        </div>
-        <div class="d-none d-md-block col-md-8 col-lg-9 shadow main-dashboard">
+<div id="mobile-db-main" class="d-md-none col-12 shadow main-dashboard">
             <h2 class="pt-3">Your Rental Details</h2>
             <hr>
             <div>
@@ -115,40 +82,3 @@
                 {% endfor %}
             </div>
         </div>
-        {% include 'rentals/mobile-dashboard.html' %}
-    </div>
-</div>
-
-{% endblock %}
-
-{% block js %}
-<script>
-    {% for rental in rentals %}
-    let display{{ rental.id }} = document.getElementById('display-{{ rental.id }}')
-    let sideBar{{ rental.id }} = document.getElementById('side-bar-{{ rental.id }}')
-    let close{{ rental.id }} = document.getElementById('close-{{ rental.id }}');
-
-    function showItems{{ rental.id }}(){
-        display{{ rental.id }}.style.display = "block";
-    }
-
-    function hideItems{{ rental.id }}(){
-        display{{ rental.id }}.style.display = "none";
-    }
-
-    sideBar{{ rental.id }}.addEventListener("click", showItems{{ rental.id }});
-
-    close{{ rental.id }}.addEventListener("click", hideItems{{ rental.id }});
-    {% endfor %}
-</script>
-<script>
-    let mobileMainDb = document.getElementById('"mobile-db-main')
-    let mobileSideDb = document.getElementById('"mobile-db-side')
-
-    function openDb(){
-        mobileMainDb.style.display = 'block'
-        mobileSideDb.style.display = 'none'
-    }
-</script>
-
-{% endblock %}

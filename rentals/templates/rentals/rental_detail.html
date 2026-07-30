@@ -189,6 +189,81 @@
         </div>
     </div>
 </section>
+<hr class="mt-5 mb-5">
+
+<!-- section to display similar rentals -->
+ <section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-9">
+                <h4>Similar Rentals</h4>
+            </div>
+            <div class="col-2">
+                <div>
+                    <span id="prev-load" style="margin:10px; background-color: lightgray; border-radius: 50px; padding:8px; cursor:pointer;">&#10094;</span>
+                    <span id="next-load" style="margin:10px; background-color: lightgray; border-radius: 50px; padding:8px; cursor:pointer;">&#10095;</span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            {% for r in rentals %}
+            {% if r.location == rental.location and r.bedrooms == rental.bedrooms and r.id != rental.id %}
+            <div class="col-12 col-md-6 col-lg-3 column-change mt-3">
+                        <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">
+                            <div class="rental-display-box pt-4 shadow">
+                                <div class="rental-header">{{ r.title }}</div>
+                                <div class="rental-sub-header">
+                                    <i class="fa-solid fa-location-dot"></i> {{ r.location }}
+                                </div>
+                                {% if r.images.all %}
+                                {% for i in r.images.all|slice:":1" %}
+                                    <div class="image-slider-{{ r.id }}">
+                                        <img src="{{ i.image.url|cloud_opt }}" alt="" class="featured-image shadow border" loading="lazy">
+                                    
+                                    </div>
+                                {% endfor %}
+                            
+                                {% else %}
+                                <div class="image-slider-{{ r.id }}">
+                                    <img src="/static/media/image_template.png" alt="Awaiting Images" class="featured-image shadow border">
+                                </div>
+                                {% endif %}
+                                <div class="row mt-2 ml-2">
+                                    <div class="col-6">
+                                        <i class="fa-solid fa-bed"></i> {{ r.bedrooms }}
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fa-solid fa-people-roof"></i> {{ r.sleeps }}
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="price ml-3">
+                                    <i class="fa-solid fa-tags"></i>
+                                    {% if r.pricing_type == "daily" %}
+                                    £{{ r.price }} per night
+                                    {% elif r.pricing_type == "two_nights" %}
+                                    £{{ r.price }} for Minimum 2 Nights
+                                    {% elif r.pricing_type == "over_Shabbos" %}
+                                    £{{ r.price }} for Shabbos
+                                    {% elif r.pricing_type == "weekly" %}
+                                    £{{ r.price }} per week
+                                    {% elif r.pricing_type == "monthly" %}
+                                    £{{ r.price }} per month
+                                    {% else %} 
+                                    £{{ r.price }} (Block Booking only!)
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+ </section>
 
 {% endblock %}
 
