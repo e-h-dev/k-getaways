@@ -3,7 +3,7 @@
 {% load static %}
 
 
-{% block extra_title %} - Rentals ({{ rental_number }}) {% endblock %}
+{% block extra_title %} - Rentals {% if filtered %} ({{ rental_number }}) {% endif %} {% endblock %}
 {% block extra_body %}
 
 <div id="loading-overlay">
@@ -135,7 +135,10 @@
                 </aside>
             </div>
             <div class="col-12" id="row-change">
+                {% if filtered %}
                 <h3 class="rental-count" style="text-align:left;">Found <strong>({{ rental_number }})</strong> Rental{% if rental_number != 1 %}s{% endif %}.</h3>
+                {% endif %}
+                
                 <div class="row">
                     {% for r in page_obj %}
                     
