@@ -50,10 +50,6 @@ def rentals(request):
     """
     today = datetime.today().date()
     print(f"Today's date is: {today}")
-
-
-    # listing_expires = datetime.today().date() - timedelta(days=31)
-    # Rentals.objects.filter(date_added__lt=listing_expires, active=True).update(active=False)
    
 
 
@@ -150,10 +146,10 @@ def rental_detail(request, rental_id):
 
     all_rentals = Rentals.objects.filter(active=True)
 
-    # paginator = Paginator(all_rentals, 4)
+    paginator = Paginator(all_rentals, 6)
     
-    # page_number = request.GET.get('page')
-    # extra_rental_page = paginator.get_page(page_number)
+    page_number = request.GET.get('page')
+    extra_rental_page = paginator.get_page(page_number)
 
 
     context = {
@@ -164,7 +160,7 @@ def rental_detail(request, rental_id):
         "amenities_number": amenities_number,
         "available": available,
         "rentals": all_rentals,
-        # "extra_rentals": extra_rental_page,
+        "extra_rentals": extra_rental_page,
         }
     return render(request, 'rentals/rental_detail.html', context)
 
@@ -560,8 +556,11 @@ def check_out(request, rental_id):
 
     if rental.pricing_type == 'daily':
         charge_amount = int(rental_price * 50)
-    elif rental.pricing_type == 'over_Shabbos' or 'two_nights':
-        charge_frac = int(rental_price / 2)
+    elif rental.pricing_type == 'two_nights':
+            charge_frac = int(rental_price / 2)
+            charge_amount = int(charge_frac * 50)
+    elif rental.pricing_type == 'over_Shabbos':
+        charge_frac = int(rental_price / 3)
         charge_amount = int(charge_frac * 50)
     elif rental.pricing_type == 'weekly':
         charge_frac = int(rental_price / 7)
@@ -638,8 +637,11 @@ def check_out_webhook(request):
             rental = Rentals.objects.get(pk=rental_id)
             if rental.pricing_type == 'daily':
                 charge_amount = int(rental_price * 50)
-            elif rental.pricing_type == 'over_Shabbos' or 'two_nights':
-                charge_frac = int(rental_price / 2)
+            elif rental.pricing_type == 'two_nights':
+                    charge_frac = int(rental_price / 2)
+                    charge_amount = int(charge_frac * 50)
+            elif rental.pricing_type == 'over_Shabbos':
+                charge_frac = int(rental_price / 3)
                 charge_amount = int(charge_frac * 50)
             elif rental.pricing_type == 'weekly':
                 charge_frac = int(rental_price / 7)
@@ -789,6 +791,16 @@ def dashboard(request):
     rentals = Rentals.objects.filter(owner_name=request.user.id)
     amenities_choices = dict(Rentals._meta.get_field('amenities').choices)
     availability = AvailableDates.objects.filter(rental__owner_name=request.user.id).order_by('start_date')
+    # date_listed = Rentals.objects.values_list('date_added', flat=True)
+
+    # listing_expires = datetime.today().date() - timedelta(days=31)
+    # expiry_test = Rentals.objects.filter(date_added__lt=listing_expires)
+
+    # days_till_expiry = 
+
+
+    print(f'listed on {date_listed}')
+    print(f'todays it is {today}')
 
     context = {
         'rentals': rentals,
