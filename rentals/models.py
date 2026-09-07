@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime, date, timedelta
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -107,6 +107,11 @@ class Rentals(models.Model):
     rating = models.IntegerField(default=0,
                                  choices=((i, i) for i in range(1, 6)))
     review = models.TextField(max_length=600, null=True, blank=True)
+
+    def days_left(self):
+        expiry = self.date_added + timedelta(days=31*self.listing_duration)
+        today = datetime.today().date()
+        return (expiry - today).days
 
     def __str__(self):
         return self.title

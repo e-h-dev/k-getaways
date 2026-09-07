@@ -28,7 +28,7 @@
                 <p>This rental has expired. To relist it, open the rental details in your Dashboard and click "relist".</p>
                 {% else %} 
                 <p><strong>Your rental is live and visible.</strong> <br>Click on the listing to view details, update pricing, or edit your description</p>
-                <!-- <p>You have days left till your rental expires</p> -->
+                <p>You have <strong>{{ rental.days_left }}</strong> days left untill your rental expires</p>
                 {% endif %}
             </div>
             <hr>

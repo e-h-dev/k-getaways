@@ -208,7 +208,7 @@
             </div>
         </div>
         <div class="row">
-            {% for r in rentals %}
+            {% for r in extra_rentals %}
             {% if r.location == rental.location and r.bedrooms == rental.bedrooms and r.id != rental.id %}
             <div class="col-12 col-md-6 col-lg-2 column-change mt-3">
                         <a href="{% url 'rental_detail' r.id %}" style="text-decoration: none;">

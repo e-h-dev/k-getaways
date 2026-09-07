@@ -48,8 +48,8 @@ def rentals(request):
     This block checks each rental's listing date and marks it as inactive if it's been listed for over 30 days.
     This ensures that only recently listed rentals are active, improving the relevance of search results for users.
     """
-    today = datetime.today().date()
-    print(f"Today's date is: {today}")
+    # today = datetime.today().date()
+    # print(f"Today's date is: {today}")
    
 
 
@@ -791,21 +791,27 @@ def dashboard(request):
     rentals = Rentals.objects.filter(owner_name=request.user.id)
     amenities_choices = dict(Rentals._meta.get_field('amenities').choices)
     availability = AvailableDates.objects.filter(rental__owner_name=request.user.id).order_by('start_date')
-    # date_listed = Rentals.objects.values_list('date_added', flat=True)
 
-    # listing_expires = datetime.today().date() - timedelta(days=31)
-    # expiry_test = Rentals.objects.filter(date_added__lt=listing_expires)
+    # joined = rentals.date_added
+    # for rental in rentals:
+    #     print(rental)
+    #     joined = rental.date_added
 
-    # days_till_expiry = 
+        
+    #     expiry = joined + timedelta(days=31)
+    #     today = datetime.today().date()
+    #     days_left = (expiry - today).days
+        
+    #     finished = rental.days_left
+    #     print('---------------------------')
+    #     print(rental.id, days_left)
+    #     print('--------------------------')
 
-
-    print(f'listed on {date_listed}')
-    print(f'todays it is {today}')
 
     context = {
         'rentals': rentals,
         'amenities_choices': amenities_choices,
-        'availability': availability
+        'availability': availability,
     }
 
     return render(request, 'rentals/dashboard.html', context)

@@ -1,4 +1,4 @@
-from .models import Location, Category
+from .models import Location, Category 
 
 
 def location_list(request):
@@ -15,5 +15,8 @@ def category_list(request):
     context = {"categories": categories}
 
     return context
+
+
+
 
 
