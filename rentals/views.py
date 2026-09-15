@@ -374,7 +374,8 @@ def load_images(request, rental_id):
         if rental.active == True:
             return redirect('rentals')
         else:
-            return redirect('check_out', rental_id=rental.id)
+            # return redirect('check_out', rental_id=rental.id)
+            return redirect('promo_check_out', rental_id=rental.id)
     
 
     else:
