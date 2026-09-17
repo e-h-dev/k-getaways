@@ -2951,3 +2951,22 @@ h4, h5, h6{
 
 
 
+/* temprory styles */
+
+.dashboard-nav-icon{
+  height:40px; 
+  display: flex; 
+  flex-direction: row;
+}
+
+.page-background{
+  background-color: rgba(72, 81, 90, 0.3);
+}
+
+.members-footer-border{
+  position:relative;
+  bottom:-150px;
+  z-index: -1;
+  height:160px;
+  width:100%;
+}

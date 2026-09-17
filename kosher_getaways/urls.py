@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from rentals import views
 from contact import views as contact_views
+from members import views
 
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('rentals/', include('rentals.urls')),
     path('contact/', include('contact.urls')),
-    path('availability_json/<int:rental_id>/', views.rental_availability_json, name='rental_availability_json'),
+    path('members/', include('members.urls')),
+    # path('availability_json/<int:rental_id>/', views.rental_availability_json, name='rental_availability_json'),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
