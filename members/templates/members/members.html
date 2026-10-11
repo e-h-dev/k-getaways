@@ -5,17 +5,17 @@
 {% load static %}
 
 {% block extra_title %} - {{ user.username }} {% endblock %}
-{% block extra_class%} active{% endblock %}
+{% block extra_class%} {% endblock %}
 
 {% block extra_body %}
-<body class="page-background">
+<body class="page-background" style="top:-100px;">
     
 </body>
 {% endblock %}
 {% block content%}
 
 <div>
-    <h1 style="text-align: center;" class="mt-3">Welcome {{ user.username }} to your Dashboard</h1>
+    <h5 style="text-align: center;" class="mt-3">Welcome {{ user.username }} to your Dashboard</h5>
     <hr>
     <div class="container-fluid">
     <div class="row">
