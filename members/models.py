@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Create your models here.
 
-class Contacts(models.Model):
+class Survey(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField()
     date = models.DateTimeField(auto_now_add=True)
