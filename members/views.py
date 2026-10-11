@@ -5,3 +5,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def members(request):
     return render (request, 'members/members.html')
+
+
+@login_required
+def survey(request):
+    return render (request, 'members/survey.html')
