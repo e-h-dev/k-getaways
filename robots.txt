@@ -1,0 +1,25 @@
+User-agent: *
+Disallow: /media/
+Disallow: /static/
+Disallow: /*?*
+Disallow: /*&*
+Disallow: /*format=*
+Disallow: /*utm_*
+Disallow: /*fbclid=*
+
+# Block Cloudinary images from being crawled
+Disallow: https://res.cloudinary.com/dgh1vzjev/
+
+# Allow social media preview bots
+User-agent: Twitterbot
+Allow: /
+
+User-agent: FacebookExternalHit
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Allow Google to index your pages normally
+User-agent: Googlebot
+Allow: /
