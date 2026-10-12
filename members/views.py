@@ -57,3 +57,12 @@ def survey(request):
         }
 
     return render(request, 'members/survey.html', context)
+
+
+@login_required
+def admin_table(request):
+    survey = Survey.objects.all()
+    context = {
+        'survey': survey,
+    }
+    return render(request, 'members/admin_table.html', context)
