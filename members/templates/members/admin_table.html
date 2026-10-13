@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} - Surveys ({{ unread_message_count }}) {% endblock %}
+{% block extra_title %} - Surveys ({{ survey.count }}) {% endblock %}
 {% block content%}
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-            <h1 class="contacts_header">Replied Surveys ()</h1>
+            <h1 class="contacts_header">Replied Surveys ({{ survey.count }})</h1>
             <hr>
         </div>
         <div class="col-4"></div>
@@ -18,21 +18,30 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-1"></div>
-            <div class="col-10">
-                {% for s in survey %}
+            <div class="col-11">
                 
-                
-                        <div class="col-3">{{ s.name }}</div>
-                        <div class="col-5">{{ s.date }}</div>
-                        <!-- <div class="col-1"></div> -->
-                        <div class="col-3">{{ s.time }}</div>
-                        <div class="col-1"></div>
-                        <p>{{ s.suggestions }}</p>
-                        <p>{{ s.comment }}</p>
-                    
-                {% endfor %}
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th style="width:60%">Suggestions</th>
+                        <th>Comment</th>
+                    </thead>
+                    {% for s in survey %}
+                    <tbody>
+                        
+                        <td>{{ s.name }}</td>
+                        <td>{{ s.date }}</td>
+                        <td>{{ s.time }}</td>
+                        <td>{{ s.suggestions }}</td>
+                        <td>{{ s.comment }}</td>
+                        
+                    </tbody>
+                    {% endfor %}
+                </table>
             </div>
-            <div class="col-1"></div>
+            
         </div>
     </div>
 </section>
