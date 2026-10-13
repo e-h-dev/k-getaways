@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import Survey
 from .forms import SurveyForm
 
@@ -59,7 +60,7 @@ def survey(request):
     return render(request, 'members/survey.html', context)
 
 
-@login_required
+@staff_member_required
 def admin_table(request):
     survey = Survey.objects.all()
     context = {
