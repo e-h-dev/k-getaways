@@ -24,18 +24,18 @@
                     <thead>
                         <th>Name</th>
                         <th>Date</th>
-                        <th>Time</th>
-                        <th style="width:60%">Suggestions</th>
+                        <th>Suggestions</th>
                         <th>Comment</th>
+                        <th>Email</th>
                     </thead>
                     {% for s in survey %}
                     <tbody>
                         
                         <td>{{ s.name }}</td>
                         <td>{{ s.date }}</td>
-                        <td>{{ s.time }}</td>
-                        <td>{{ s.suggestions }}</td>
-                        <td>{{ s.comment }}</td>
+                        <td>{{ s.if_you_have_any_suggestions_please_enter_below }}</td>
+                        <td>{{ s.any_other_comments }}</td>
+                        <td>{{ s.email }}</td>
                         
                     </tbody>
                     {% endfor %}
