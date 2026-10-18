@@ -2250,6 +2250,19 @@ h4, h5, h6{
 }
 
 
+
+/* -----------------------------------------------------------------members app styles */
+
+/* styles to customise survey form */
+
+/* removes options with id 0 */
+.form-container label[for="id_were_you_contacted_0"],
+.form-container label[for="id_have_you_confirmed_any_bookings_0"],
+.form-container label[for="id_how_was_your_overall_experiance_with_KosherGetaways_0"],
+.form-container label[for="id_how_likely_are_you_to_recommend_KosherGetaways_0"]{
+  display:none;
+}
+
 /*---------------------------------------------------------------------- media queries */
 /* tablet size */
 @media screen and (max-width:850px){

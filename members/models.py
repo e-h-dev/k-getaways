@@ -6,18 +6,53 @@ from datetime import datetime
 
 class Survey(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE)
-    email = models.EmailField()
     date = models.DateTimeField(auto_now_add=True)
-    time = models.TimeField(auto_now_add=True)
-    experiance = models.IntegerField()
-    contacted = models.BooleanField()
-    number_contacts = models.IntegerField()
-    confirmed = models.BooleanField()
-    number_confirmed = models.IntegerField()
-    recommend = models.IntegerField()
-    suggestions = models.TextField()
+
+    CONTACTED = [
+        ('yes', 'Yes'),
+        ('no','No')
+    ]
+    were_you_contacted = models.CharField(max_length=18, choices=CONTACTED)
+    if_yes_how_many_times_where_you_contacted = models.PositiveIntegerField()
+
+    CONFIRMED = [
+        ('yes', 'Yes'),
+        ('no','No')
+    ]
+    have_you_confirmed_any_bookings = models.CharField(max_length=18, choices=CONFIRMED)
+    if_yes_how_many_bookings = models.PositiveIntegerField()
+
+    EXPERIANCE = [
+        ('1','1'),
+        ('2','2'),
+        ('3','3'),
+        ('4','4'),
+        ('5','5'),
+        ('6','6'),
+        ('7','7'),
+        ('8','8'),
+        ('9','9'),
+        ('10','10')
+    ]
+    how_was_your_overall_experiance_with_KosherGetaways = models.CharField(max_length=18, choices=EXPERIANCE)
+
+    RECOMMEND = [
+        ('1','1'),
+        ('2','2'),
+        ('3','3'),
+        ('4','4'),
+        ('5','5'),
+        ('6','6'),
+        ('7','7'),
+        ('8','8'),
+        ('9','9'),
+        ('10','10')
+    ]
+    how_likely_are_you_to_recommend_KosherGetaways = models.CharField(max_length=18, choices=RECOMMEND)
+    if_you_have_any_suggestions_please_enter_below = models.TextField()
     
-    comment = models.TextField()
+    any_other_comments = models.TextField()
+    email = models.EmailField()
 
     def __str__(self):
         return str(self.name)
