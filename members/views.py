@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
@@ -28,34 +31,23 @@ def survey(request):
         else:
             messages.error(request, "Your survey has failed to send! Please try again.")
 
-        return redirect('home')
-
-            # subject = "New Message"
-            # from_email = "office@koshergetaways.co.uk"
-            # to = [rental.owner_email]
-
-            # text_content = (
-            #     f"Dear {rental.owner_name},\n"
-            #     f"You have successfully edited your home listing '{rental.title}' on Kosher Getaways.\n"
-            #     f"If you have any questions, contact us at office@koshergetaways.co.uk."
-            # )
-
-        
-            # # Render HTML template
-            # html_content = render_to_string("emails/contact_email.html", {
-            #     "owner_name": rental.owner_name,
-            #     "title": rental.title,
-            #     "message_subject": message_subject,
-            #     "message": message,
-            #     "message_email": message_email,
-            #     "message_from": message_from,
-            #     "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
-            # })
-
-            # msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-            # msg.attach_alternative(html_content, "text/html")
-            # msg.send()
-            # return redirect('home')  # Redirect to the home page after sending the message
+        subject = "Thank You for responding to our Survey"
+        from_email = "office@koshergetaways.co.uk"
+        to = [survey.email]
+        text_content = (
+            f"Dear {User},\n"
+            "You have successfully Responded to our Survey.\n"
+            "If you have any questions, contact us at office@koshergetaways.co.uk."
+        )
+    
+        # Render HTML template
+        html_content = render_to_string("emails/responded_survey.html", {
+            "owner_name": User,
+            "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
+        })
+        msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
     else:
         form = SurveyForm()
