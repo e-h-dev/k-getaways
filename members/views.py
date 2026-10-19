@@ -63,7 +63,7 @@ def survey(request):
 
 @staff_member_required
 def admin_table(request):
-    survey = Survey.objects.all()
+    survey = Survey.objects.all().order_by('-date')
     context = {
         'survey': survey,
     }
