@@ -12,8 +12,7 @@ class SurveyForm(forms.ModelForm):
             'how_was_your_overall_experiance_with_KosherGetaways',
             'how_likely_are_you_to_recommend_KosherGetaways',
             'if_you_have_any_suggestions_please_enter_below',
-            'any_other_comments',
-            'email']
+            'any_other_comments']
 
         widgets = {
             'were_you_contacted': forms.RadioSelect(attrs={'class': 'pricing-radio'}),

@@ -31,23 +31,24 @@ def survey(request):
         else:
             messages.error(request, "Your survey has failed to send! Please try again.")
 
-        subject = "Thank You for responding to our Survey"
+        subject = "Thank you for completing the KosherGetaways Survey!"
         from_email = "office@koshergetaways.co.uk"
-        to = [survey.email]
+        to = [request.user.email]
         text_content = (
-            f"Dear {User},\n"
+            f"Dear {request.user},\n"
             "You have successfully Responded to our Survey.\n"
             "If you have any questions, contact us at office@koshergetaways.co.uk."
         )
     
         # Render HTML template
         html_content = render_to_string("emails/responded_survey.html", {
-            "owner_name": User,
+            "owner_name": request.user,
             "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
         })
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
+        return redirect('home')
 
     else:
         form = SurveyForm()
