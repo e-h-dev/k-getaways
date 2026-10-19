@@ -1,6 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<style>
+
+    table{
+        margin-top: 30px;
+        
+    }
+
+    th{
+        text-align: center;
+    }
+
+    td{
+        height:50px !important;
+    }
+
+    th, td{
+        border: 1px solid rgba(72, 81, 90, 0.5) !important;
+        padding: 10px;
+        max-width: 300px;
+    }
+</style>
+{% endblock %}
+
 {% block extra_title %} - Surveys ({{ survey.count }}) {% endblock %}
 {% block content%}
 
@@ -17,10 +41,10 @@
 <section>
     <div class="container-fluid">
         <div class="row">
-            
-            <div class="col-12">
+            <div class="col-1"></div>
+            <div class="col-11">
                 
-                <table>
+                <table class="survey-table">
                     <thead>
                         <th>Name</th>
                         <th>Date</th>

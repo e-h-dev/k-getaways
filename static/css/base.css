@@ -1531,9 +1531,6 @@ td{
   border-radius: 10px !important;
 }
 
-/* .fc-scrollgrid-sync-table{
-  display:none !important;
-} */
 
 
 .fc-daygrid-day-top{
@@ -2254,6 +2251,10 @@ h4, h5, h6{
 /* -----------------------------------------------------------------members app styles */
 
 /* styles to customise survey form */
+
+.survey-table th{
+  height:60px;
+}
 
 /* removes options with id 0 */
 .form-container label[for="id_were_you_contacted_0"],
