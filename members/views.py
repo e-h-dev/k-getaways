@@ -9,14 +9,20 @@ from .models import Survey
 from .forms import SurveyForm
 
 # Create your views here.
-@login_required
-def members(request):
-    return render (request, 'members/members.html')
+
+"""commented out function for future development"""
+# @login_required
+# def members(request):
+#     return render (request, 'members/members.html')
+
+
 
 
 @login_required
 def survey(request):
-
+    """
+    A function to create and send surveys
+    """
     survey = Survey.objects.all
 
 
