@@ -47,7 +47,7 @@ def survey(request):
         html_content = render_to_string("emails/responded_survey.html", {
             "owner_name": request.user,
             'suggestions': suggestions,
-            'comments': comments
+            'comments': comments,
             "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
         })
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
