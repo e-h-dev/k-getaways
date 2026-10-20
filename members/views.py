@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
@@ -31,6 +31,9 @@ def survey(request):
         else:
             messages.error(request, "Your survey has failed to send! Please try again.")
 
+        suggestions = validated.if_you_have_any_suggestions_please_enter_below
+        comments = validated.any_other_comments
+
         subject = "Thank you for completing the KosherGetaways Survey!"
         from_email = "office@koshergetaways.co.uk"
         to = [request.user.email]
@@ -43,6 +46,8 @@ def survey(request):
         # Render HTML template
         html_content = render_to_string("emails/responded_survey.html", {
             "owner_name": request.user,
+            'suggestions': suggestions,
+            'comments': comments
             "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
         })
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
@@ -64,7 +69,9 @@ def survey(request):
 @staff_member_required
 def admin_table(request):
     survey = Survey.objects.all().order_by('-date')
+    survey_email = Survey.email
     context = {
         'survey': survey,
+        'sur_email': survey_email
     }
     return render(request, 'members/admin_table.html', context)
