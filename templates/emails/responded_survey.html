@@ -33,6 +33,21 @@
             color: #48515a;
             margin-bottom: 15px;
         }
+
+        .sub-header{
+            font-size: 20px;
+            font-weight: 600;
+            color: #48515a;
+            margin-bottom: 10px;
+        }
+
+        .mini-header{
+            font-size: 16px;
+            font-weight: 600;
+            color: #48515a;
+            margin-bottom: 10px;
+        }
+
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -50,6 +65,14 @@
         .updates h3{
             font-size: 1.5rem;
         }
+
+        .user-input-section{
+            background-color: rgba(117, 187, 167, 0.3);
+            border: 2px solid rgb(117, 187, 167);
+            border-radius: 15px;
+            padding:20px;
+        }
+
         .signiture{
             font-size:1.4rem !important;
             font-style: italic;
@@ -68,10 +91,14 @@
             Thank you for taking the time to complete our survey. We truly appreciate you sharing your valuable feedback and insights with us.
             
         </p>
-
-        <p>The following suggestions and comments were included in your survey response.</p>
-        <p>{{ suggestions }}</p>
-        <p>{{ comments }}</p>
+        <hr>
+        <h4 class="sub-header">The following suggestions and comments were included in your survey response.</h4>
+        <div class="user-input-section">
+            <div class="mini-header">Suggestions</div>
+            <p>{{ suggestions }}</p>
+            <div class="mini-header">Comments</div>
+            <p>{{ comments }}</p>
+        </div>
         <p>We are currently reviewing all entries and will contact you shortly to confirm if you have won any complimentary months for your listings.</p>
         
         <p>
