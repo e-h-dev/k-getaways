@@ -20,12 +20,22 @@
     th, td{
         border: 1px solid rgba(72, 81, 90, 0.2) !important;
         padding: 10px;
-        max-width: 300px;
+        max-width: 400px;
         border-radius: 0 !important;
+    }
+
+    th .small-content{
+        font-size: 5px;
     }
 
     .small-content{
         text-align: center !important;
+        width:40px;
+        font-size: 12px;
+    }
+
+    .comments{
+       
     }
 </style>
 {% endblock %}
@@ -53,13 +63,15 @@
                     <thead>
                         <th>Name</th>
                         <th>Date</th>
-                        <th>Contacted</th>
-                        <th>Times Contacted</th>
-                        <th>Bookings made</th>
-                        <th>Number of bookings made</th>
+                        <th class="small-content">Contacted</th>
+                        <th class="small-content">Times Contacted</th>
+                        <th class="small-content">Bookings made</th>
+                        <th class="small-content">Number of bookings made</th>
+                        <th class="small-content">Overall Experiance</th>
+                        <th class="small-content">Likely to Recommnend</th>
                         <th>Suggestions</th>
                         <th>Comment</th>
-                        <th>Email</th>
+                        <!-- <th>Email</th> -->
                     </thead>
                     {% for s in survey %}
                     <tbody>
@@ -70,9 +82,11 @@
                         <td class="small-content">{{ s.if_yes_how_many_times_where_you_contacted}}</td>
                         <td class="small-content">{{ s.have_you_confirmed_any_bookings }}</td>
                         <td class="small-content">{{ s.if_yes_how_many_bookings }}</td>
-                        <td>{{ s.if_you_have_any_suggestions_please_enter_below }}</td>
-                        <td>{{ s.any_other_comments }}</td>
-                        <td>{{ s.email }}</td>
+                        <td class="small-content">{{ s.how_was_your_overall_experiance_with_KosherGetaways }}</td>
+                        <td class="small-content">{{ s.how_likely_are_you_to_recommend_KosherGetaways }}</td>
+                        <td class="comments">{{ s.if_you_have_any_suggestions_please_enter_below }}</td>
+                        <td class="comments">{{ s.any_other_comments }}</td>
+                        <!-- <td>{{ s.email }}</td> -->
                         
                     </tbody>
                     {% endfor %}
