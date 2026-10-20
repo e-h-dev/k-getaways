@@ -11,9 +11,9 @@ from .forms import SurveyForm
 # Create your views here.
 
 """commented out function for future development"""
-# @login_required
-# def members(request):
-#     return render (request, 'members/members.html')
+@login_required
+def members(request):
+    return render (request, 'members/members.html')
 
 
 
