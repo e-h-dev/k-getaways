@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load cloudinary_opt %}
+{% load dictextras %}
+
+{% load static %}
+
+{% block extra_title %} - Cookies & Tracking Notice {% endblock %}
+{% block extra_class%} 
+{% endblock %}
+
+
+{% block extra_css %}
+<style>
+    p{
+        font-size: 18px;
+        text-align: justify;
+    }
+
+    .text-section{
+        background-color: rgba(117, 187, 167, 0.4);
+        border-radius: 15px;
+        padding:30px;
+        border: solid 1px rgb(117, 187, 167)
+    }
+</style>
+{% endblock %}
+
+{% block extra_body %}
+
+{% endblock %}
+{% block content%}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6 text-section">
+            <h1 class="mb-5 center">Cookies & Tracking Notice</h1>
+            <p>
+                We value your privacy and keep things simple. Kosher Getaways does not use any tracking pixels, marketing trackers, or analytics cookies (such as Google Analytics or Meta Pixels).
+            </p>
+            <p>
+                We only use <strong>strictly necessary technical cookies</strong> managed by our web framework (Django) to allow you to securely log in, stay logged into your profile, and protect our forms against cross-site security vulnerabilities. Because these cookies are entirely technical and essential to secure your experience, they do not require a cookie consent popup.
+            </p>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+
+{% endblock %}
