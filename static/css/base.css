@@ -1599,9 +1599,8 @@ or other calendar elements */
 
 #images-display{
   position: relative;
-  top:30%;
-  left:15%;
-  
+  top:30vh;
+  left:15vw;
 }
 
 .rental-detail-image-display{
