@@ -1383,8 +1383,8 @@ thead{
 
 .gallery-open{
   position: relative; 
-  left: 720px; 
-  bottom:50px; 
+  left: 53vw; 
+  bottom:10vh; 
   background-color: rgba(255, 255, 255, 0.6); 
   color:var(--main-text-color); 
   font-family: var(--main-font);
