@@ -81,6 +81,64 @@ def compose_message(request, rental_id):
 
     return render(request, 'contact/compose.html', context)
 
+# def compose_message(request):
+
+   
+#     compose = Contacts.objects.all()
+
+#     if request.method == 'POST':
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             # contactform = form.save(commit=False)
+#             # contactform.send_to_id = rental.owner_name_id
+            
+#             #contactform.save()
+#             form.save()
+
+#             # sender_name = form.cleaned_data.get('name')
+#             messages.success(request, "Your message has been sent.")
+
+#             message_subject = form.subject
+#             message_from = form.name
+#             message = form.message
+#             message_email = form.email
+
+#             subject = "New Message"
+#             from_email = "office@koshergetaways.co.uk"
+#             to = "office@koshergetaways.co.uk"
+
+#             text_content = (
+#                 # f"Dear {rental.owner_name},\n"
+#                 # f"You have successfully edited your home listing '{rental.title}' on Kosher Getaways.\n"
+#                 # f"If you have any questions, contact us at office@koshergetaways.co.uk."
+#             )
+
+        
+#             # Render HTML template
+#             html_content = render_to_string("emails/contact_email.html", {
+                
+#                 "message_subject": message_subject,
+#                 "message": message,
+#                 "message_email": message_email,
+#                 "message_from": message_from,
+#                 "footer_image_url": "https://www.koshergetaways.co.uk/static/media/logo_3.png",
+#             })
+
+#             msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+#             msg.attach_alternative(html_content, "text/html")
+#             msg.send()
+#             return redirect('home')  # Redirect to the home page after sending the message
+
+#     else:
+#         form = ContactForm()
+
+#     context = {
+#         'compose': compose,
+#         'form': form,
+#         }
+
+#     return render(request, 'contact/compose.html', context)
+
 
 def read(request, contact_id):
 
