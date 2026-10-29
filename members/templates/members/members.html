@@ -8,14 +8,169 @@
 {% block extra_class%} {% endblock %}
 
 {% block extra_body %}
-
+<body class="page-background">
+    
+</body>
 {% endblock %}
 {% block content%}
 
+<div class="page-content-area">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-3 no-padding">
+            <div class="dashboard-nav-icon icon-section">
+                <div class="dash-icon mb-3"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
+                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-message-search-01"></i></div>
+                <div class="icon-caption">Enquiries</div>
+                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
+                <div class="icon-caption">Rentals</div>
+                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
+                <div class="icon-caption">Surveys</div>
+                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
+                <div class="icon-caption">Payments</div>
+                
+            </div>
+            <div id="mobile-db-side" class="index-section">
+                <div class="enquiries-tab">
+                    <h5 class="pt-4 pb-3 center">Enquiries ({{ rentals.count }})</h5>
+                    {% for rental in rentals %}
+                    <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
+                        <h4>{{ rental.title }}</h4>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+                <div class="rental-tab" style="display:none;">
+                    <h5 class="pt-2 pb-3 center">Rentals ({{ rentals.count }})</h5>
+                    {% for rental in rentals %}
+                    <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
+                        <h4>{{ rental.title }}</h4>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+        </div>
+        </div>
+        
+            <div class="d-none d-md-block col-md-8 col-lg-9 main-section">
+                <h5 class="pt-4 center">Rental Details</h5>
+            
+                <div>
+                    {% for rental in rentals %}
+                    <div class="dashboard-details shadow" id="display-{{ rental.id }}" style="display:none;" onclick="openDb()">
+                        <h3>{{ rental.title }}</h3>
+                        {% if rental.active == False %}
+                        <button class="btn btn-btn" style="position: relative; left:1%; bottom:10%;">
+                            <a href="{% url 'check_out' rental.id %}">Relist</a>
+                        </button>
+                        {% endif %}
+                        <button class="btn btn-btn" style="position: relative; left:80%; bottom:10%;" id="close-{{ rental.id }}">Close</button>
+                        <table>
+                            <thead style="background-color: #fff;">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Sleeps</th>
+                                    <th>Bedrooms</th>
+                                    <th>Bathrooms</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ rental.category }}</td>
+                                    <td>{{ rental.location }}</td>
+                                    <td>{{ rental.sleeps }}</td>
+                                    <td>{{ rental.bedrooms }}</td>
+                                    <td>{{ rental.bathrooms }}</td>
+                                    <td>£{{rental.price }} {{ rental.pricing_type }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h4>Description</h4>
+                        <p>{{ rental.description }}</p>
+                        <h4>Amenities</h4>
+                        <ul class="amenities-overflow">
+                        {% for am in rental.amenities %}
+                            <li>{{ amenities_choices|dict_get:am }}</li>
+                        {% endfor %}
+                        </ul>
+                        <button class="btn btn-btn"><a href="{% url 'edit_home' rental.id %}">Edit Rental</a></button>
+                        <hr>
+                        <h4>Images</h4>
 
+                        <div class="images-row">
+                            {% if rental.images.all %}
+                                {% for i in rental.images.all %}
+                                    <div class="image-box">
+                                        <img src="{{ i.image.url|cloud_opt }}" alt="{{ rental.title }}" style="height:70px; width:70px;" loading="lazy">
+                                        <p>{{ i.image_name }}</p>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="image-box">
+                                    <img src="/static/media/image_template.png" alt="Awaiting Images" style="height:70px; width:70px;" loading="lazy">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <button class="btn btn-btn"><a href="{% url 'edit_images' rental.id %}">Edit Images</a></button>
+                        <hr>
+                        
+                        <h4>Availability</h4>
+                        {% for available in availability %}
+                            <p>
+                                <strong>Slot {{ forloop.counter }}</strong>
+                                <br>
+                                {{ available.start_date }} - {{ available.end_date }}
+                            </p>
+                            
+                        {% endfor %}
+                        <button class="btn btn-btn"><a href="{% url 'edit_availability' rental.id %}">Edit Availability</a></button>
+                        <hr>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+            </div>
+            {% include 'rentals/mobile-dashboard.html' %}
+        </div>
+    </div>
+</div>
+    {% block footer-border %}
+    <div class="members-footer-border"></div>
+    {% endblock %}
 {% endblock %}
 
 {% block js %}
+<script>
+    {% for rental in rentals %}
+    let display{{ rental.id }} = document.getElementById('display-{{ rental.id }}')
+    let sideBar{{ rental.id }} = document.getElementById('side-bar-{{ rental.id }}')
+    let close{{ rental.id }} = document.getElementById('close-{{ rental.id }}');
 
+    function showItems{{ rental.id }}(){
+        display{{ rental.id }}.style.display = "block";
+    }
+
+    function hideItems{{ rental.id }}(){
+        display{{ rental.id }}.style.display = "none";
+    }
+
+    sideBar{{ rental.id }}.addEventListener("click", showItems{{ rental.id }});
+
+    close{{ rental.id }}.addEventListener("click", hideItems{{ rental.id }});
+    {% endfor %}
+</script>
+<script>
+    let mobileMainDb = document.getElementById('"mobile-db-main')
+    let mobileSideDb = document.getElementById('"mobile-db-side')
+
+    function openDb(){
+        mobileMainDb.style.display = 'block'
+        mobileSideDb.style.display = 'none'
+    }
+</script>
 
 {% endblock %}

@@ -2175,6 +2175,23 @@ h4, h5, h6{
   border-radius: 20px;
 }
 
+.dash-icon{
+  color: var(--main-text-color);
+  margin-left: 1.5vw;
+  font-size: 20px;
+  font-weight: 100;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 99999999px;
+  position:relative;
+  right:0.8vw;
+}
+
+.dash-icon:hover{
+  color: rgba(117, 187, 167, 0.3);
+}
+
+
 .dashboard-details{
   position: absolute;
   left:5%;
@@ -2272,8 +2289,8 @@ h4, h5, h6{
 
   /* promo bar */
   .promo-bar{
-    height:40px;
-    padding-top:10px;
+    height:2px;
+    /* padding-top:10px; */
     font-size: 0.9rem;
   }
 
@@ -2711,7 +2728,7 @@ h4, h5, h6{
   /* promo bar */
   .promo-bar{
     font-size: 0.6rem;
-    height:30px;
+    height:2px;
     padding-left:20px;
   }
 
@@ -2972,17 +2989,58 @@ h4, h5, h6{
 .dashboard-nav-icon{
   height:40px; 
   display: flex; 
-  flex-direction: row;
+  flex-direction:column;
 }
 
 .page-background{
-  background-color: rgba(72, 81, 90, 0.3);
+  height:100vh;
+  position:relative
+}
+
+.page-content-area{
+  height: 100vh;
+  position: relative;
+  bottom: 60px;
+  border-top: solid 2px rgba(112, 112, 112, 0.1);
+  z-index: 9999999999;
 }
 
 .members-footer-border{
   position:relative;
-  bottom:-150px;
+  bottom:150px;
   z-index: -1;
-  height:160px;
   width:100%;
+}
+
+.icon-section{
+  background-color: rgba(117, 187, 167, 0.2);
+  height:100vh;
+  width:5vw
+}
+
+.index-section{
+  background-color: rgba(117, 187, 167, 0.1);
+  position:relative;
+  height:100vh;
+  width:20vw;
+}
+
+.main-section{
+  background-color: rgba(117, 187, 167, 0.03);
+  position:relative;
+  height:100vh;
+}
+
+.no-padding{
+  padding-right:0 !important;
+  padding-left:0 !important;
+  display:flex;
+  flex-direction: row;
+}
+
+.icon-caption{
+  font-family:var(--main-font);
+  color:var(--main-text-color);
+  font-size: 10px;
+  text-align: center;
 }
