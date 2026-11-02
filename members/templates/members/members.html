@@ -20,16 +20,16 @@
                     <div class="dash-icon mb-3" id="open-menu" style="display:none;" onclick="OpenMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
                     <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-message-search-01"></i></div>
                     <div class="icon-caption">Enquiries</div>
-                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
+                    <div class="dash-icon" onclick="openRentalsTab()"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
                     <div class="icon-caption">Rentals</div>
-                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
+                    <div class="dash-icon" onclick="openSurveysTab()"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
                     <div class="icon-caption">Surveys</div>
-                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
+                    <div class="dash-icon" onclick="openPaymentsTab()"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
                     <div class="icon-caption">Payments</div>
                     
     </div>
     <div id="index-section" class="index-section width-20">
-                    <div class="enquiries-tab">
+        <div class="enquiries-tab" id="enquiries-tab">
                         <h5 class="pt-4 pb-3 center">Enquiries ({{ rentals.count }})</h5>
                         {% for rental in rentals %}
                         <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
@@ -37,8 +37,8 @@
                         </div>
                         <hr>
                         {% endfor %}
-                    </div>
-                    <div class="rental-tab" style="display:none;">
+        </div>
+        <div class="rental-tab" id="rentals-tab" style="display:none;">
                         <h5 class="pt-2 pb-3 center">Rentals ({{ rentals.count }})</h5>
                         {% for rental in rentals %}
                         <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
@@ -46,7 +46,25 @@
                         </div>
                         <hr>
                         {% endfor %}
-                    </div>
+        </div>
+        <div class="surveys-tab" id="surveys-tab" style="display:none;">
+                        <h5 class="pt-2 pb-3 center">Surveys ({{ rentals.count }})</h5>
+                        {% for rental in rentals %}
+                        <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
+                            <h4>{{ rental.title }}</h4>
+                        </div>
+                        <hr>
+                        {% endfor %}
+        </div>
+        <div class="payments-tab" id="payments-tab" style="display:none;">
+                        <h5 class="pt-2 pb-3 center">Payments ({{ rentals.count }})</h5>
+                        {% for rental in rentals %}
+                        <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
+                            <h4>{{ rental.title }}</h4>
+                        </div>
+                        <hr>
+                        {% endfor %}
+        </div>
     </div>
     <div class="main-section width-75" id="main-section">
                 <h5 class="pt-4 center">Rental Details</h5>
@@ -157,9 +175,36 @@
 
     function OpenMenu(){
         indexSection.style.display = "block"
-        mainSection.classList.remove("width-75")
+        mainSection.classList.remove("width-95")
         openMenuIcon.style.display = "none"
         closeMenuIcon.style.display = "block"
+    }
+
+    // section to diplay different tabs
+    let enquiriesTab = document.getElementById('enquiries-tab');
+    let rentalsTab = document.getElementById('rentals-tab');
+    let surveysTab = document.getElementById('surveys-tab');
+    let paymentsTab = document.getElementById('payments-tab');
+
+    function openRentalsTab(){
+        enquiriesTab.style.display = "none"
+        paymentsTab.style.display = "none"
+        surveysTab.style.display = "none"
+        rentalsTab.style.display = "block"
+    }
+
+    function openSurveysTab(){
+        enquiriesTab.style.display = "none"
+        rentalsTab.style.display = "none"
+        paymentsTab.style.display = "none"
+        surveysTab.style.display = "block"
+    }
+
+    function openPaymentsTab(){
+        enquiriesTab.style.display = "none"
+        rentalsTab.style.display = "none"
+        surveysTab.style.display = "none"
+        paymentsTab.style.display = "block"
     }
  </script>
 <script>
