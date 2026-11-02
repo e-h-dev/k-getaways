@@ -15,44 +15,40 @@
 {% block content%}
 
 <div class="page-content-area">
-    <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3 col-lg-3 no-padding">
-            <div class="dashboard-nav-icon icon-section">
-                <div class="dash-icon mb-3"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
-                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-message-search-01"></i></div>
-                <div class="icon-caption">Enquiries</div>
-                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
-                <div class="icon-caption">Rentals</div>
-                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
-                <div class="icon-caption">Surveys</div>
-                <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
-                <div class="icon-caption">Payments</div>
-                
-            </div>
-            <div id="mobile-db-side" class="index-section">
-                <div class="enquiries-tab">
-                    <h5 class="pt-4 pb-3 center">Enquiries ({{ rentals.count }})</h5>
-                    {% for rental in rentals %}
-                    <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
-                        <h4>{{ rental.title }}</h4>
+    <div class="dashboard-nav-icon icon-section width-5">
+                    <div class="dash-icon mb-3" id="close-menu" onclick="closeMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
+                    <div class="dash-icon mb-3" id="open-menu" style="display:none;" onclick="OpenMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
+                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-message-search-01"></i></div>
+                    <div class="icon-caption">Enquiries</div>
+                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
+                    <div class="icon-caption">Rentals</div>
+                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
+                    <div class="icon-caption">Surveys</div>
+                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
+                    <div class="icon-caption">Payments</div>
+                    
+    </div>
+    <div id="index-section" class="index-section width-20">
+                    <div class="enquiries-tab">
+                        <h5 class="pt-4 pb-3 center">Enquiries ({{ rentals.count }})</h5>
+                        {% for rental in rentals %}
+                        <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
+                            <h4>{{ rental.title }}</h4>
+                        </div>
+                        <hr>
+                        {% endfor %}
                     </div>
-                    <hr>
-                    {% endfor %}
-                </div>
-                <div class="rental-tab" style="display:none;">
-                    <h5 class="pt-2 pb-3 center">Rentals ({{ rentals.count }})</h5>
-                    {% for rental in rentals %}
-                    <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
-                        <h4>{{ rental.title }}</h4>
+                    <div class="rental-tab" style="display:none;">
+                        <h5 class="pt-2 pb-3 center">Rentals ({{ rentals.count }})</h5>
+                        {% for rental in rentals %}
+                        <div class="dashboard-side-display {% if rental.active == False %} inactive-dashboard {% else %} active-dashboard {% endif %}" id="side-bar-{{ rental.id }}" onclick="openDb()">
+                            <h4>{{ rental.title }}</h4>
+                        </div>
+                        <hr>
+                        {% endfor %}
                     </div>
-                    <hr>
-                    {% endfor %}
-                </div>
-        </div>
-        </div>
-        
-            <div class="d-none d-md-block col-md-8 col-lg-9 main-section">
+    </div>
+    <div class="main-section width-75" id="main-section">
                 <h5 class="pt-4 center">Rental Details</h5>
             
                 <div>
@@ -133,10 +129,11 @@
                     
                     {% endfor %}
                 </div>
-            </div>
-            {% include 'rentals/mobile-dashboard.html' %}
-        </div>
     </div>
+</div>   
+{% include 'rentals/mobile-dashboard.html' %}
+        
+    
 </div>
     {% block footer-border %}
     <div class="members-footer-border"></div>
@@ -144,6 +141,27 @@
 {% endblock %}
 
 {% block js %}
+<!-- script for closing and opening menu bar -->
+ <script>
+    let indexSection = document.getElementById('index-section');
+    let mainSection = document.getElementById('main-section');
+    let openMenuIcon = document.getElementById('open-menu');
+    let closeMenuIcon = document.getElementById('close-menu');
+
+    function closeMenu(){
+        indexSection.style.display = "none"
+        mainSection.classList.add("width-95")
+        openMenuIcon.style.display = "block"
+        closeMenuIcon.style.display = "none"
+    }
+
+    function OpenMenu(){
+        indexSection.style.display = "block"
+        mainSection.classList.remove("width-75")
+        openMenuIcon.style.display = "none"
+        closeMenuIcon.style.display = "block"
+    }
+ </script>
 <script>
     {% for rental in rentals %}
     let display{{ rental.id }} = document.getElementById('display-{{ rental.id }}')
