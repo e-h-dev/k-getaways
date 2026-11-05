@@ -3062,3 +3062,20 @@ h4, h5, h6{
 .width-95{
   width:95vw
 }
+
+.dashboard-background{
+  background-color: rgba(255, 255, 255, 0.7);
+  height: 100%;
+  width: 100%;
+  position: relative;
+  bottom: 9.5vh;
+  z-index: -1;
+}
+
+.dash-video{
+  height: 100%;
+  width: 100%;
+  position: relative;
+  bottom: 5vh;
+  z-index: -2;
+}

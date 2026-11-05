@@ -16,17 +16,16 @@
 
 <div class="page-content-area">
     <div class="dashboard-nav-icon icon-section width-5">
-                    <div class="dash-icon mb-3" id="close-menu" onclick="closeMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
-                    <div class="dash-icon mb-3" id="open-menu" style="display:none;" onclick="OpenMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
-                    <div class="dash-icon"><i class="hgi hgi-stroke hgi-rounded hgi-message-search-01"></i></div>
-                    <div class="icon-caption">Enquiries</div>
-                    <div class="dash-icon" onclick="openRentalsTab()"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
-                    <div class="icon-caption">Rentals</div>
-                    <div class="dash-icon" onclick="openSurveysTab()"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
-                    <div class="icon-caption">Surveys</div>
-                    <div class="dash-icon" onclick="openPaymentsTab()"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
-                    <div class="icon-caption">Payments</div>
-                    
+        <div class="dash-icon mb-3" id="close-menu" onclick="closeMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
+        <div class="dash-icon mb-3" id="open-menu" style="display:none;" onclick="OpenMenu()"><i class="hgi hgi-stroke hgi-rounded hgi-menu-06"></i></div>
+        <div class="dash-icon" onclick="openEnquiriesTab()"><i class="hgi hgi-stroke hgi-rounded hgi-message-search-01"></i></div>
+        <div class="icon-caption">Enquiries</div>
+        <div class="dash-icon" onclick="openRentalsTab()"><i class="hgi hgi-stroke hgi-rounded hgi-house-03"></i></div>
+        <div class="icon-caption">Rentals</div>
+        <div class="dash-icon" onclick="openSurveysTab()"><i class="hgi hgi-stroke hgi-rounded hgi-clipboard-list"></i></div>
+        <div class="icon-caption">Surveys</div>
+        <div class="dash-icon" onclick="openPaymentsTab()"><i class="hgi hgi-stroke hgi-rounded hgi-file-pound"></i></div>
+        <div class="icon-caption">Payments</div>         
     </div>
     <div id="index-section" class="index-section width-20">
         <div class="enquiries-tab" id="enquiries-tab">
@@ -68,7 +67,11 @@
     </div>
     <div class="main-section width-75" id="main-section">
                 <h5 class="pt-4 center">Rental Details</h5>
-            
+                <div class="dashboard-background">
+                    <video class="dash-video" autoplay muted loop playsinline>
+                        <source src="{% static 'media/hero.webm' %}" type="video/webm">
+                    </video>
+                </div>
                 <div>
                     {% for rental in rentals %}
                     <div class="dashboard-details shadow" id="display-{{ rental.id }}" style="display:none;" onclick="openDb()">
@@ -185,6 +188,13 @@
     let rentalsTab = document.getElementById('rentals-tab');
     let surveysTab = document.getElementById('surveys-tab');
     let paymentsTab = document.getElementById('payments-tab');
+
+    function openEnquiriesTab(){
+        enquiriesTab.style.display = "block"
+        paymentsTab.style.display = "none"
+        surveysTab.style.display = "none"
+        rentalsTab.style.display = "none"
+    }
 
     function openRentalsTab(){
         enquiriesTab.style.display = "none"
