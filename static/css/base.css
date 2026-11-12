@@ -2264,12 +2264,6 @@ h4, h5, h6{
 /* tablet size */
 @media screen and (max-width:850px){
 
-  /* promo bar */
-  .promo-bar{
-    height:40px;
-    padding-top:10px;
-    font-size: 0.9rem;
-  }
 
   .bottom-bar{
     position: fixed;
@@ -2702,12 +2696,6 @@ h4, h5, h6{
     text-align: center;
   }
 
-  /* promo bar */
-  .promo-bar{
-    font-size: 0.6rem;
-    height:30px;
-    padding-left:20px;
-  }
 
   .logo{
     bottom:15px;
