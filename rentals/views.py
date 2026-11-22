@@ -226,13 +226,12 @@ def list_home(request):
             done = form.save(commit=False)
             done.owner_name = request.user
             done.save()
+            return redirect('add_available_dates', rental_id=done.id)
         else:
-            messages.error(request, "Please correct the errors below.")
+            messages.error(request, "Sorry, your listing has not been saved, please try again later.")
             print("your rental is invalid")
             print(form.errors)
             
-        return redirect('add_available_dates', rental_id=done.id)
-
     else:
         form = RentalForm()
         image_form = ImageForm()
