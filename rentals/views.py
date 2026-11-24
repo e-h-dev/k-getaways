@@ -741,9 +741,14 @@ def promo_check_out(request, rental_id):
 
     charge_display = float(charge_amount/100)
 
+    amenities = rental.amenities
+        
+    amenities_number = len(amenities)
+
     context = {
             'rental': rental,
-            'charge_amount': charge_display
+            'charge_amount': charge_display,
+            'amenities_number': amenities_number
         }
 
     return render(request, 'rentals/promo_check_out.html', context)
