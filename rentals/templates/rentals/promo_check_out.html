@@ -2,6 +2,48 @@
 {% load static %}
 
 {% block extra_title %} - Check Out {% endblock %}
+{% block extra_css %}
+<style>
+    /* custom css fro this page only */
+    ol li{
+        margin-left:10px;
+        list-style-type:decimal;
+        font-family:var(--main-font);
+        color:var(--main-text-color);
+    }
+
+    ul li{
+        margin-left:20px;
+        list-style-type:disc;
+        font-family:var(--main-font);
+        color:var(--main-text-color);
+    }
+
+
+    .button-overlay{
+        background-color: rgba(255, 255, 255, 0.8);
+        height: 50px;
+        width: 150px;
+        position: relative;
+        z-index: 1000;
+        margin-top: -50px;
+        right: 20px;
+        top: 70px;
+    }
+
+    #term_cond_tick{
+        border: 2px solid var(--main-text-color); 
+        padding: 10px; 
+        width:300px;
+        font-family:var(--main-font);
+        color:var(--main-text-color);
+        background-color: var(--main-background-color);
+        margin-top: 10px; 
+        border-radius: 15px; 
+        cursor:pointer;
+    }
+</style>
+{% endblock %}
 {% block extra_class_list%} active{% endblock %}
 {% block extra_nav%}{% endblock %}
 {% block content%}
@@ -19,8 +61,135 @@
             <div class="form-container shadow" id="form-container">
                 <h1 class="center form-header mb-5">Confirmation</h1>
                 
-                <P>Item: Payment for listing of {{ rental.title }}</P>
+                <h4><strong>Item:</strong> Payment for listing of "{{ rental.title }}"</h4>
+                <hr>
+                <h5>Your Rental Details below</h5>
+                <p><strong>Name:</strong> {{ rental.owner_name }}</p>
+                <p><strong>Email:</strong> {{ rental.owner_email }}</p>
+                <p><strong>Phone:</strong> {{ rental.owner_number }}</p>
+                <p><strong>Description:</strong> {{ rental.description }}</p>
+                <p><strong>Sleeps:</strong> {{ rental.sleeps }}</p>
+                <p><strong>Bedrooms:</strong> {{ rental.bedrooms }}</p>
+                <p><strong>Bathrooms:</strong> {{ rental.bathrooms }}</p>
+                <p><strong>Price:</strong> £{{ rental.price }}</p>
+                <p><strong>Amenities:</strong> You have added <strong>{{ amenities_number }}</strong> amenities</p>
+                <hr>
+                <p>
+                    <strong>Please read and agree to the following terms and conditions:</strong>
+                </p>
+                <div style="height: 400px; width: 100%; border:2px solid rgba(128, 128, 128, 0.3); border-radius: 10px; padding: 15px; overflow-y:scroll;">
+                    <h3>Property Owner Listing Terms & Conditions</h3>
+                    <p>
+                    By submitting a property listing on our platform, you agree to comply with and be bound by the following Terms and Conditions:
+                    </p>
+                    <ol>
+                        <li>
+                            <strong>Account Registration and Eligibility</strong>
+                            <ul>
+                                <li>
+                                <strong>Authorized Owners Only.</strong> You must register for an account and sign in to list a property. By creating a listing, you represent and warrant that you are the legal owner of the property or have explicit legal authorization to rent it out on the owner's behalf.
+                                </li>
+                                <li>
+                                <strong>Account Security.</strong> You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Accuracy of Listing Information</strong>
+                            <ul>
+                                <li>
+                                <strong>Truthful Representation.</strong> You agree to have completed all required fields in the listing form accurately and honestly. This includes property descriptions, selected amenities, and rental terms.
+                                </li>
+                                <li>
+                                <strong>Ongoing Updates.</strong> You are responsible for keeping your listing up to date. You may modify any section of your listing at any time via Your Dashboard using the Edit Rental feature.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Pricing and Rental Options</strong>
+                            <ul>
+                                <li>
+                                    <strong>Pricing Structure.</strong> You are solely responsible for setting your rental rates using the platform’s available pricing options (daily, Shabbos, weekly, monthly, or a flat rate for your entire available duration).
+                                </li>
+                                <li>
+                                    <strong>Honoring Listed Rates.</strong> You agree to honor the pricing structure displayed on your listing at the time a booking inquiry or reservation is made, unless otherwise mutually agreed upon with the renter in writing.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Availability and Calendar Management</strong>
+                            <ul>
+                                <li>
+                                    <strong>Default Availability.</strong> Upon publication, your property calendar defaults to available.
+                                </li>
+                                <li>
+                                    <strong>Blocking Dates.</strong> It is your sole responsibility to promptly update your calendar and add unavailable dates to prevent double-bookings or cancellations.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Photos and Media Content</strong>
+                            <ul>
+                                <li>
+                                    <strong>Content Ownership.</strong> You may upload as many images as you wish, provided you own the copyright to the photos or have obtained explicit permission from the copyright holder to use them.
+                                </li>
+                                <li>
+                                    <strong>Accurate Labelling.</strong> Every uploaded image should include an accurate name or descriptive explanation that truthfully reflects the current condition and appearance of the property. 
+                                </li>
+                                <li>
+                                    <strong>Image Guidelines.</strong> You agree not to upload misleading, inappropriate, offensive, or third-party watermarked images. You must ensure that no images depict any person, including identifiable individuals in the background (such as family portraits hanging on a wall).
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Platform Fees</strong>
+                            <ul>
+                                <li>
+                                    <strong>Free Listing.</strong> Creating and publishing a property listing on our platform is currently free of charge. We reserve the right to introduce optional paid features or update our fee structure in the future, with advance notice provided to registered owners.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Compliance with Laws and Local Regulations</strong>
+                            <ul>
+                                <li>
+                                    You agree that your property and your rental activities comply with all applicable local zoning laws, housing regulations, homeowners' association (HOA) rules, and tax obligations.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Immediate Publishing, Rights, and Removal</strong>
+                            <ul>
+                                <li>
+                                    <strong>Immediate Publishing.</strong> All listings go live immediately once you enter your details and confirm submission, with no review delay.
+                                </li>
+                                <li>
+                                    <strong>Rights and Removal.</strong> We reserve the right to review, edit, suspend, or remove any listing at our sole discretion if it violates these Terms and Conditions, contains inaccurate information, or receives repeated complaints from renters.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Limitation of Liability</strong>
+                            <ul>
+                                <li>
+                                    Our platform acts solely as a venue to connect property owners with prospective renters. We are not a party to any rental agreement and are not liable for property damage, unpaid rent, cancellations, or disputes arising between owners and renters.
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <hr>
+                    <div class="agree-button">
+                        <p>
+                        <em>By clicking "I agree to the Terms and Conditions", you acknowledge that you have read, understood, and agreed to these Terms and Conditions.</em>
+                        </p>
+                        <div id="term_cond_tick" onclick="toggleAgreement()">
+                            I agree to the Terms and Conditions
+                        </div>
+                    </div>
+                </div>    
                 
+                <div class="button-overlay" id="agree-block">
+                </div>
                 <button id="submit" class="btn btn-btn mt-4">
                     <a href="{% url 'activate' rental.id %}">List Home</a>
                 </button>
@@ -32,4 +201,18 @@
 </div>
 {% endblock %}
 {% block js %}
+<script>
+    var isAgreed = false;
+    var confirmList = document.getElementById("agree-block")
+
+    function toggleAgreement() {
+        isAgreed = !isAgreed;
+        var tickBox = document.getElementById("term_cond_tick");
+        if (isAgreed) {
+            tickBox.style.backgroundColor = "#48515a";
+            tickBox.style.color = "#fff";
+        } 
+        confirmList.style.display="none";
+    }
+</script>
 {% endblock %}
